@@ -36,7 +36,6 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #include <X11/SM/SMlib.h>
 #include "SMlibint.h"
-#include <X11/Xtrans.h>
 #ifdef XTHREADS
 #include <X11/Xthreads.h>
 #endif
