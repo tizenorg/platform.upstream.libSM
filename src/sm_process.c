@@ -481,6 +481,7 @@ Bool		 swap;
 	smRegisterClientMsg 	*pMsg;
 	char 			*pData, *pStart;
 	char 			*previousId;
+	int                      idLen;
 
 #if 0 /* No-op */
 	CHECK_AT_LEAST_SIZE (iceConn, _SmsOpcode, opcode,
@@ -506,7 +507,7 @@ Bool		 swap;
 
 	pData = pStart;
 
-	EXTRACT_ARRAY8_AS_STRING (pData, swap, previousId);
+	EXTRACT_ARRAY8 (pData, swap, idLen, previousId);
 
 	if (*previousId == '\0')
 	{
@@ -521,11 +522,8 @@ Bool		 swap;
 	     * The previoudId was bad.  Generate BadValue error.
 	     */
 
-	    int length = previousId ? strlen (previousId) : 0;
-	    int bytes = ARRAY8_BYTES (length);
-
 	    _IceErrorBadValue (smsConn->iceConn, _SmsOpcode, SM_RegisterClient,
-		8, bytes, (IcePointer) pStart);
+		8, ARRAY8_BYTES (idLen), (IcePointer) pStart);
 	}
 
 	IceDisposeCompleteMessage (iceConn, pStart);
