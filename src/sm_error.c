@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/SM/sm_error.c,v 1.3 2001/12/14 19:53:55 dawes Exp $ */
 
 /*
  * Author: Ralph Mor, X Consortium
@@ -89,7 +90,7 @@ SmPointer 	values;
     fprintf (stderr, "XSMP error:  Offending minor opcode    = %d (%s)\n",
 	offendingMinorOpcode, str);
 
-    fprintf (stderr, "             Offending sequence number = %d\n",
+    fprintf (stderr, "             Offending sequence number = %ld\n",
 	offendingSequence);
 
     switch (errorClass)
@@ -212,7 +213,7 @@ SmPointer 	values;
     fprintf (stderr, "XSMP error:  Offending minor opcode    = %d (%s)\n",
 	offendingMinorOpcode, str);
 
-    fprintf (stderr, "             Offending sequence number = %d\n",
+    fprintf (stderr, "             Offending sequence number = %ld\n",
 	offendingSequence);
 
     switch (errorClass)

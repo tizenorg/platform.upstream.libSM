@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/SM/sm_genid.c,v 3.15 2001/12/14 19:53:55 dawes Exp $ */
 
 /*
  * Author: Ralph Mor, X Consortium
@@ -41,19 +42,19 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #include <stdio.h>
 
-#ifdef X_NOT_STDC_ENV
-#define Time_t long
-extern Time_t time ();
-#else
 #include <time.h>
 #define Time_t time_t
-#endif
 
 #ifndef WIN32
 
 #if defined(TCPCONN) || defined(STREAMSCONN)
+#ifndef Lynx
 #include <sys/socket.h>
+#else
+#include <socket.h>
+#endif
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #define XOS_USE_NO_LOCKING
 #define X_INCLUDE_NETDB_H
 #include <X11/Xos_r.h>
@@ -68,6 +69,12 @@ extern Time_t time ();
 #include <X11/Xos_r.h>
 
 #endif /* WIN32 */
+
+#ifdef MNX_TCPCONN
+#include <net/gen/netdb.h>
+
+#define TCPCONN
+#endif
 
 
 static char *hex_table[] = {	/* for generating client IDs */
@@ -109,10 +116,9 @@ static char *hex_table[] = {	/* for generating client IDs */
 
 char *
 SmsGenerateClientID (smsConn)
-
-SmsConn smsConn;
-
+    SmsConn smsConn;
 {
+#if defined(TCPCONN) || defined(STREAMSCONN)
     char hostname[256];
     char address[14];
     char temp[256];
@@ -122,17 +128,18 @@ SmsConn smsConn;
     if (gethostname (hostname, sizeof (hostname)))
 	return (NULL);
 
-#if defined(TCPCONN) || defined(STREAMSCONN)
     {
     char* inet_addr;
     char temp[4], *ptr1, *ptr2;
     unsigned char decimal[4];
     int i, len;
+#ifdef XTHREADS_NEEDS_BYNAMEPARAMS
     _Xgethostbynameparams hparams;
+#endif
     struct hostent *hostp;
 
     if ((hostp = _XGethostbyname (hostname,hparams)) != NULL)
-	inet_addr = (char *) inet_ntoa (*(struct in_addr *)(hostp->h_addr));
+	inet_addr = inet_ntoa (*(struct in_addr *)(hostp->h_addr));
     else
 	return NULL;
     for (i = 0, ptr1 = inet_addr; i < 3; i++)
@@ -154,12 +161,9 @@ SmsConn smsConn;
     for (i = 0; i < 4; i++)
 	strcat (address, hex_table[decimal[i]]);
     }
-#else
-    return (NULL);
-#endif
 
-    sprintf (temp, "1%s%.13ld%.10d%.4d", address, time((Time_t*)0),
-        getpid (), sequence);
+    sprintf (temp, "1%s%.13ld%.10ld%.4d", address, time((Time_t*)0),
+        (long)getpid(), sequence);
 
     if (++sequence > 9999)
 	sequence = 0;
@@ -168,4 +172,7 @@ SmsConn smsConn;
 	strcpy (id, temp);
 
     return (id);
+#else
+    return (NULL);
+#endif
 }

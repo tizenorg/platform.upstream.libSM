@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/SM/globals.h,v 1.5 2002/05/31 18:45:41 dawes Exp $ */
 
 /*
  * Author: Ralph Mor, X Consortium
@@ -55,8 +56,13 @@ char		*_SmAuthNames[] = {"MIT-MAGIC-COOKIE-1"};
 IcePoAuthProc 	_SmcAuthProcs[] = {_IcePoMagicCookie1Proc};
 IcePaAuthProc 	_SmsAuthProcs[] = {_IcePaMagicCookie1Proc};
 
+#ifndef __UNIXOS2__
 SmsNewClientProc _SmsNewClientProc;
-SmPointer	 _SmsNewClientData;
+SmPointer        _SmsNewClientData;
+#else
+SmsNewClientProc _SmsNewClientProc = 0;
+SmPointer        _SmsNewClientData = 0;
+#endif
 
 SmcErrorHandler _SmcErrorHandler = _SmcDefaultErrorHandler;
 SmsErrorHandler _SmsErrorHandler = _SmsDefaultErrorHandler;

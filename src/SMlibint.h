@@ -25,6 +25,7 @@ used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
 
 */
+/* $XFree86: xc/lib/SM/SMlibint.h,v 1.4 2001/12/14 19:53:55 dawes Exp $ */
 
 /*
  * Author: Ralph Mor, X Consortium
@@ -40,14 +41,10 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/ICE/ICEproto.h>
 #include <X11/SM/SMproto.h>
 
-#ifndef X_NOT_STDC_ENV
 #include <stdlib.h>
-#else
-char *malloc();
-#endif
 
 #ifndef NULL
-#define NULL 0
+#include <stddef.h>
 #endif
 
 
