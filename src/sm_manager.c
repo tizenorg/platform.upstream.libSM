@@ -162,16 +162,13 @@ char 		 		*errorStringRet;
 
 
 
-/* Using private API from libICE. */
-extern char *_IceGetPeerName (IceConn /* iceConn */);
-
 char *
 SmsClientHostName (smsConn)
 
 SmsConn smsConn;
 
 {
-    return (_IceGetPeerName (smsConn->iceConn));
+    return (IceGetPeerName (smsConn->iceConn));
 }
 
 
