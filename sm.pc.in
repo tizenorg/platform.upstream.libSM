@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: SM
+Description: X Session Management Library
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lSM @SM_LIBS@
+Cflags: -I${includedir} @SM_CFLAGS@
