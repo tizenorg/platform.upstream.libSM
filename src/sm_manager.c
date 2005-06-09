@@ -35,7 +35,7 @@ in this Software without prior written authorization from The Open Group.
 #endif
 #include <X11/SM/SMlib.h>
 #include "SMlibint.h"
-#include <X11/Xtrans.h>
+#include <X11/Xtrans/Xtrans.h>
 
 #ifdef __USLC__
 #undef shutdown
