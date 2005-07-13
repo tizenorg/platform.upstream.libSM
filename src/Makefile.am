@@ -1,10 +1,10 @@
 lib_LTLIBRARIES=libSM.la
 
-AM_CFLAGS= -I${top_srcdir}/include $(SM_CFLAGS)
+AM_CFLAGS= -I${top_srcdir}/include $(SM_CFLAGS) $(XTRANS_CFLAGS)
 
 libSM_la_LDFLAGS = -version-info 6:1:0 -no-undefined
 
-libSM_la_LIBADD = $(SM_LIBS)
+libSM_la_LIBADD = $(SM_LIBS) $(XTRANS_LIBS)
 
 libSM_la_SOURCES = \
 	SMlibint.h \

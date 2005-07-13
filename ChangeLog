@@ -1,3 +1,10 @@
+2005-07-13  keith Packard  <keithp@keithp.com>
+
+	* configure.ac:
+	* src/Makefile.am:
+	Eliminate xtrans CFLAGS from .pc file as xtrans
+	is not part of the public API.
+
 2005-07-08  Keith Packard  <keithp@keithp.com>
 
 	* .cvsignore:
