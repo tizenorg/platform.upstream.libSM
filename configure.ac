@@ -32,6 +32,9 @@ AC_SUBST(XTRANS_LIBS)
 # Checks for header files.
 AC_HEADER_STDC
 
+# Needed to check for TCP & IPv6 support and set flags appropriately
+XTRANS_CONNECTION_FLAGS
+
 if test "x$GCC" = "xyes"; then
 	GCC_WARNINGS="-Wall -Wpointer-arith -Wstrict-prototypes \
 	-Wmissing-prototypes -Wmissing-declarations \
