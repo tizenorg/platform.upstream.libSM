@@ -18,3 +18,4 @@ missing
 mkinstalldirs
 sm.pc
 stamp-h1
+*.o
