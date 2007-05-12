@@ -42,6 +42,9 @@ in this Software without prior written authorization from The Open Group.
 #undef shutdown
 #endif
 
+extern IcePaAuthStatus _IcePaMagicCookie1Proc ();
+extern void _SmsProcessMessage ();
+
 
 
 static Status
@@ -123,6 +126,15 @@ int  		 		errorLength;
 char 		 		*errorStringRet;
 
 {
+    const char *auth_names[] = {"MIT-MAGIC-COOKIE-1"};
+    IcePaAuthProc auth_procs[] = {_IcePaMagicCookie1Proc};
+    int auth_count = 1;
+
+    IcePaVersionRec versions[] = {
+        {SmProtoMajor, SmProtoMinor, _SmsProcessMessage}
+    };
+    int version_count = 1;
+
     if (errorStringRet && errorLength > 0)
 	*errorStringRet = '\0';
 
@@ -142,8 +154,8 @@ char 		 		*errorStringRet;
     {
 
 	if ((_SmsOpcode = IceRegisterForProtocolReply ("XSMP",
-	    vendor, release, _SmVersionCount, _SmsVersions,
-	    _SmAuthCount, _SmAuthNames, _SmsAuthProcs, hostBasedAuthProc,
+	    vendor, release, version_count, versions,
+	    auth_count, auth_names, auth_procs, hostBasedAuthProc,
 	    _SmsProtocolSetupProc,
 	    NULL,	/* IceProtocolActivateProc - we don't care about
 			   when the Protocol Reply is sent, because the
