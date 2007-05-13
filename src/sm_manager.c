@@ -76,7 +76,7 @@ _SmsProtocolSetupProc (IceConn    iceConn,
 
     if ((smsConn = (SmsConn) malloc (sizeof (struct _SmsConn))) == NULL)
     {
-	char *str = "Memory allocation failed";
+	const char *str = "Memory allocation failed";
 
 	if ((*failureReasonRet = (char *) malloc (strlen (str) + 1)) != NULL)
 	    strcpy (*failureReasonRet, str);
