@@ -38,7 +38,7 @@ XTRANS_CONNECTION_FLAGS
 AC_ARG_WITH(libuuid, AC_HELP_STRING([--with-libuuid], [Build with libuuid support for client IDs]))
 AM_CONDITIONAL(WITH_LIBUUID, test x"$with_libuuid" != xno)
 
-if test x"$with_uuid" != xno; then
+if test x"$with_libuuid" != xno; then
 	PKG_CHECK_MODULES(LIBUUID, uuid)
 fi
 
