@@ -207,7 +207,8 @@ in this Software without prior written authorization from The Open Group.
 #define STORE_ARRAY8(_pBuf, _len, _array8) \
 { \
     STORE_CARD32 (_pBuf, _len); \
-    memcpy (_pBuf, _array8, _len); \
+    if (_array8) \
+	memcpy (_pBuf, _array8, _len); \
     _pBuf += _len; \
     if (PAD64 (4 + _len)) \
         _pBuf += PAD64 (4 + _len); \
