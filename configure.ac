@@ -36,11 +36,14 @@ AC_HEADER_STDC
 XTRANS_CONNECTION_FLAGS
 
 AC_ARG_WITH(libuuid, AC_HELP_STRING([--with-libuuid], [Build with libuuid support for client IDs]))
-AM_CONDITIONAL(WITH_LIBUUID, test x"$with_libuuid" != xno)
 
 if test x"$with_libuuid" != xno; then
-	PKG_CHECK_MODULES(LIBUUID, uuid)
+	PKG_CHECK_MODULES(LIBUUID, uuid, [HAVE_LIBUUID=yes], [HAVE_LIBUUID=no])
 fi
+if test x"$with_libuuid" = xyes && test HAVE_LIBUUID = no; then
+	AC_MSG_ERROR([requested libuuid support but uuid.pc not found])
+fi
+AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
 
 if test "x$GCC" = "xyes"; then
 	GCC_WARNINGS="-Wall -Wpointer-arith -Wstrict-prototypes \
