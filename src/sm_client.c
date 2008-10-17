@@ -1,6 +1,3 @@
-/* $XdotOrg: $ */
-/* $Xorg: sm_client.c,v 1.4 2001/02/09 02:03:30 xorgcvs Exp $ */
-
 /*
 
 Copyright 1993, 1998  The Open Group
@@ -390,6 +387,7 @@ SmProp       	**props;
     pMsg->length += WORD64COUNT (bytes);
 
     pBuf = pStart = IceAllocScratch (iceConn, bytes);
+    memset(pStart, 0, bytes);
 
     STORE_LISTOF_PROPERTY (pBuf, numProps, props);
 
