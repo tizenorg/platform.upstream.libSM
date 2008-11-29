@@ -197,7 +197,9 @@ char 		*errorStringRet;
      * Now register the client
      */
 
-    len = previousId ? strlen (previousId) : 0;
+    if (!previousId)
+	previousId = "";
+    len = strlen (previousId);
     extra = ARRAY8_BYTES (len);
 
     IceGetHeaderExtra (iceConn, _SmcOpcode, SM_RegisterClient,
@@ -263,7 +265,7 @@ char 		*errorStringRet;
 		    SIZEOF (smRegisterClientMsg), WORD64COUNT (extra),
 		    smRegisterClientMsg, pMsg, pData);
 
-		STORE_ARRAY8 (pData, 0, NULL);
+		STORE_ARRAY8 (pData, 0, "");
 
 		IceFlush (iceConn);
 

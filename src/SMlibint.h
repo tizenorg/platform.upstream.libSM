@@ -207,11 +207,9 @@ in this Software without prior written authorization from The Open Group.
 #define STORE_ARRAY8(_pBuf, _len, _array8) \
 { \
     STORE_CARD32 (_pBuf, _len); \
-    if (_array8) \
-	memcpy (_pBuf, _array8, _len); \
-    _pBuf += _len; \
-    if (PAD64 (4 + _len)) \
-        _pBuf += PAD64 (4 + _len); \
+    if (_len) \
+        memcpy (_pBuf, _array8, _len); \
+    _pBuf += _len + PAD64 (4 + _len); \
 }
 
 #define STORE_LISTOF_PROPERTY(_pBuf, _count, _props) \
@@ -244,9 +242,7 @@ in this Software without prior written authorization from The Open Group.
     _array8 = (char *) malloc (_len + 1); \
     memcpy (_array8, _pBuf, _len); \
     _array8[_len] = '\0'; \
-    _pBuf += _len; \
-    if (PAD64 (4 + _len)) \
-        _pBuf += PAD64 (4 + _len); \
+    _pBuf += _len + PAD64 (4 + _len); \
 }
 
 #define EXTRACT_ARRAY8_AS_STRING(_pBuf, _swap, _string) \
@@ -256,9 +252,7 @@ in this Software without prior written authorization from The Open Group.
     _string = (char *) malloc (_len + 1); \
     memcpy (_string, _pBuf, _len); \
     _string[_len] = '\0'; \
-    _pBuf += _len; \
-    if (PAD64 (4 + _len)) \
-        _pBuf += PAD64 (4 + _len); \
+    _pBuf += _len + PAD64 (4 + _len); \
 }
 
 #define EXTRACT_LISTOF_PROPERTY(_pBuf, _swap, _count, _props) \
@@ -290,9 +284,7 @@ in this Software without prior written authorization from The Open Group.
 { \
     CARD32 _len; \
     EXTRACT_CARD32 (_pBuf, _swap, _len); \
-    _pBuf += _len; \
-    if (PAD64 (4 + _len)) \
-        _pBuf += PAD64 (4 + _len); \
+    _pBuf += _len + PAD64 (4 + _len); \
 }
 
 #define SKIP_LISTOF_PROPERTY(_pBuf, _swap) \
