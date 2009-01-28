@@ -16,7 +16,6 @@ endif
 
 libSM_la_SOURCES = \
 	SMlibint.h \
-	globals.h \
 	sm_auth.c \
 	sm_client.c \
 	sm_error.c \

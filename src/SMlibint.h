@@ -488,6 +488,24 @@ struct _SmsConn {
 /*
  * Extern declarations
  */
+extern void
+_SmcProcessMessage(IceConn iceConn, IcePointer clientData, int opcode,
+		   unsigned long length, Bool swap,
+		   IceReplyWaitInfo *replyWait, Bool *replyReadyRet);
+
+extern void
+_SmsProcessMessage(IceConn iceConn, IcePointer clientData, int opcode,
+		   unsigned long length, Bool swap);
+
+extern void
+_SmcDefaultErrorHandler(SmcConn smcConn, Bool swap, int offendingMinorOpcode,
+			unsigned long offendingSequence, int errorClass,
+			int severity, SmPointer values);
+
+extern void
+_SmsDefaultErrorHandler(SmsConn smsConn, Bool swap, int offendingMinorOpcode,
+			unsigned long offendingSequence, int errorClass,
+			int severity, SmPointer values);
 
 extern int     _SmcOpcode;
 extern int     _SmsOpcode;

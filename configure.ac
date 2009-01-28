@@ -12,14 +12,19 @@ AM_INIT_AUTOMAKE([dist-bzip2])
 
 AM_MAINTAINER_MODE
 
+# Require xorg-macros: XORG_CWARNFLAGS, XORG_CHANGELOG
+m4_ifndef([XORG_MACROS_VERSION], [AC_FATAL([must install xorg-macros 1.2 or later before running autoconf/autogen])])
+XORG_MACROS_VERSION(1.2)
 AM_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_LIBTOOL
 AC_PROG_CC
+XORG_CWARNFLAGS
 
 # Checks for pkg-config packages
 PKG_CHECK_MODULES(SM, ice xproto)
+SM_CFLAGS="$CWARNFLAGS $SM_CFLAGS"
 AC_SUBST(SM_CFLAGS)
 AC_SUBST(SM_LIBS)
 
@@ -45,14 +50,8 @@ if test x"$with_libuuid" = xyes && test HAVE_LIBUUID = no; then
 fi
 AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
 
-if test "x$GCC" = "xyes"; then
-	GCC_WARNINGS="-Wall -Wpointer-arith -Wstrict-prototypes \
-	-Wmissing-prototypes -Wmissing-declarations \
-	-Wnested-externs -fno-strict-aliasing"
-	CFLAGS="$GCC_WARNINGS $CFLAGS"
-fi
-
 XORG_RELEASE_VERSION
+XORG_CHANGELOG
 
 AC_OUTPUT([Makefile
 	   src/Makefile

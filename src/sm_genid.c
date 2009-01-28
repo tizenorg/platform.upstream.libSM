@@ -82,8 +82,7 @@ in this Software without prior written authorization from The Open Group.
 
 
 char *
-SmsGenerateClientID (smsConn)
-    SmsConn smsConn;
+SmsGenerateClientID(SmsConn smsConn)
 {
 #if defined(HAVE_LIBUUID)
     char *id;
