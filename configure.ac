@@ -45,7 +45,7 @@ AC_ARG_WITH(libuuid, AC_HELP_STRING([--with-libuuid], [Build with libuuid suppor
 if test x"$with_libuuid" != xno; then
 	PKG_CHECK_MODULES(LIBUUID, uuid, [HAVE_LIBUUID=yes], [HAVE_LIBUUID=no])
 fi
-if test x"$with_libuuid" = xyes && test HAVE_LIBUUID = no; then
+if test x"$with_libuuid" = xyes && test x"$HAVE_LIBUUID" = xno; then
 	AC_MSG_ERROR([requested libuuid support but uuid.pc not found])
 fi
 AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
