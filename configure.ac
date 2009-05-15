@@ -42,12 +42,15 @@ XTRANS_CONNECTION_FLAGS
 
 AC_ARG_WITH(libuuid, AC_HELP_STRING([--with-libuuid], [Build with libuuid support for client IDs]))
 
-if test x"$with_libuuid" != xno; then
-	PKG_CHECK_MODULES(LIBUUID, uuid, [HAVE_LIBUUID=yes], [HAVE_LIBUUID=no])
-fi
-if test x"$with_libuuid" = xyes && test x"$HAVE_LIBUUID" = xno; then
-	AC_MSG_ERROR([requested libuuid support but uuid.pc not found])
-fi
+AC_CHECK_FUNCS([uuid_create], [], [
+    if test x"$with_libuuid" != xno && test x"$have_system_uuid" != xyes; then
+        PKG_CHECK_MODULES(LIBUUID, uuid, [HAVE_LIBUUID=yes], [HAVE_LIBUUID=no])
+    fi
+    if test x"$with_libuuid" = xyes && test x"$HAVE_LIBUUID" = xno; then
+        AC_MSG_ERROR([requested libuuid support but uuid.pc not found])
+    fi
+])
+
 AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
 
 XORG_RELEASE_VERSION

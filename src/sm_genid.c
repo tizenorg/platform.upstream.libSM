@@ -76,7 +76,9 @@ in this Software without prior written authorization from The Open Group.
 #define TCPCONN
 #endif
 
-#if defined(HAVE_LIBUUID)
+#if defined(HAVE_UUID_CREATE)
+#include <uuid.h>
+#elif defined(HAVE_LIBUUID)
 #include <uuid/uuid.h>
 #endif
 
@@ -84,7 +86,26 @@ in this Software without prior written authorization from The Open Group.
 char *
 SmsGenerateClientID(SmsConn smsConn)
 {
-#if defined(HAVE_LIBUUID)
+#if defined(HAVE_UUID_CREATE)
+    char *id;
+    char **temp;
+    uuid_t uuid;
+    uint32_t status;
+
+    uuid_create(&uuid, &status);
+
+    uuid_to_string(&uuid, &temp, &status);
+
+    if ((id = malloc (strlen (temp) + 2)) != NULL)
+    {
+        id[1] = '2';
+        strcpy (id+1, temp);
+    }
+
+    free(temp);
+
+    return id;
+#elif defined(HAVE_LIBUUID)
     char *id;
     char temp[256];
     uuid_t uuid;
