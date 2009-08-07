@@ -6,7 +6,7 @@ if WITH_LIBUUID
 AM_CFLAGS += $(LIBUUID_CFLAGS) -DHAVE_LIBUUID
 endif
 
-libSM_la_LDFLAGS = -version-number 6:0:0 -no-undefined
+libSM_la_LDFLAGS = -version-number 6:0:1 -no-undefined
 
 libSM_la_LIBADD = $(SM_LIBS) $(XTRANS_LIBS)
 
