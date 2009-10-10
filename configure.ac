@@ -55,6 +55,30 @@ AC_CHECK_FUNCS([uuid_create], [], [
 
 AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
 
+# Documentation is currently a single troff document
+AC_PATH_PROGS([GROFF], [groff], [none], [$PATH:/usr/gnu/bin])
+
+AC_MSG_CHECKING([whether to build documentation])
+AC_ARG_ENABLE(docs, AC_HELP_STRING([--enable-docs],
+				   [Enable building of Xaw documentation]),
+	      [build_docs="${enableval}"], [build_docs="auto"])
+
+if test "x${build_docs}" = xauto; then
+    if test "x${GROFF}" = xnone ; then
+	build_docs=no
+    else
+	build_docs=yes
+    fi
+fi
+AC_MSG_RESULT([${build_docs}])
+if test "x${build_docs}" = xyes && test "x${GROFF}" = xnone ; then
+    AC_MSG_ERROR([can't build documentation without groff])
+fi
+
+AM_CONDITIONAL(BUILD_DOCS, [test x$build_docs = xyes])
+
+
 AC_OUTPUT([Makefile
+	   doc/Makefile
 	   src/Makefile
 	   sm.pc])
