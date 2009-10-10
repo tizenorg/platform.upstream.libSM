@@ -26,14 +26,12 @@
 
 # Based on xc/doc/specs/SM/Makefile from X11R6.9
 
-doc_sources = macros.t SMlib.ms
-
-doc_input = $(doc_sources:%=$(srcdir)/%)
+doc_sources = macros.t SMlib.ms xsmp.ms
 
 EXTRA_DIST = $(doc_sources)
 
 if BUILD_DOCS
-doc_DATA = SMlib.txt SMlib.ps SMlib.html
+doc_DATA = SMlib.txt SMlib.ps SMlib.html xsmp.txt xsmp.ps xsmp.html
 
 CLEANFILES = $(doc_DATA)
 MOSTLYCLEANFILES = index.*
@@ -42,20 +40,20 @@ MOSTLYCLEANFILES = index.*
 GROFF_DEFS = -dxV="$(PACKAGE_STRING)"
 
 # -t to run through tbl
-GROFF_FLAGS = -t -ms $(GROFF_DEFS)
+GROFF_FLAGS = -t -ms $(GROFF_DEFS) $(srcdir)/macros.t
 
-SMlib.ps: $(doc_input)
-	-$(AM_V_GEN) $(GROFF) -Tps $(GROFF_FLAGS) $(doc_input) \
-	 2> index.raw > $@
-	@if grep '^[^1-9.]' index.raw | grep -v warning; then exit 1; \
+SUFFIXES = .ms .ps .txt .html
+
+.ms.ps:
+	-$(AM_V_GEN) $(GROFF) -Tps $(GROFF_FLAGS) $< 2> index.$@.raw > $@
+	@if grep '^[^1-9.]' index.$@.raw | grep -v warning; then exit 1; \
 	 else test $$? -le 1; fi
 
-SMlib.txt: $(doc_input)
-	$(AM_V_GEN) env GROFF_NO_SGR=TRUE $(GROFF) -Tascii $(GROFF_FLAGS) \
-	 $(doc_input) 2> index.txt.raw | col -b > $@
+.ms.txt:
+	$(AM_V_GEN) env GROFF_NO_SGR=TRUE $(GROFF) -Tutf8 $(GROFF_FLAGS) \
+	 $< 2> index.$@.raw > $@
 
-SMlib.html: $(doc_input)
-	$(AM_V_GEN) $(GROFF) -Thtml $(GROFF_FLAGS) $(doc_input) \
-	 2> index.html.raw > $@
+.ms.html:
+	$(AM_V_GEN) $(GROFF) -Thtml $(GROFF_FLAGS) $< 2> index.$@.raw > $@
 
 endif BUILD_DOCS
