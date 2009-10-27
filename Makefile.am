@@ -3,8 +3,7 @@ SUBDIRS=src doc
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = sm.pc
 
-EXTRA_DIST = sm.pc.in ChangeLog
-MAINTAINERCLEANFILES = ChangeLog
+EXTRA_DIST = sm.pc.in 
 
 .PHONY: ChangeLog
 
