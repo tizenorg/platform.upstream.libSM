@@ -852,7 +852,6 @@ _SmsProcessMessage(IceConn iceConn, IcePointer clientData, int opcode,
 	    smsConn->callbacks.delete_properties.manager_data,
 	    count, propNames);
 
-	free(propNames);
 	break;
     }
 
