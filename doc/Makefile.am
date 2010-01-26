@@ -33,6 +33,9 @@ doc_DATA = SMlib.txt SMlib.ps SMlib.html xsmp.txt xsmp.ps xsmp.html
 CLEANFILES = $(doc_DATA)
 MOSTLYCLEANFILES = index.*
 
+mostlyclean-local:
+	@rm -fr images
+
 # Pass version string as a troff string for substitution
 GROFF_DEFS = -dxV="$(PACKAGE_STRING)"
 
@@ -51,6 +54,6 @@ SUFFIXES = .ms .ps .txt .html
 	 $< 2> index.$@.raw > $@
 
 .ms.html:
-	$(AM_V_GEN) $(GROFF) -Thtml $(GROFF_FLAGS) $< 2> index.$@.raw > $@
+	$(AM_V_GEN) $(GROFF) -Thtml -P-Dimages -P-I$*-image $(GROFF_FLAGS) $< 2> index.$@.raw > $@
 
 endif BUILD_DOCS

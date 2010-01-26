@@ -5,4 +5,4 @@
 *.html.raw
 *.ps.raw
 *.txt.raw
-grohtml-*.png
+/images
