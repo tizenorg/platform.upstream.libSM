@@ -27,7 +27,8 @@ doc_sources = macros.t SMlib.ms xsmp.ms
 
 EXTRA_DIST = $(doc_sources)
 
-if BUILD_DOCS
+if ENABLE_DOCS
+if HAVE_GROFF
 doc_DATA = SMlib.txt SMlib.ps SMlib.html xsmp.txt xsmp.ps xsmp.html
 
 CLEANFILES = $(doc_DATA)
@@ -56,4 +57,5 @@ SUFFIXES = .ms .ps .txt .html
 .ms.html:
 	$(AM_V_GEN) $(GROFF) -Thtml -P-Dimages -P-I$*-image $(GROFF_FLAGS) $< 2> index.$@.raw > $@
 
-endif BUILD_DOCS
+endif HAVE_GROFF
+endif ENABLE_DOCS
