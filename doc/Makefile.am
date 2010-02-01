@@ -30,9 +30,30 @@ EXTRA_DIST = $(doc_sources)
 if ENABLE_DOCS
 if HAVE_GROFF
 doc_DATA = SMlib.txt SMlib.ps SMlib.html xsmp.txt xsmp.ps xsmp.html
+imagesdir = $(docdir)/images
 
 CLEANFILES = $(doc_DATA)
 MOSTLYCLEANFILES = index.*
+
+install-data-local:
+	test -z "$(imagesdir)" || $(MKDIR_P) "$(DESTDIR)$(imagesdir)"
+	@d="$(srcdir)/images/"; \
+	list=`ls $$d`; \
+	for p in $$list; do \
+	  echo " $(docDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(imagesdir)/$$p'"; \
+	  $(docDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(imagesdir)/$$p"; \
+	done;
+
+uninstall-local:
+	@if test -n $(DESTDIR)$(imagesdir); then \
+	  if test -d $(DESTDIR)$(imagesdir); then \
+	    list=`ls $(DESTDIR)$(imagesdir)`; \
+	    for p in $$list; do \
+	      echo " rm -f '$(DESTDIR)$(imagesdir)/$$p'"; \
+	      rm -f "$(DESTDIR)$(imagesdir)/$$p"; \
+	    done \
+	  fi; \
+	fi;
 
 mostlyclean-local:
 	@rm -fr images
