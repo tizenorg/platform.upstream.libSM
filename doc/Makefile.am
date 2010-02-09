@@ -36,7 +36,7 @@ CLEANFILES = $(doc_DATA)
 MOSTLYCLEANFILES = index.*
 
 install-data-local:
-	test -z "$(imagesdir)" || $(MKDIR_P) "$(DESTDIR)$(imagesdir)"
+	test -z "$(imagesdir)" || $(mkdir_p) "$(DESTDIR)$(imagesdir)"
 	@d="$(srcdir)/images/"; \
 	list=`ls $$d`; \
 	for p in $$list; do \
