@@ -121,7 +121,7 @@ SmsGenerateClientID(SmsConn smsConn)
 
     if ((id = malloc (strlen (temp) + 2)) != NULL)
     {
-        id[1] = '2';
+        id[0] = '2';
         strcpy (id+1, temp);
     }
 
