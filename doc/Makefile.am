@@ -1,5 +1,5 @@
 #
-# Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+# Copyright (c) 2010, Oracle and/or its affiliates. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -21,62 +21,44 @@
 # DEALINGS IN THE SOFTWARE.
 #
 
-# Based on xc/doc/specs/SM/Makefile from X11R6.9
-
-doc_sources = macros.t SMlib.ms xsmp.ms
-
-EXTRA_DIST = $(doc_sources)
-
 if ENABLE_DOCS
-if HAVE_GROFF_MS
-doc_DATA = SMlib.txt SMlib.ps SMlib.html xsmp.txt xsmp.ps xsmp.html
-imagesdir = $(docdir)/images
+doc_sources = SMlib.xml xsmp.xml
+dist_doc_DATA = $(doc_sources)
+
+if HAVE_XMLTO
+doc_DATA = $(doc_sources:.xml=.html)
+
+if HAVE_FOP
+doc_DATA += $(doc_sources:.xml=.ps) $(doc_sources:.xml=.pdf)
+endif
+
+if HAVE_XMLTO_TEXT
+doc_DATA += $(doc_sources:.xml=.txt)
+endif
+
+if HAVE_STYLESHEETS
+XMLTO_FLAGS = -m $(XSL_STYLESHEET)
+
+doc_DATA += xorg.css
+xorg.css: $(STYLESHEET_SRCDIR)/xorg.css
+	$(AM_V_GEN)cp -pf $(STYLESHEET_SRCDIR)/xorg.css $@
+endif
 
 CLEANFILES = $(doc_DATA)
-MOSTLYCLEANFILES = index.*
 
-install-data-local:
-	test -z "$(imagesdir)" || $(mkdir_p) "$(DESTDIR)$(imagesdir)"
-	@d="$(srcdir)/images/"; \
-	list=`ls $$d`; \
-	for p in $$list; do \
-	  echo " $(INSTALL_DATA) '$$d$$p' '$(DESTDIR)$(imagesdir)/$$p'"; \
-	  $(INSTALL_DATA) "$$d$$p" "$(DESTDIR)$(imagesdir)/$$p"; \
-	done;
+SUFFIXES = .xml .ps .pdf .txt .html
 
-uninstall-local:
-	@if test -n $(DESTDIR)$(imagesdir); then \
-	  if test -d $(DESTDIR)$(imagesdir); then \
-	    list=`ls $(DESTDIR)$(imagesdir)`; \
-	    for p in $$list; do \
-	      echo " rm -f '$(DESTDIR)$(imagesdir)/$$p'"; \
-	      rm -f "$(DESTDIR)$(imagesdir)/$$p"; \
-	    done \
-	  fi; \
-	fi;
+.xml.txt:
+	$(AM_V_GEN)$(XMLTO) $(XMLTO_FLAGS) txt $<
 
-mostlyclean-local:
-	@rm -fr images
+.xml.html:
+	$(AM_V_GEN)$(XMLTO) $(XMLTO_FLAGS) xhtml-nochunks $<
 
-# Pass version string as a troff string for substitution
-GROFF_DEFS = -dxV="$(PACKAGE_STRING)"
+.xml.pdf:
+	$(AM_V_GEN)$(XMLTO) $(XMLTO_FLAGS) --with-fop pdf $<
 
-# -t to run through tbl
-GROFF_FLAGS = -t -ms $(GROFF_DEFS) $(srcdir)/macros.t
+.xml.ps:
+	$(AM_V_GEN)$(XMLTO) $(XMLTO_FLAGS) --with-fop ps $<
 
-SUFFIXES = .ms .ps .txt .html
-
-.ms.ps:
-	-$(AM_V_GEN) $(GROFF) -Tps $(GROFF_FLAGS) $< 2> index.$@.raw > $@
-	@if grep '^[^1-9.]' index.$@.raw | grep -v warning; then exit 1; \
-	 else test $$? -le 1; fi
-
-.ms.txt:
-	$(AM_V_GEN) env GROFF_NO_SGR=TRUE $(GROFF) -Tutf8 $(GROFF_FLAGS) \
-	 $< 2> index.$@.raw > $@
-
-.ms.html:
-	$(AM_V_GEN) $(GROFF) -Thtml -P-Dimages -P-I$*-image $(GROFF_FLAGS) $< 2> index.$@.raw > $@
-
-endif HAVE_GROFF_MS
+endif HAVE_XMLTO
 endif ENABLE_DOCS
