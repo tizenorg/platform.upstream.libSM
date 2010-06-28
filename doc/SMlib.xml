@@ -38,7 +38,7 @@
 
 </bookinfo>
 
-<chapter id="overview_of_session_management"> 
+<chapter id="overview_of_session_management">
 <title>Overview of Session Management</title>
 
 <abstract>
@@ -80,7 +80,7 @@
 
 <para>On the session manager side, things work a bit differently.  The session manager has complete control over the creation of ICE connections.  The session manager has to first call <function>IceListenForConnections</function> in order to start listening for connections from clients.  Once a connection attempt is detected, <function>IceAcceptConnection</function> must be called, and the session manager can simply add the new ICE file descriptor to the list of descriptors to call <function>select</function> on.</para>
 
-<para>For further information on the library functions related to ICE connections, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para> 
+<para>For further information on the library functions related to ICE connections, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
 </chapter>
 
 <chapter id='header_files_and_library_name'>
@@ -205,7 +205,7 @@
 
 <para>If <function>SmcOpenConnection</function> succeeds, it returns an opaque connection pointer of type <function>SmcConn</function> and the client_id_ret argument contains the client ID to be used for this session.  The client_id_ret should be freed with a call to <function>free</function> when no longer needed.  On failure, <function>SmcOpenConnection</function> returns NULL, and the reason for failure is returned in error_string_ret.</para>
 
-<para>Note that SMlib uses the ICE protocol to establish a connection with the session manager.  If an ICE connection already exists between the client and session manager, it might be possible for the same ICE connection to be used for session management.</para>  
+<para>Note that SMlib uses the ICE protocol to establish a connection with the session manager.  If an ICE connection already exists between the client and session manager, it might be possible for the same ICE connection to be used for session management.</para>
 
 <para>The context argument indicates how willing the client is to share the ICE connection with other protocols.  If context is NULL, then the caller is always willing to share the connection.  If context is not NULL, then the caller is not willing to use a previously opened ICE connection that has a different non-NULL context associated with it.</para>
 
@@ -680,7 +680,7 @@ void InteractProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>c
     SmcConn <emphasis remap='I'>smc_conn</emphasis>;
 
     SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> 
+</literallayout>
 
 <variablelist remap='IP'>
   <varlistentry>

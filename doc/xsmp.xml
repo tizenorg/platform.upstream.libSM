@@ -44,13 +44,13 @@
 
 </bookinfo>
 
-<chapter id="acknowledgments"> 
+<chapter id="acknowledgments">
 <title>Acknowledgments</title>
 
 <para>First I would like to thank the entire ICCCM and Intrinsics working groups for the comments and suggestions. I would like to make special thanks to the following people (in alphabetical order), Jordan Brown, Ellis Cohen, Donna Converse, Vania Joloboff, Stuart Marks, Ralph Mor and Bob Scheifler.</para>
 </chapter>
 
-<chapter id="definitions_and_goals"> 
+<chapter id="definitions_and_goals">
 <title>Definitions and Goals</title>
 
 <para>The purpose of the X Session Management Protocol (XSMP) is to provide a uniform mechanism for users to save and restore their sessions.  A <emphasis remap='I'>session</emphasis> is a group of clients, each of which has a particular state.  The session is controlled by a network service called the <emphasis remap='I'>session manager</emphasis>.  The session manager issues commands to its clients on behalf of the user.  These commands may cause clients to save their state or to terminate.  It is expected that the client will save its state in such a way that the client can be restarted at a later time and resume its operation as if it had never been terminated.  A client's state might include information about the file currently being edited, the current position of the insertion point within the file, or the start of an uncommitted transaction.  The means by which clients are restarted is unspecified by this protocol.</para>
@@ -61,7 +61,7 @@
 
 </chapter>
 
-<chapter id="overview_of_the_protocol"> 
+<chapter id="overview_of_the_protocol">
 <title>Overview of the Protocol</title>
 
 <para>Clients use XSMP to register themselves with the session manager (SM).  When a client starts up, it should connect to the SM.  The client should remain connected for as long as it runs.  A client may resign from the session by issuing the proper protocol messages before disconnecting.  Termination of the connection without notice will be taken as an indication that the client died unexpectedly.</para>
@@ -100,10 +100,10 @@ A Unix Domain address looks like this:
 <para>Each client has associated with it a list of properties.  A property set by one client is not visible to any other client.  These properties are used for the client to inform the SM of the client's current state.  When a client initially connects to the SM, there are no properties set.</para>
 </chapter>
 
-<chapter id="data_types"> 
+<chapter id="data_types">
 <title>Data Types</title>
 
-<para>XSMP messages contain several types of data.  Both the SM and the client always send messages in their native byte order.  Thus, both sides may need to byte-swap the messages received.  The need to do byte-swapping is determined at run-time by the ICE protocol.</para> 
+<para>XSMP messages contain several types of data.  Both the SM and the client always send messages in their native byte order.  Thus, both sides may need to byte-swap the messages received.  The need to do byte-swapping is determined at run-time by the ICE protocol.</para>
 
 <para>If an invalid value is specified for a field of any of the enumerated types, a <function>BadValue</function> error message must be sent by the receiver of the message to the sender of the message.</para>
 
@@ -168,13 +168,13 @@ A Unix Domain address looks like this:
 
 </chapter>
 
-<chapter id="protocol_setup_and_message_format"> 
+<chapter id="protocol_setup_and_message_format">
 <title>Protocol Setup and Message Format</title>
 
-<para>To start the XSMP protocol, the client sends the server an ICE <function>ProtocolSetup</function> message.  All XSMP messages are in the standard ICE message format.  The message's major opcode is assigned to XSMP by ICE at run-time.  The different parties (client and SM) may be assigned different major opcodes for XSMP.  Once assigned, all XSMP messages issued by this party will use the same major opcode.  The message's minor opcode specifies which protocol message this message contains.</para> 
+<para>To start the XSMP protocol, the client sends the server an ICE <function>ProtocolSetup</function> message.  All XSMP messages are in the standard ICE message format.  The message's major opcode is assigned to XSMP by ICE at run-time.  The different parties (client and SM) may be assigned different major opcodes for XSMP.  Once assigned, all XSMP messages issued by this party will use the same major opcode.  The message's minor opcode specifies which protocol message this message contains.</para>
 </chapter>
 
-<chapter id="client_identification_string"> 
+<chapter id="client_identification_string">
 <title>Client Identification String</title>
 <para>A client ID is a string of XPCS characters encoded in ISO Latin 1 (ISO 8859-1).  No null characters are allowed in this string.  The client ID string is used in the <function>Register&shy;Client</function> and <function>Register&shy;ClientReply</function> messages.</para>
 
@@ -247,9 +247,9 @@ A Unix Domain address looks like this:
 
 <para>The SM sends this message to a client to ask it to save its state.  The client writes a state file, if necessary, and, if necessary, uses <function>SetProperties</function> to inform the SM of how to restart it and how to discard the saved state.  During this process it can, if allowed by interact-style, request permission to interact with the user by sending an <function>InteractRequest</function> message.  After the state has been saved, or if it cannot be successfully saved, and the properties are appropriately set, the client sends a <function>SaveYourselfDone</function> message.  If the client wants to save additional information after all the other clients have finished changing their own state, the client should send <function>SaveYourselfPhase2Request</function> instead of <function>SaveYourselfDone</function> The client must then freeze interaction with the user and wait until it receives a <function>SaveComplete</function> <function>Die</function> or a <function>ShutdownCancelled</function> message.</para>
 
-<para>If interact-style is <function>None</function> the client must not interact with the user while saving state.  If the interact-style is <function>Errors</function> the client may interact with the user only if an error condition arises.  If interact-style is <function>Any</function> then the client may interact with the user for any purpose.  This is done by sending an <function>Interact&shy;Request</function> message.  The SM will send an <function>Interact</function> message to each client that sent an <function>Interact&shy;Request</function> The client must postpone all interaction until it gets the <function>Interact</function> message.  When the client is done interacting it should send the SM an <function>Interact&shy;Done</function> message.  The <function>Interact&shy;Request</function> message can be sent any time after a <function>Save&shy;Yourself</function> and before a <function>Save&shy;Yourself&shy;Done</function></para> 
+<para>If interact-style is <function>None</function> the client must not interact with the user while saving state.  If the interact-style is <function>Errors</function> the client may interact with the user only if an error condition arises.  If interact-style is <function>Any</function> then the client may interact with the user for any purpose.  This is done by sending an <function>Interact&shy;Request</function> message.  The SM will send an <function>Interact</function> message to each client that sent an <function>Interact&shy;Request</function> The client must postpone all interaction until it gets the <function>Interact</function> message.  When the client is done interacting it should send the SM an <function>Interact&shy;Done</function> message.  The <function>Interact&shy;Request</function> message can be sent any time after a <function>Save&shy;Yourself</function> and before a <function>Save&shy;Yourself&shy;Done</function></para>
 
-<para>Unusual circumstances may dictate multiple interactions.  The client may initiate as many <function>Interact&shy;Request</function> - <function>Interact</function> - <function>InteractDone</function> sequences as it needs before it sends <function>SaveYourselfDone</function></para> 
+<para>Unusual circumstances may dictate multiple interactions.  The client may initiate as many <function>Interact&shy;Request</function> - <function>Interact</function> - <function>InteractDone</function> sequences as it needs before it sends <function>SaveYourselfDone</function></para>
 
 <para>When a client receives <function>Save&shy;Yourself</function> and has not yet responded <function>Save&shy;Yourself&shy;Done</function> to a previous <function>Save&shy;Yourself</function> it must send a <function>Save&shy;Yourself&shy;Done</function> and may then begin responding as appropriate to the newly received <function>Save&shy;Yourself</function></para>
 
@@ -291,7 +291,7 @@ A Unix Domain address looks like this:
 <note remap='NT'>
 <para>Clients that manager other clients (window managers, workspace managers, etc) need to know when all clients they are managing are idle, so that the manager can save state related to each of the clients without being concerned with that state changing.  </para>
 </note>
-<para>The client writes a state file, if necessary, and, if necessary, uses <function>SetProperties</function> to inform the SM of how to restart it and how to discard the saved state.  During this process it can request permission to interact with the user by sending an <function>InteractRequest</function> message.  This should only be done if an error occurs that requires user interaction to resolve.  After the state has been saved, or if it cannot be successfully saved, and the properties are appropriately set, the client sends a <function>SaveYourselfDone</function> message.</para> 
+<para>The client writes a state file, if necessary, and, if necessary, uses <function>SetProperties</function> to inform the SM of how to restart it and how to discard the saved state.  During this process it can request permission to interact with the user by sending an <function>InteractRequest</function> message.  This should only be done if an error occurs that requires user interaction to resolve.  After the state has been saved, or if it cannot be successfully saved, and the properties are appropriately set, the client sends a <function>SaveYourselfDone</function> message.</para>
 
 <para><function>SaveYourselfRequest</function> [Client -> SM]</para>
 
@@ -342,7 +342,7 @@ A Unix Domain address looks like this:
 
 <para><emphasis remap='I'>success</emphasis>: BOOL</para>
 
-<para>Valid Responses: 
+<para>Valid Responses:
 <function>SaveComplete</function>
 <function>Die</function>
 <function>ShutdownCancelled</function></para>
@@ -355,7 +355,7 @@ A Unix Domain address looks like this:
 
 <para><function>SaveYourselfPhase2Request</function> [Client -> SM]</para>
 
-<para>Valid Responses: 
+<para>Valid Responses:
 <function>ShutdownCancelled</function>
 <function>SaveYourselfPhase2</function></para>
 
@@ -429,7 +429,7 @@ error message.</para>
 
 <chapter id="state_diagrams">
 <title>State Diagrams</title>
-<para>These state diagrams are designed to cover all actions of both the client and the SM.</para> 
+<para>These state diagrams are designed to cover all actions of both the client and the SM.</para>
 
 <sect1 id='client_state_diagram'>
 <title>Client State Diagram</title>
@@ -452,7 +452,7 @@ error message.</para>
      send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
-<emphasis remap='I'>idle:</emphasis> [Undoes any freeze of interaction with user.] 
+<emphasis remap='I'>idle:</emphasis> [Undoes any freeze of interaction with user.]
      receive <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
      receive <emphasis remap='B'>SaveYourself</emphasis> -> <emphasis remap='C'>freeze-interaction</emphasis>
      send <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
@@ -520,7 +520,7 @@ error message.</para>
      receive <emphasis remap='B'>SaveComplete</emphasis> -> <emphasis remap='C'>idle</emphasis>
      receive <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
      receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
-     
+
 <literallayout remap='DS'>
 <emphasis remap='I'>connection-closed:</emphasis>
      client stops participating in session </literallayout>
@@ -586,7 +586,7 @@ error message.</para>
 </literallayout>
 
 <literallayout remap='DS'>
-<emphasis remap='I'>start-phase2:</emphasis>	
+<emphasis remap='I'>start-phase2:</emphasis>
      If all clients have sent either SaveYourselfPhase2Request or SaveYourselfDone:
           send <emphasis remap='B'>SaveYourselfPhase2</emphasis> -> <emphasis remap='C'>phase2</emphasis>
      else
@@ -594,7 +594,7 @@ error message.</para>
 </literallayout>
 
 <literallayout remap='DS'>
-<emphasis remap='I'>phase2:</emphasis>	
+<emphasis remap='I'>phase2:</emphasis>
      receive <emphasis remap='B'>InteractRequest</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
      send <emphasis remap='B'>Interact</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
      send <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>idle</emphasis>
@@ -606,7 +606,7 @@ error message.</para>
 </literallayout>
 
 <literallayout remap='DS'>
-<emphasis remap='I'>save-yourself-done:</emphasis>	
+<emphasis remap='I'>save-yourself-done:</emphasis>
      If all clients are saved:
           If shutting down:
                send <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
@@ -1865,4 +1865,3 @@ error message.</para>
 </variablelist>
 </chapter>
 </book>
-
