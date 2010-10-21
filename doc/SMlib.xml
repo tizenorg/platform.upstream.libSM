@@ -215,18 +215,18 @@
 
 <para>The following values may be ORed together to obtain a mask value:</para>
 
-<literallayout remap='Ds'>
+<synopsis>
 <function>SmcSaveYourselfProcMask</function>
 <function>SmcDieProcMask</function>
 <function>SmcSaveCompleteProcMask</function>
 <function>SmcShutdownCancelledProcMask</function>
-</literallayout> <!-- remap='De' -->
+</synopsis>
 
 <para>For each callback, the client can register a pointer to client data.  When SMlib invokes the callback, it will pass the client data pointer.</para>
 
 <!-- .ne 4  IGNORED -->
 
-<literallayout remap='Ds'>
+<synopsis>
 typedef struct {
 
 	struct {
@@ -250,7 +250,7 @@ typedef struct {
 	} shutdown_cancelled;
 
 } SmcCallbacks;
-</literallayout> <!-- remap='De' -->
+</synopsis>
 <sect2 id='the_save_yourself_callback'>
 <title>The Save Yourself Callback</title>
 
@@ -469,12 +469,12 @@ typedef struct {
 
 <para>When specifying a value for the mask argument, the following values may be ORed together:</para>
 
-<literallayout remap='Ds'>
+<synopsis>
 <function>SmcSaveYourselfProcMask</function>
 <function>SmcDieProcMask</function>
 <function>SmcSaveCompleteProcMask</function>
 <function>SmcShutdownCancelledProcMask</function>
-</literallayout>
+</synopsis>
 </sect1>
 
 <sect1 id='setting_deleting_and_retrieving_session_management_properties'>
@@ -1039,7 +1039,7 @@ typedef struct {
 
 <para>The following values may be ORed together to obtain a mask value:</para>
 
-<literallayout remap='Ds'>
+<synopsis>
 <function>SmsRegisterClientProcMask</function>
 <function>SmsInteractRequestProcMask</function>
 <function>SmsInteractDoneProcMask</function>
@@ -1050,11 +1050,11 @@ typedef struct {
 <function>SmsSetPropertiesProcMask</function>
 <function>SmsDeletePropertiesProcMask</function>
 <function>SmsGetPropertiesProcMask</function>
-</literallayout> <!-- remap='De' -->
+</synopsis>
 
 <para>For each callback, the session manager can register a pointer to manager data specific to that callback.  This pointer will be passed to the callback when it is invoked by SMlib.</para>
 
-<literallayout remap='Ds'>
+<synopsis>
 typedef struct {
 	struct {
 		SmsRegisterClientProc callback;
@@ -1107,7 +1107,7 @@ typedef struct {
 	} get_properties;
 
 } SmsCallbacks;
-</literallayout> <!-- remap='De' -->
+</synopsis>
 
 <sect2 id='the_register_client_callback'>
 <title>The Register Client Callback</title>
@@ -1915,7 +1915,7 @@ If the client is first joining the session, previous_id will be NULL.</para>
 
 <para>Each property is defined by the <function>SmProc</function> structure:</para>
 
-<literallayout remap='Ds'>
+<synopsis>
 typedef struct {
 	char *name;	/* name of property */
 	char *type;	/* type of property */
@@ -1927,7 +1927,7 @@ typedef struct {
 	int length;	/* the length of the value */
 	SmPointer value;	/* the value */
 } SmPropValue;
-</literallayout> <!-- remap='De' -->
+</synopsis>
 
 <para>The X Session Management Protocol defines a list of predefined properties, several of which are required to be set by the client.  The following table specifies the predefined properties and indicates which ones are required.  Each property has a type associated with it.</para>
 
