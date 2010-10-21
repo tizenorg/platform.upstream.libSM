@@ -2083,46 +2083,10 @@ typedef struct {
     <colspec colname='c4'/>
     <thead>
       <row>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
-      <row>
-        <entry align='left'>.B</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
-      <row>
         <entry align='left'>Name</entry>
         <entry align='left'>Type</entry>
         <entry align='left'>POSIX Type</entry>
         <entry align='center'>Required</entry>
-      </row>
-      <row>
-        <entry align='left'>.R</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
-      <row rowsep='1'>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
-      <row>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
-      <row>
-        <entry align='left'>.TH</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
       </row>
     </thead>
     <tbody>
@@ -2192,12 +2156,6 @@ typedef struct {
         <entry align='left'>SmARRAY8</entry>
         <entry align='center'>Yes</entry>
       </row>
-      <row rowsep='1'>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='left'></entry>
-        <entry align='left'></entry>
-        <entry align='center'></entry>
-      </row>
     </tbody>
   </tgroup>
 </informaltable>
@@ -2221,35 +2179,11 @@ typedef struct {
     <colspec colname='c2'/>
     <thead>
       <row>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='right'></entry>
-      </row>
-      <row>
-        <entry align='left'>.B</entry>
-        <entry align='right'></entry>
-      </row>
-      <row>
         <entry align='left'>Name</entry>
         <entry align='right'>Value</entry>
       </row>
-      <row rowsep='1'>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='right'></entry>
-      </row>
-      <row>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='right'></entry>
-      </row>
-      <row>
-        <entry align='left'>.TH</entry>
-        <entry align='right'></entry>
-      </row>
     </thead>
     <tbody>
-      <row>
-        <entry align='left'>.R</entry>
-        <entry align='right'></entry>
-      </row>
       <row>
         <entry align='left'>SmRestartIfRunning</entry>
         <entry align='right'>0</entry>
@@ -2265,10 +2199,6 @@ typedef struct {
       <row>
         <entry align='left'>SmRestartNever</entry>
         <entry align='right'>3</entry>
-      </row>
-      <row rowsep='1'>
-        <entry align='left'>.sp 6p</entry>
-        <entry align='right'></entry>
       </row>
     </tbody>
   </tgroup>
