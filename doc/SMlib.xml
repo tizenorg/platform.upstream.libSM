@@ -209,7 +209,7 @@
 
 <para>The context argument indicates how willing the client is to share the ICE connection with other protocols.  If context is NULL, then the caller is always willing to share the connection.  If context is not NULL, then the caller is not willing to use a previously opened ICE connection that has a different non-NULL context associated with it.</para>
 
-<para>As previously discussed (section 3, ``Understanding SMlib's Dependence on ICE''), the client will have to keep track of when ICE connections are created or destroyed (using <function>IceAddConnectionWatch</function> and <function>IceRemoveConnectionWatch</function> and will have to call <function>IceProcessMessages</function> each time a <function>select</function> shows that there is data to read on an ICE connection.  For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
+<para>As previously discussed (section 3, &ldquo;Understanding SMlib's Dependence on ICE&rdquo;), the client will have to keep track of when ICE connections are created or destroyed (using <function>IceAddConnectionWatch</function> and <function>IceRemoveConnectionWatch</function> and will have to call <function>IceProcessMessages</function> each time a <function>select</function> shows that there is data to read on an ICE connection.  For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
 
 <para>The callbacks argument contains a set of callbacks used to respond to session manager events.  The mask argument specifies which callbacks are set.  All of the callbacks specified in this version of SMlib are mandatory.  The mask argument is necessary in order to maintain backwards compatibility in future versions of the library.</para>
 
@@ -738,7 +738,7 @@ typedef struct {
 <sect1 id='requesting_a_save_yourself_phase_2'>
 <title>Requesting a Save Yourself Phase 2</title>
 
-<para>In response to a ``Save Yourself, the client may request to be informed when all the other clients are quiescent so that it can save their state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function></para>
+<para>In response to a &ldquo;Save Yourself&rdquo;, the client may request to be informed when all the other clients are quiescent so that it can save their state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function></para>
 
 <funcsynopsis>
    <funcprototype>
