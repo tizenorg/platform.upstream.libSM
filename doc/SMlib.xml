@@ -114,21 +114,21 @@
 
 <para>To open a connection with a session manager, use <function>SmcOpenConnection</function></para>
 
-<literallayout remap='FD'>SmcConn SmcOpenConnection(<emphasis remap='I'>network_ids_list</emphasis>, <emphasis remap='I'>context</emphasis>, <emphasis remap='I'>xsmp_major_rev</emphasis>, <emphasis remap='I'>xsmp_minor_rev</emphasis>,
-
-<emphasis remap='I'>mask</emphasis>, <emphasis remap='I'>callbacks</emphasis>, <emphasis remap='I'>previous_id</emphasis>, <emphasis remap='I'>client_id_ret</emphasis>, <emphasis remap='I'>error_length</emphasis>, <emphasis remap='I'>error_string_ret</emphasis>)
-
-    char *<emphasis remap='I'>network_ids_list</emphasis>;
-    SmPointer <emphasis remap='I'>context</emphasis>;
-    int <emphasis remap='I'>xsmp_major_rev</emphasis>;
-    int <emphasis remap='I'>xsmp_minor_rev</emphasis>;
-    unsigned long <emphasis remap='I'>mask</emphasis>;
-    SmcCallbacks *<emphasis remap='I'>callbacks</emphasis>;
-    char *<emphasis remap='I'>previous_id</emphasis>;
-    char **<emphasis remap='I'>client_id_ret</emphasis>;
-    int <emphasis remap='I'>error_length</emphasis>;
-    char *<emphasis remap='I'>error_string_ret</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>SmcConn <function>SmcOpenConnection</function></funcdef>
+      <paramdef>char *<parameter>network_ids_list</parameter></paramdef>
+      <paramdef>SmPointer <parameter>context</parameter></paramdef>
+      <paramdef>int <parameter>xsmp_major_rev</parameter></paramdef>
+      <paramdef>int <parameter>xsmp_minor_rev</parameter></paramdef>
+      <paramdef>unsigned long <parameter>mask</parameter></paramdef>
+      <paramdef>SmcCallbacks *<parameter>callbacks</parameter></paramdef>
+      <paramdef>char *<parameter>previous_id</parameter></paramdef>
+      <paramdef>char **<parameter>client_id_ret</parameter></paramdef>
+      <paramdef>int <parameter>error_length</parameter></paramdef>
+      <paramdef>char *<parameter>error_string_ret</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para>Specifies the network ID(s) of the session manager.</para>
 
@@ -258,7 +258,7 @@ typedef struct {
 
 <funcsynopsis>
 <funcprototype>
-  <funcdef>void <function>SaveYourselfProc</function></funcdef>
+  <funcdef>typedef void (*<function>SaveYourselfProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
     <paramdef>SmcConn <parameter>client_data</parameter></paramdef>
     <paramdef>int <parameter>save_type</parameter></paramdef>
@@ -321,7 +321,7 @@ typedef struct {
 
 <funcsynopsis>
 <funcprototype>
-  <funcdef>void <function>DieProc</function></funcdef>
+  <funcdef>typedef void (*<function>SmcDieProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
     <paramdef>SmcConn <parameter>client_data</parameter></paramdef>
 </funcprototype>
@@ -347,19 +347,13 @@ typedef struct {
 
 <para>The Save Complete callback is of type <function>SmcSaveCompleteProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmcSaveCompleteProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmcSaveCompleteProc</function>)</funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void SaveCompleteProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -379,19 +373,13 @@ void SaveCompleteProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='
 
 <para>The Shutdown Cancelled callback is of type <function>SmcShutdownCancelledProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmcShutdownCancelledProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmcShutdownCancelledProc</function>)</funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void ShutdownCancelledProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -412,15 +400,14 @@ void ShutdownCancelledProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis re
 
 <para>To close a connection with a session manager, use <function>SmcCloseConnection</function></para>
 
-<literallayout remap='FD'>
-SmcCloseStatus SmcCloseConnection(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>count</emphasis>, <emphasis remap='I'>reason_msgs</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    int <emphasis remap='I'>count</emphasis>;
-
-    char **<emphasis remap='I'>reason_msgs</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>SmcCloseStatus <function>SmcCloseConnection</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>int <parameter>count</parameter></paramdef>
+      <paramdef>char **<parameter>reason_msgs</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <variablelist remap='IP'>
   <varlistentry>
     <term><emphasis remap='I'>smc_conn</emphasis></term>
@@ -456,15 +443,14 @@ SmcCloseStatus SmcCloseConnection(<emphasis remap='I'>smc_conn</emphasis>, <emph
 
 <para>To modify callbacks set up in <function>SmcOpenConnection</function> use <function>SmcModifyCallbacks</function></para>
 
-<literallayout remap='FD'>
-void SmcModifyCallbacks(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>mask</emphasis>, <emphasis remap='I'>callbacks</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    unsigned long <emphasis remap='I'>mask</emphasis>;
-
-    SmcCallbacks *<emphasis remap='I'>callbacks</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcModifyCallbacks</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>unsigned long <parameter>mask</parameter></paramdef>
+      <paramdef>SmcCallbacks *<parameter>callbacks</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <para>The session management connection object.</para>
 <variablelist remap='IP'>
   <varlistentry>
@@ -496,15 +482,14 @@ void SmcModifyCallbacks(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap
 
 <para>To set session management properties for this client, use <function>SmcSetProperties</function></para>
 
-<literallayout remap='FD'>
-void SmcSetProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>props</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    SmProp **<emphasis remap='I'>props</emphasis>;
-</literallayout>
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcSetProperties</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>SmProp **<parameter>props</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -529,15 +514,14 @@ void SmcSetProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='
 
 <para>To delete properties previously set by the client, use <function>SmcDeleteProperties</function></para>
 
-<literallayout remap='FD'>
-void SmcDeleteProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>prop_names</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    char **<emphasis remap='I'>prop_names</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcDeleteProperties</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>char **<parameter>prop_names</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <variablelist remap='IP'>
   <varlistentry>
     <term><emphasis remap='I'>smc_conn</emphasis></term>
@@ -555,15 +539,14 @@ void SmcDeleteProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis rema
 
 <para>To get properties previously stored by the client, use <function>SmcGetProperties</function></para>
 
-<literallayout remap='FD'>
-Status SmcGetProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>prop_reply_proc</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmcPropReplyProc <emphasis remap='I'>prop_reply_proc</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>Status <function>SmcGetProperties</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmcPropReplyProc <parameter>prop_reply_proc</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -584,23 +567,15 @@ Status SmcGetProperties(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap
 
 <para>Note that the library does not block until the properties reply comes back.  Rather, a callback of type <function>SmcPropReplyProc</function> is invoked when the data is ready.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmcPropReplyProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmcPropReplyProc</function>)</funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>SmProp **<parameter>props</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void PropReplyProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>client_data</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>props</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    SmProp **<emphasis remap='I'>props</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -629,17 +604,15 @@ void PropReplyProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>
 
 <para>After receiving a &ldquo;Save Yourself&rdquo; message with an interact_style of <function>SmInteractStyleErrors</function> or <function>SmInteractStyleAny</function> the client may choose to interact with the user.  Because only one client can interact with the user at a time, the client must call <function>SmcInteractRequest</function> and wait for an &ldquo;Interact&rdquo; message from the session manager.</para>
 
-<literallayout remap='FD'>
-Status SmcInteractRequest(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>dialog_type</emphasis>, <emphasis remap='I'>interact_proc</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    int <emphasis remap='I'>dialog_type</emphasis>;
-
-    SmcInteractProc <emphasis remap='I'>interact_proc</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>Status <function>SmcInteractRequest</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>int <parameter>dialog_type</parameter></paramdef>
+      <paramdef>SmcInteractProc <parameter>interact_proc</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -668,19 +641,13 @@ Status SmcInteractRequest(<emphasis remap='I'>smc_conn</emphasis>, <emphasis rem
 
 <para>The <function>SmcInteractProc</function> callback will be invoked when the &ldquo;Interact&rdquo; message arrives from the session manager.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmcInteractProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmcInteractProc</function>)</funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void InteractProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -695,13 +662,13 @@ void InteractProc(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>c
 
 <para>After interacting with the user (in response to an &ldquo;Interact&rdquo; message), you should call <function>SmcInteractDone</function></para>
 
-<literallayout remap='FD'>
-void SmcInteractDone(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>cancel_shutdown</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    Bool <emphasis remap='I'>cancel_shutdown</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcInteractDone</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>Bool <parameter>cancel_shutdown</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -721,21 +688,17 @@ void SmcInteractDone(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I
 
 <para>To request a checkpoint from the session manager, use <function>SmcRequestSaveYourself</function></para>
 
-<literallayout remap='FD'>
-void SmcRequestSaveYourself(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>save_type</emphasis>, <emphasis remap='I'>shutdown</emphasis>, <emphasis remap='I'>interact_style</emphasis>, <emphasis remap='I'>fast</emphasis>, <emphasis remap='I'>global</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    int <emphasis remap='I'>save_type</emphasis>;
-
-    Bool <emphasis remap='I'>shutdown</emphasis>;
-
-    int <emphasis remap='I'>interact_style</emphasis>;
-
-    Bool <emphasis remap='I'>fast</emphasis>;
-
-    Bool <emphasis remap='I'>global</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcRequestSaveYourself</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>int <parameter>save_type</parameter></paramdef>
+      <paramdef>Bool <parameter>shutdown</parameter></paramdef>
+      <paramdef>int <parameter>interact_style</parameter></paramdef>
+      <paramdef>Bool <parameter>fast</parameter></paramdef>
+      <paramdef>Bool <parameter>global</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 
 <variablelist remap='IP'>
@@ -777,15 +740,14 @@ void SmcRequestSaveYourself(<emphasis remap='I'>smc_conn</emphasis>, <emphasis r
 
 <para>In response to a ``Save Yourself, the client may request to be informed when all the other clients are quiescent so that it can save their state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function></para>
 
-<literallayout remap='FD'>
-Status SmcRequestSaveYourselfPhase2(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>save_yourself_phase2_proc</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    SmcSaveYourselfPhase2Proc <emphasis remap='I'>save_yourself_phase2_proc</emphasis>;
-
-    SmPointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>Status <function>SmcRequestSaveYourselfPhase2</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>SmcSaveYourselfPhase2Proc <parameter>save_yourself_phase2_proc</parameter></paramdef>
+      <paramdef>SmPointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -812,13 +774,13 @@ Status SmcRequestSaveYourselfPhase2(<emphasis remap='I'>smc_conn</emphasis>, <em
 
 <para>After saving state in response to a &ldquo;Save Yourself&rdquo; message, you should call <function>SmcSaveYourselfDone</function></para>
 
-<literallayout remap='FD'>
-void SmcSaveYourselfDone(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>success</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    Bool <emphasis remap='I'>success</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmcSaveYourselfDone</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>Bool <parameter>success</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -837,52 +799,58 @@ void SmcSaveYourselfDone(<emphasis remap='I'>smc_conn</emphasis>, <emphasis rema
 <sect1 id='using_smc_informational_functions'>
 <title>Using Smc Informational Functions</title>
 
-<literallayout remap='FD'>
-int SmcProtocolVersion(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>int <function>SmcProtocolVersion</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcProtocolVersion</function> returns the major version of the session management protocol associated with this session.</para>
 
 
-<literallayout remap='FD'>
-int SmcProtocolRevision(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>int <function>SmcProtocolRevision</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcProtocolRevision</function> returns the minor version of the session management protocol associated with this session.</para>
 
-<literallayout remap='FD'>
-char *SmcVendor(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmcVendor</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcVendor</function> returns a string that provides some identification of the owner of the session manager.  The string should be freed with a call to <function>free</function></para>
 
-<literallayout remap='FD'>
-char *SmcRelease(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmcRelease</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcRelease</function> returns a string that provides the release number of the session manager.  The string should be freed with a call to <function>free</function></para>
 
-<literallayout remap='FD'>
-char *SmcClientID(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmcClientID</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcClientID</function> returns a null-terminated string for the client ID associated with this connection.  This information was also returned in <function>SmcOpenConnection</function> (it is provided here for convenience).  Call <function>free</function> on this pointer when the client ID is no longer needed.</para>
 
-<literallayout remap='FD'>
-IceConn SmcGetIceConnection(<emphasis remap='I'>smc_conn</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>IceConn <function>SmcGetIceConnection</function></funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmcGetIceConnection</function> returns the ICE connection object associated with this session management connection object.  The ICE connection object can be used to get some additional information about the connection.  Some of the more useful functions which can be used on the IceConn are <function>IceConnectionNumber</function> <function>IceConnectionString</function> <function>IceLastSentSequenceNumber</function> <function>IceLastReceivedSequenceNumber</function> and <function>IcePing</function> For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
 </sect1>
@@ -892,11 +860,12 @@ IceConn SmcGetIceConnection(<emphasis remap='I'>smc_conn</emphasis>)
 
 <para>If the client receives an unexpected protocol error from the session manager, an error handler is invoked by SMlib.  A default error handler exists that simply prints the error message to <function>stderr</function> and exits if the severity of the error is fatal.  The client can change this error handler by calling the <function>SmcSetErrorHandler</function> function.</para>
 
-<literallayout remap='FD'>
-SmcErrorHandler SmcSetErrorHandler(<emphasis remap='I'>handler</emphasis>)
-
-    SmcErrorHandler <emphasis remap='I'>handler</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>SmcErrorHandler <function>SmcSetErrorHandler</function></funcdef>
+      <paramdef>SmcErrorHandler <parameter>handler</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <para>The error handler.  You should pass NULL to restore the default handler.</para>
 
 
@@ -904,29 +873,18 @@ SmcErrorHandler SmcSetErrorHandler(<emphasis remap='I'>handler</emphasis>)
 
 <para>The <function>SmcErrorHandler</function> has the following type:</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmcErrorHandler)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmcErrorHandler</function>)</funcdef>
+      <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
+      <paramdef>Bool <parameter>swap</parameter></paramdef>
+      <paramdef>int <parameter>offending_minor_opcode</parameter></paramdef>
+      <paramdef>unsigned long <parameter>offending_sequence_num</parameter></paramdef>
+      <paramdef>int <parameter>error_class</parameter></paramdef>
+      <paramdef>int <parameter>severity</parameter></paramdef>
+      <paramdef>IcePointer <parameter>values</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void ErrorHandler(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>swap</emphasis>, <emphasis remap='I'>offending_minor_opcode</emphasis>, <emphasis remap='I'>offending_sequence_num</emphasis>, <emphasis remap='I'>error_class</emphasis>, <emphasis remap='I'>severity</emphasis>, <emphasis remap='I'>values</emphasis>)
-
-    SmcConn <emphasis remap='I'>smc_conn</emphasis>;
-
-    Bool <emphasis remap='I'>swap</emphasis>;
-
-    int <emphasis remap='I'>offending_minor_opcode</emphasis>;
-
-    unsigned long <emphasis remap='I'>offending_sequence_num</emphasis>;
-
-    int <emphasis remap='I'>error_class</emphasis>;
-
-    int <emphasis remap='I'>severity</emphasis>;
-
-    IcePointer <emphasis remap='I'>values</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -989,25 +947,18 @@ void ErrorHandler(<emphasis remap='I'>smc_conn</emphasis>, <emphasis remap='I'>s
 
 <para><function>SmsInitialize</function> is the first SMlib function that should be called by a session manager.  It provides information about the session manager and registers a callback that will be invoked each time a new client connects to the session manager.</para>
 
-<literallayout remap='FD'>
-Status SmsInitialize(<emphasis remap='I'>vendor</emphasis>, <emphasis remap='I'>release</emphasis>, <emphasis remap='I'>new_client_proc</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>host_based_auth_proc</emphasis>,
-
-                    <emphasis remap='I'>error_length</emphasis>, <emphasis remap='I'>error_string_ret</emphasis>)
-
-    char *<emphasis remap='I'>vendor</emphasis>;
-
-    char *<emphasis remap='I'>release</emphasis>;
-
-    SmsNewClientProc <emphasis remap='I'>new_client_proc</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    IceHostBasedAuthProc <emphasis remap='I'>host_based_auth_proc</emphasis>;
-
-    int <emphasis remap='I'>error_length</emphasis>;
-
-    char *<emphasis remap='I'>error_string_ret</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>Status <function>SmsInitialize</function></funcdef>
+      <paramdef>char *<parameter>vendor</parameter></paramdef>
+      <paramdef>char *<parameter>release</parameter></paramdef>
+      <paramdef>SmsNewClientProc <parameter>new_client_proc</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>IceHostBasedAuthProc <parameter>host_based_auth_proc</parameter></paramdef>
+      <paramdef>int <parameter>error_length</parameter></paramdef>
+      <paramdef>char *<parameter>error_string_ret</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 
 
@@ -1048,25 +999,16 @@ Status SmsInitialize(<emphasis remap='I'>vendor</emphasis>, <emphasis remap='I'>
 
 <para>Each time a new client connects to the session manager, the <function>SmsNewClientProc</function> callback is invoked.  The session manager obtains a new opaque connection object that it should use for all future interaction with the client.  At this time, the session manager must also register a set of callbacks to respond to the different messages that the client might send.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef Status (*SmsNewClientProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef Status (*<function>SmsNewClientProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>unsigned long *<parameter>mask_ret</parameter></paramdef>
+      <paramdef>SmsCallbacks *<parameter>callbacks_ret</parameter></paramdef>
+      <paramdef>char **<parameter>failure_reason_ret</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-Status NewClientProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>mask_ret</emphasis>, <emphasis remap='I'>callbacks_ret</emphasis>, <emphasis remap='I'>failure_reason_ret</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    unsigned long *<emphasis remap='I'>mask_ret</emphasis>;
-
-    SmsCallbacks *<emphasis remap='I'>callbacks_ret</emphasis>;
-
-    char **<emphasis remap='I'>failure_reason_ret</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1172,21 +1114,14 @@ typedef struct {
 
 <para>The Register Client callback is the first callback that will be invoked after the client connects to the session manager.  Its type is <function>SmsRegisterClientProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef Status (*SmsRegisterClientProc();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef Status (*<function>SmsRegisterClientProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>char *<parameter>previous_id</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-Status RegisterClientProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>previous_id</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    char *<emphasis remap='I'>previous_id</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1218,21 +1153,14 @@ If the client is first joining the session, previous_id will be NULL.</para>
 
 <para>The Interact Request callback is of type <function>SmsInteractRequestProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsInteractRequestProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsInteractRequestProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>int <parameter>dialog_type</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void InteractRequestProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>dialog_type</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    int <emphasis remap='I'>dialog_type</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1261,21 +1189,14 @@ void InteractRequestProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis rema
 
 <para>When the client is done interacting with the user, the <function>SmsInteractDoneProc</function> callback will be invoked.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsInteractDoneProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsInteractDoneProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>Bool <parameter>cancel_shutdown</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void InteractDoneProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>cancel_shutdown</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    Bool <emphasis remap='I'>cancel_shutdown</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1303,29 +1224,18 @@ void InteractDoneProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='
 
 <para>The Save Yourself Request callback is of type <function>SmsSaveYourselfRequestProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsSaveYourselfRequestProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SaveYourselfRequestProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>int <parameter>save_type</parameter></paramdef>
+      <paramdef>Bool <parameter>shutdown</parameter></paramdef>
+      <paramdef>int <parameter>interact_style</parameter></paramdef>
+      <paramdef>Bool <parameter>fast</parameter></paramdef>
+      <paramdef>Bool <parameter>global</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void SaveYourselfRequestProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>save_type</emphasis>, <emphasis remap='I'>shutdown</emphasis>, <emphasis remap='I'>interact_style</emphasis>, <emphasis remap='I'>fast</emphasis>, <emphasis remap='I'>global</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    int <emphasis remap='I'>save_type</emphasis>;
-
-    Bool <emphasis remap='I'>shutdown</emphasis>;
-
-    int <emphasis remap='I'>interact_style</emphasis>;
-
-    Bool <emphasis remap='I'>fast</emphasis>;
-
-    Bool <emphasis remap='I'>global</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1368,19 +1278,13 @@ void SaveYourselfRequestProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis 
 
 <para>The Save Yourself Phase 2 Request callback is of type <function>SmsSaveYourselfPhase2RequestProc</function></para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsSaveYourselfPhase2RequestProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsSaveYourselfPhase2RequestProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void SmsSaveYourselfPhase2RequestProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1401,21 +1305,14 @@ void SmsSaveYourselfPhase2RequestProc(<emphasis remap='I'>sms_conn</emphasis>, <
 
 <para>When the client is done saving its state in response to a &ldquo;Save Yourself&rdquo; message, the <function>SmsSaveYourselfDoneProc</function> will be invoked.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsSaveYourselfDoneProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SaveYourselfDoneProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>Bool <parameter>success</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void SaveYourselfDoneProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>success</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    Bool <emphasis remap='I'>success</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1440,23 +1337,15 @@ void SaveYourselfDoneProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis rem
 
 <para>If the client properly terminates (that is, it calls <function>SmcCloseConnection</function> the <function>SmsCloseConnectionProc</function> callback is invoked.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsCloseConnectionProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsCloseConnectionProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>int <parameter>count</parameter></paramdef>
+      <paramdef>char **<parameter>reason_msgs</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void CloseConnectionProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>count</emphasis>, <emphasis remap='I'>reason_msgs</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    int <emphasis remap='I'>count</emphasis>;
-
-    char **<emphasis remap='I'>reason_msgs</emphasis>;
-</literallayout> <!-- remap='FN' -->
 <variablelist remap='IP'>
   <varlistentry>
     <term><emphasis remap='I'>sms_conn</emphasis></term>
@@ -1486,23 +1375,15 @@ void CloseConnectionProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis rema
 
 <para>When the client sets session management properties, the <function>SmsSetPropertiesProc</function> callback will be invoked.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsSetPropertiesProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsSetPropertiesProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>SmProp **<parameter>props</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void SetPropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>props</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    SmProp **<emphasis remap='I'>props</emphasis>;
-</literallayout> <!-- remap='FN' -->
 <variablelist remap='IP'>
   <varlistentry>
     <term><emphasis remap='I'>sms_conn</emphasis></term>
@@ -1534,23 +1415,15 @@ void SetPropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap=
 
 <para>When the client deletes session management properties, the <function>SmsDeletePropertiesProc</function> callback will be invoked.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsDeletePropertiesProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsDeletePropertiesProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>char **<parameter>prop_names</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void DeletePropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>prop_names</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    char **<emphasis remap='I'>prop_names</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1579,19 +1452,13 @@ void DeletePropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis rem
 
 <para>The <function>SmsGetPropertiesProc</function> callback is invoked when the client wants to retrieve properties it set.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsGetPropertiesProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsGetPropertiesProc</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void GetPropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>manager_data</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    SmPointer <emphasis remap='I'>manager_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1612,13 +1479,13 @@ void GetPropertiesProc(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap=
 
 <para>To register a client (in response to a <function>SmsRegisterClientProc</function> callback), use <function>SmsRegisterClientReply</function></para>
 
-<literallayout remap='FD'>
-Status SmsRegisterClientReply(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>client_id</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    char *<emphasis remap='I'>client_id</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>Status <function>SmsRegisterClientReply</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>char *<parameter>client_id</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1641,11 +1508,12 @@ Status SmsRegisterClientReply(<emphasis remap='I'>sms_conn</emphasis>, <emphasis
 
 <para>You should call the <function>SmsGenerateClientID</function> function to generate a globally unique client ID.</para>
 
-<literallayout remap='FD'>
-char *SmsGenerateClientID(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmsGenerateClientID</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1663,19 +1531,16 @@ char *SmsGenerateClientID(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>To send a &ldquo;Save Yourself&rdquo; to a client, use <function>SmsSaveYourself</function></para>
 
-<literallayout remap='FD'>
-void SmsSaveYourself(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>save_type</emphasis>, <emphasis remap='I'>shutdown</emphasis>, <emphasis remap='I'>interact_style</emphasis>, <emphasis remap='I'>fast</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    int <emphasis remap='I'>save_type</emphasis>;
-
-    Bool <emphasis remap='I'>shutdown</emphasis>;
-
-    int <emphasis remap='I'>interact_style</emphasis>;
-
-    Bool <emphasis remap='I'>fast</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsSaveYourself</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>int <parameter>save_type</parameter></paramdef>
+      <paramdef>Bool <parameter>shutdown</parameter></paramdef>
+      <paramdef>int <parameter>interact_style</parameter></paramdef>
+      <paramdef>Bool <parameter>fast</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <variablelist remap='IP'>
   <varlistentry>
     <term><emphasis remap='I'>sms_conn</emphasis></term>
@@ -1716,11 +1581,12 @@ void SmsSaveYourself(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I
 
 <para>In order to send a &ldquo;Save Yourself Phase 2&rdquo; message to a client, use <function>SmsSaveYourselfPhase2</function></para>
 
-<literallayout remap='FD'>
-void SmsSaveYourselfPhase2(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsSaveYourselfPhase2</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1737,11 +1603,12 @@ void SmsSaveYourselfPhase2(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>To send an &ldquo;Interact&rdquo; message to a client, use <function>SmsInteract</function></para>
 
-<literallayout remap='FD'>
-void SmsInteract(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsInteract</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1760,11 +1627,12 @@ void SmsInteract(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>To send a &ldquo;Save Complete&rdquo; message to a client, use <function>SmsSaveComplete</function></para>
 
-<literallayout remap='FD'>
-void SmsSaveComplete(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsSaveComplete</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1781,11 +1649,12 @@ void SmsSaveComplete(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>To send a &ldquo;Die&rdquo; message to a client, use <function>SmsDie</function></para>
 
-<literallayout remap='FD'>
-void SmsDie(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsDie</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1802,11 +1671,12 @@ void SmsDie(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>To cancel a shutdown, use <function>SmsShutdownCancelled</function></para>
 
-<literallayout remap='FD'>
-void SmsShutdownCancelled(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsShutdownCancelled</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1824,15 +1694,14 @@ void SmsShutdownCancelled(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>In response to a &ldquo;Get Properties&rdquo; message, the session manager should call <function>SmsReturnProperties</function></para>
 
-<literallayout remap='FD'>
-void SmsReturnProperties(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>num_props</emphasis>, <emphasis remap='I'>props</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    int <emphasis remap='I'>num_props</emphasis>;
-
-    SmProp **<emphasis remap='I'>props</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsReturnProperties</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>int <parameter>num_props</parameter></paramdef>
+      <paramdef>SmProp **<parameter>props</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1858,15 +1727,14 @@ void SmsReturnProperties(<emphasis remap='I'>sms_conn</emphasis>, <emphasis rema
 <para>To check that a client is still alive, you should use the <function>IcePing</function> function provided by the ICE library.  To do so, the ICE connection must be obtained using the <function>SmsGetIceConnection</function> (see section 6.12, &ldquo;Using Sms Informational Functions&rdquo;).</para>
 
 
-<literallayout remap='FD'>
-void IcePing(<emphasis remap='I'>ice_conn</emphasis>, <emphasis remap='I'>ping_reply_proc</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    IceConn <emphasis remap='I'>ice_conn</emphasis>;
-
-    IcePingReplyProc <emphasis remap='I'>ping_reply_proc</emphasis>;
-
-    IcePointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>IcePing</function></funcdef>
+      <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
+      <paramdef>IcePingReplyProc <parameter>ping_reply_proc</parameter></paramdef>
+      <paramdef>IcePointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1886,19 +1754,13 @@ void IcePing(<emphasis remap='I'>ice_conn</emphasis>, <emphasis remap='I'>ping_r
 
 <para>When the Ping reply is ready (if ever), the <function>IcePingReplyProc</function> callback will be invoked.  A session manager should have some sort of timeout period, after which it assumes the client has unexpectedly died.</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*IcePingReplyProc)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>IcePingReplyProc</function>)</funcdef>
+      <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
+      <paramdef>IcePointer <parameter>client_data</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void PingReplyProc(<emphasis remap='I'>ice_conn</emphasis>, <emphasis remap='I'>client_data</emphasis>)
-
-    IceConn <emphasis remap='I'>ice_conn</emphasis>;
-
-    IcePointer <emphasis remap='I'>client_data</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1917,11 +1779,12 @@ void PingReplyProc(<emphasis remap='I'>ice_conn</emphasis>, <emphasis remap='I'>
 
 <para>When the session manager receives a &ldquo;Connection Closed&rdquo; message or otherwise detects that the client aborted the connection, it should call the <function>SmsCleanUp</function> function in order to free up the connection object.</para>
 
-<literallayout remap='FD'>
-void SmsCleanUp(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmsCleanUp</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -1935,46 +1798,51 @@ void SmsCleanUp(<emphasis remap='I'>sms_conn</emphasis>)
 <sect1 id='using_sms_informational_functions'>
 <title>Using Sms Informational Functions</title>
 
-<literallayout remap='FD'>
-int SmsProtocolVersion(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>int <function>SmsProtocolVersion</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmsProtocolVersion</function> returns the major version of the session management protocol associated with this session.</para>
 
-<literallayout remap='FD'>
-int SmsProtocolRevision(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>int <function>SmsProtocolRevision</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmsProtocolRevision</function> returns the minor version of the session management protocol associated with this session.</para>
 
-<literallayout remap='FD'>
-char *SmsClientID(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmsClientID</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmsClientID</function> returns a null-terminated string for the client ID associated with this connection.  You should call <function>free</function> on this pointer when the client ID is no longer needed.</para>
 
 
 <para>To obtain the host name of a client, use <function>SmsClientHostName</function> This host name will be needed to restart the client.</para>
 
-<literallayout remap='FD'>
-char *SmsClientHostName(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>char <function>*SmsClientHostName</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para>The string returned is of the form <emphasis remap='I'>protocol</emphasis>/<emphasis remap='I'>hostname</emphasis>, where <emphasis remap='I'>protocol</emphasis> is one of {tcp, decnet, local}.  You should call <function>free</function> on the string returned when it is no longer needed.</para>
 
-<literallayout remap='FD'>
-IceConn SmsGetIceConnection(<emphasis remap='I'>sms_conn</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>IceConn <function>SmsGetIceConnection</function></funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <para><function>SmsGetIceConnection</function> returns the ICE connection object associated with this session management connection object.  The ICE connection object can be used to get some additional information about the connection.  Some of the more useful functions which can be used on the IceConn are <function>IceConnectionNumber</function> and <function>IceLastSequenceNumber</function> For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
 </sect1>
@@ -1984,38 +1852,28 @@ IceConn SmsGetIceConnection(<emphasis remap='I'>sms_conn</emphasis>)
 
 <para>If the session manager receives an unexpected protocol error from a client, an error handler is invoked by SMlib.  A default error handler exists which simply prints the error message (it does not exit).  The session manager can change this error handler by calling <function>SmsSetErrorHandler</function></para>
 
-<literallayout remap='FD'>
-SmsErrorHandler SmsSetErrorHandler(<emphasis remap='I'>handler</emphasis>)
-
-    SmsErrorHandler <emphasis remap='I'>handler</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>SmsErrorHandler <function>SmsSetErrorHandler</function></funcdef>
+      <paramdef>SmsErrorHandler <parameter>handler</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 <para>The error handler.  You should pass NULL to restore the default handler.</para>
 
 <para><function>SmsSetErrorHandler</function> returns the previous error handler.  The <function>SmsErrorHandler</function> has the following type:</para>
 
-<literallayout remap='FD'>
 <funcsynopsis>
-<funcsynopsisinfo>
-typedef void (*SmsErrorHandler)();
-
-</funcsynopsisinfo>
+   <funcprototype>
+      <funcdef>typedef void (*<function>SmsErrorHandler</function>)</funcdef>
+      <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
+      <paramdef>Bool <parameter>swap</parameter></paramdef>
+      <paramdef>int <parameter>offending_minor_opcode</parameter></paramdef>
+      <paramdef>unsigned long <parameter>offending_sequence_num</parameter></paramdef>
+      <paramdef>int <parameter>error_class</parameter></paramdef>
+      <paramdef>int <parameter>severity</parameter></paramdef>
+      <paramdef>IcePointer <parameter>values</parameter></paramdef>
+  </funcprototype>
 </funcsynopsis>
-void ErrorHandler(<emphasis remap='I'>sms_conn</emphasis>, <emphasis remap='I'>swap</emphasis>, <emphasis remap='I'>offending_minor_opcode</emphasis>, <emphasis remap='I'>offending_sequence_num</emphasis>, <emphasis remap='I'>error_class</emphasis>, <emphasis remap='I'>severity</emphasis>, <emphasis remap='I'>values</emphasis>)
-
-    SmsConn <emphasis remap='I'>sms_conn</emphasis>;
-
-    Bool <emphasis remap='I'>swap</emphasis>;
-
-    int <emphasis remap='I'>offending_minor_opcode</emphasis>;
-
-    unsigned long <emphasis remap='I'>offending_sequence_num</emphasis>;
-
-    int <emphasis remap='I'>error_class</emphasis>;
-
-    int <emphasis remap='I'>severity</emphasis>;
-
-    IcePointer <emphasis remap='I'>values</emphasis>;
-</literallayout> <!-- remap='FN' -->
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -2224,11 +2082,12 @@ typedef struct {
 
 <para>To free an individual property, use <function>SmFreeProperty</function></para>
 
-<literallayout remap='FD'>
-void SmFreeProperty(<emphasis remap='I'>prop</emphasis>)
-
-    SmProp *<emphasis remap='I'>prop</emphasis>;
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmFreeProperty</function></funcdef>
+      <paramdef>SmProp *<parameter>prop</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
@@ -2239,14 +2098,13 @@ void SmFreeProperty(<emphasis remap='I'>prop</emphasis>)
 
 <para>To free the reason strings from the <function>SmsCloseConnectionProc</function> callback, use <function>SmFreeReasons</function></para>
 
-<literallayout remap='FD'>
-void SmFreeReasons(<emphasis remap='I'>count</emphasis>, <emphasis remap='I'>reasons</emphasis>)
-
-    int <emphasis remap='I'>count</emphasis>;
-
-    char **<emphasis remap='I'>reasons</emphasis>;
-
-</literallayout> <!-- remap='FN' -->
+<funcsynopsis>
+   <funcprototype>
+      <funcdef>void <function>SmFreeReasons</function></funcdef>
+      <paramdef>int <parameter>count</parameter></paramdef>
+      <paramdef>char **<parameter>reasons</parameter></paramdef>
+  </funcprototype>
+</funcsynopsis>
 
 <variablelist remap='IP'>
   <varlistentry>
