@@ -135,7 +135,7 @@
 <variablelist remap='IP'>
   <varlistentry>
      <term><emphasis remap='I'>context</emphasis></term>
-     <listitem><para>A pointer to an opaque object or NULL.  Used to determine if an ICE connection can be shared (see below).</para></listitem>
+     <listitem><para>A pointer to an opaque object or NULL.  Used to determine if an ICE connection can be shared (see <link linkend='context_sharing'>below</link>).</para></listitem>
   </varlistentry>
   <varlistentry>
      <term><emphasis remap='I'>xsmp_major_rev</emphasis></term>
@@ -207,9 +207,9 @@
 
 <para>Note that SMlib uses the ICE protocol to establish a connection with the session manager.  If an ICE connection already exists between the client and session manager, it might be possible for the same ICE connection to be used for session management.</para>
 
-<para>The context argument indicates how willing the client is to share the ICE connection with other protocols.  If context is NULL, then the caller is always willing to share the connection.  If context is not NULL, then the caller is not willing to use a previously opened ICE connection that has a different non-NULL context associated with it.</para>
+<para id='context_sharing'>The context argument indicates how willing the client is to share the ICE connection with other protocols.  If context is NULL, then the caller is always willing to share the connection.  If context is not NULL, then the caller is not willing to use a previously opened ICE connection that has a different non-NULL context associated with it.</para>
 
-<para>As previously discussed (section 3, &ldquo;Understanding SMlib's Dependence on ICE&rdquo;), the client will have to keep track of when ICE connections are created or destroyed (using <function>IceAddConnectionWatch</function> and <function>IceRemoveConnectionWatch</function> and will have to call <function>IceProcessMessages</function> each time a <function>select</function> shows that there is data to read on an ICE connection.  For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
+<para>As previously discussed (<link linkend='understanding_smlibs_dependence_on_ice'>section 3, &ldquo;Understanding SMlib's Dependence on ICE&rdquo;</link>), the client will have to keep track of when ICE connections are created or destroyed (using <function>IceAddConnectionWatch</function> and <function>IceRemoveConnectionWatch</function> and will have to call <function>IceProcessMessages</function> each time a <function>select</function> shows that there is data to read on an ICE connection.  For further information, see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard.</para>
 
 <para>The callbacks argument contains a set of callbacks used to respond to session manager events.  The mask argument specifies which callbacks are set.  All of the callbacks specified in this version of SMlib are mandatory.  The mask argument is necessary in order to maintain backwards compatibility in future versions of the library.</para>
 
@@ -392,7 +392,7 @@ typedef struct {
   </varlistentry>
 </variablelist>
 
-<para>The session manager sends a &ldquo;Shutdown Cancelled&rdquo; message when the user cancelled the shutdown during an interaction (see section 5.5, &ldquo;Interacting With the User&rdquo;).  The client can now continue as if the shutdown had never happened.  If the client has not called <function>SmcSaveYourselfDone</function> yet, it can either abort the save and then call <function>SmcSaveYourselfDone</function> with the success argument set to <function>False</function> or it can continue with the save and then call <function>SmcSaveYourselfDone</function> with the success argument set to reflect the outcome of the save.</para>
+<para>The session manager sends a &ldquo;Shutdown Cancelled&rdquo; message when the user cancelled the shutdown during an interaction (see <link linkend='interacting_with_the_user'>section 5.5, &ldquo;Interacting With the User&rdquo;</link>).  The client can now continue as if the shutdown had never happened.  If the client has not called <function>SmcSaveYourselfDone</function> yet, it can either abort the save and then call <function>SmcSaveYourselfDone</function> with the success argument set to <function>False</function> or it can continue with the save and then call <function>SmcSaveYourselfDone</function> with the success argument set to reflect the outcome of the save.</para>
 </sect2>
 </sect1>
 
@@ -509,7 +509,7 @@ typedef struct {
 
 <para>The properties are specified as an array of property pointers.  Previously set property values may be over-written using the <function>SmcSetProperties</function> function.  Note that the session manager is not expected to restore property values when the session is restarted.  Because of this, clients should not try to use the session manager as a database for storing application specific state.</para>
 
-<para>For a description of session management properties and the <function>SmProp</function> structure, see section 7, &ldquo;Session Management Properties.&rdquo;</para>
+<para>For a description of session management properties and the <function>SmProp</function> structure, see <link linkend='session_management_properties'>section 7, &ldquo;Session Management Properties.&rdquo;</link></para>
 
 
 <para>To delete properties previously set by the client, use <function>SmcDeleteProperties</function></para>
@@ -596,7 +596,7 @@ typedef struct {
   </varlistentry>
 </variablelist>
 
-<para>To free each property, use <function>SmFreeProperty</function> (see section 8, &ldquo;Freeing Data&rdquo;).  To free the actual array of pointers, use <function>free</function></para>
+<para>To free each property, use <function>SmFreeProperty</function> (see <link linkend='freeing_data'>section 8, &ldquo;Freeing Data&rdquo;</link>).  To free the actual array of pointers, use <function>free</function></para>
 </sect1>
 
 <sect1 id='interacting_with_the_user'>
@@ -728,7 +728,7 @@ typedef struct {
   </varlistentry>
 </variablelist>
 
-<para>The save_type, shutdown, interact_style, and fast arguments are discussed in more detail in section 5.1.1, &ldquo;The Save Yourself Callback.&rdquo;</para>
+<para>The save_type, shutdown, interact_style, and fast arguments are discussed in more detail in <link linkend='the_save_yourself_callback'>section 5.1.1, &ldquo;The Save Yourself Callback.&rdquo;</link></para>
 
 <para>If global is set to <function>True</function> then the resulting &ldquo;Save Yourself&rdquo; should be sent to all clients in the session.  For example, a vendor of a Uninterruptible Power Supply (UPS) might include a Session Management client that would monitor the status of the UPS and generate a fast shutdown if the power is about to be lost.</para>
 
@@ -995,7 +995,7 @@ typedef struct {
 
 <para>After the <function>SmsInitialize</function> function is called, the session manager should call the <function>IceListenForConnections</function> function to listen for new connections.  Afterwards, each time a client connects, the session manager should call <function>IceAcceptConnection</function></para>
 
-<para>See section 9, &ldquo;Authentication of Clients,&rdquo; for more details on authentication (including host based authentication).  Also see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard for further details on listening for and accepting ICE connections.</para>
+<para>See <link linkend='authentication_of_clients'>section 9, &ldquo;Authentication of Clients,&rdquo;</link> for more details on authentication (including host based authentication).  Also see the <emphasis remap='I'>Inter-Client Exchange Library</emphasis> standard for further details on listening for and accepting ICE connections.</para>
 
 <para>Each time a new client connects to the session manager, the <function>SmsNewClientProc</function> callback is invoked.  The session manager obtains a new opaque connection object that it should use for all future interaction with the client.  At this time, the session manager must also register a set of callbacks to respond to the different messages that the client might send.</para>
 
@@ -1268,7 +1268,7 @@ If the client is first joining the session, previous_id will be NULL.</para>
   </varlistentry>
 </variablelist>
 
-<para>The Save Yourself Request prompts the session manager to initiate a checkpoint or shutdown.  For information on the save_type, shutdown, interact_style, and fast arguments, see section 6.3, &ldquo;Sending a Save Yourself Message.&rdquo;</para>
+<para>The Save Yourself Request prompts the session manager to initiate a checkpoint or shutdown.  For information on the save_type, shutdown, interact_style, and fast arguments, see <link linkend='sending_a_save_yourself_message'>section 6.3, &ldquo;Sending a Save Yourself Message.&rdquo;</link></para>
 
 <para>If global is set to <function>True</function> then the resulting &ldquo;Save Yourself&rdquo; should be sent to all applications.  If global is set to <function>False</function> then the &ldquo;Save Yourself&rdquo; should only be sent to the client that requested it.</para>
 </sect2>
@@ -1367,7 +1367,7 @@ If the client is first joining the session, previous_id will be NULL.</para>
 
 <para>The reason_msgs argument will most likely be NULL and the count argument zero (0) if resignation is expected by the user.  Otherwise, it contains a list of null-terminated Compound Text strings representing the reason for termination.  The session manager should display these reason messages to the user.</para>
 
-<para>Call <function>SmFreeReasons</function> to free the reason messages.  For further information, see section 8, &ldquo;Freeing Data.&rdquo;</para>
+<para>Call <function>SmFreeReasons</function> to free the reason messages.  For further information, see <link linkend='freeing_data'>section 8, &ldquo;Freeing Data&rdquo;</link></para>
 </sect2>
 
 <sect2 id='the_set_properties_callback'>
@@ -1403,11 +1403,11 @@ If the client is first joining the session, previous_id will be NULL.</para>
   </varlistentry>
 </variablelist>
 
-<para>The properties are specified as an array of property pointers.  For a description of session management properties and the <function>SmProp</function> structure, see section 7, &ldquo;Session Management Properties.&rdquo;</para>
+<para>The properties are specified as an array of property pointers.  For a description of session management properties and the <function>SmProp</function> structure, see <link linkend='session_management_properties'>section 7, &ldquo;Session Management Properties.&rdquo;</link></para>
 
 <para>Previously set property values may be over-written.  Some properties have predefined semantics.  The session manager is required to store nonpredefined properties.</para>
 
-<para>To free each property, use <function>SmFreeProperty</function> For further information, see section 8, &ldquo;Freeing Data.&rdquo; You should free the actual array of pointers with a call to <function>free</function></para>
+<para>To free each property, use <function>SmFreeProperty</function> For further information, see <link linkend='freeing_data'>section 8, &ldquo;Freeing Data&rdquo;</link> You should free the actual array of pointers with a call to <function>free</function></para>
 </sect2>
 
 <sect2 id='the_delete_properties_callback'>
@@ -1444,7 +1444,7 @@ If the client is first joining the session, previous_id will be NULL.</para>
   </varlistentry>
 </variablelist>
 
-<para>The properties are specified as an array of strings.  For a description of session management properties and the <function>SmProp</function> structure, see section 7, &ldquo;Session Management Properties.&rdquo;</para>
+<para>The properties are specified as an array of strings.  For a description of session management properties and the <function>SmProp</function> structure, see <link linkend='session_management_properties'>section 7, &ldquo;Session Management Properties.&rdquo;</link></para>
 </sect2>
 
 <sect2 id='the_get_properties_callback'>
@@ -1718,13 +1718,13 @@ If the client is first joining the session, previous_id will be NULL.</para>
   </varlistentry>
 </variablelist>
 
-<para>The properties are returned as an array of property pointers.  For a description of session management properties and the <function>SmProp</function> structure, see section 7, &ldquo;Session Management Properties.&rdquo;</para>
+<para>The properties are returned as an array of property pointers.  For a description of session management properties and the <function>SmProp</function> structure, see <link linkend='session_management_properties'>section 7, &ldquo;Session Management Properties.&rdquo;</link></para>
 </sect1>
 
 <sect1 id='pinging_a_client'>
 <title>Pinging a Client</title>
 
-<para>To check that a client is still alive, you should use the <function>IcePing</function> function provided by the ICE library.  To do so, the ICE connection must be obtained using the <function>SmsGetIceConnection</function> (see section 6.12, &ldquo;Using Sms Informational Functions&rdquo;).</para>
+<para>To check that a client is still alive, you should use the <function>IcePing</function> function provided by the ICE library.  To do so, the ICE connection must be obtained using the <function>SmsGetIceConnection</function> (see <link linkend='using_sms_informational_functions'>section 6.12, &ldquo;Using Sms Informational Functions&rdquo;</link>).</para>
 
 
 <funcsynopsis>
