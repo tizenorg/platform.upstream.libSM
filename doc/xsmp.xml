@@ -406,7 +406,7 @@ set of valid responses and possible error messages are listed.  The
 ICE severity is given in parentheses following each error class.
   </para>
 
-  <para><function>RegisterClient</function> [Client -> SM]</para>
+  <para><function>RegisterClient</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>previous-ID</emphasis>: ARRAY8</para>
 
@@ -429,7 +429,7 @@ The client should then send a <function>RegisterClient</function> with a
 null previous-ID field.
   </para>
 
-  <para><function>RegisterClientReply</function> [Client &gt;- SM]</para>
+  <para><function>RegisterClientReply</function> [Client &larr; SM]</para>
 
   <para><emphasis remap='I'>client-ID</emphasis>: ARRAY8</para>
 
@@ -452,7 +452,7 @@ respond to this like any other <function>Save&shy;Yourself</function>
 message.
   </para>
 
-  <para><function>SaveYourself</function> [Client &gt;- SM]</para>
+  <para><function>SaveYourself</function> [Client &larr; SM]</para>
 
   <para><emphasis remap='I'>type</emphasis>: SAVE_TYPE</para>
   <para><emphasis remap='I'>shutdown</emphasis>: BOOL</para>
@@ -607,7 +607,7 @@ state as quickly as possible.  For example, if the SM knows that power
 is about to fail, it should set the fast field to <function>True</function>
   </para>
 
-  <para><function>SaveYourselfPhase2</function> [Client -> SM]</para>
+  <para><function>SaveYourselfPhase2</function> [Client &rarr; SM]</para>
 
   <para>Valid Responses:
     <function>SetProperties</function>
@@ -643,7 +643,7 @@ and the properties are appropriately set, the client sends
 a <function>SaveYourselfDone</function> message.
   </para>
 
-  <para><function>SaveYourselfRequest</function> [Client -> SM]</para>
+  <para><function>SaveYourselfRequest</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>type</emphasis>: SAVE_TYPE</para>
   <para><emphasis remap='I'>shutdown</emphasis>: BOOL</para>
@@ -673,7 +673,7 @@ resulting <function>SaveYourself</function> should be sent to the
 application that sent the <function>Save&shy;Yourself&shy;Request</function>
   </para>
 
-  <para><function>InteractRequest</function> [Client -> SM]</para>
+  <para><function>InteractRequest</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>dialog-type</emphasis>: DIALOG_TYPE</para>
 
@@ -696,7 +696,7 @@ or <function>Normal</function> meaning the client wishes to start a
 non-error dialog.
   </para>
 
-  <para><function>Interact</function> [Client &gt;- SM]</para>
+  <para><function>Interact</function> [Client &larr; SM]</para>
 
   <para>Valid Responses: <function>InteractDone</function></para>
 
@@ -712,7 +712,7 @@ sending a <function>InteractDone</function> the client should abort
 the interaction and send a <function>SaveYourselfDone</function>
   </para></note>
 
-  <para><function>InteractDone</function> [Client -> SM]</para>
+  <para><function>InteractDone</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>cancel-shutdown</emphasis>: BOOL</para>
 
@@ -733,7 +733,7 @@ interact-style field.  Otherwise, cancel-shutdown must
 be <function>False</function>
   </para>
 
-  <para><function>SaveYourselfDone</function> [Client -> SM]</para>
+  <para><function>SaveYourselfDone</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>success</emphasis>: BOOL</para>
 
@@ -762,7 +762,7 @@ the <function>SaveYourselfDone</function> message.
     </para>
   </note>
 
-  <para><function>SaveYourselfPhase2Request</function> [Client -> SM]</para>
+  <para><function>SaveYourselfPhase2Request</function> [Client &rarr; SM]</para>
 
   <para>Valid Responses:
     <function>ShutdownCancelled</function>
@@ -774,7 +774,7 @@ This message is sent by a client to indicate that it needs to be informed
 when all the other clients are quiescent, so it can continue its state.
   </para>
 
-  <para><function>Die</function> [Client &gt;- SM]</para>
+  <para><function>Die</function> [Client &larr; SM]</para>
 
   <para>Valid Responses: <function>ConnectionClosed</function></para>
 
@@ -785,7 +785,7 @@ a <function>ConnectionClosed</function> message and may then close its
 connection to the SM at any time.
   </para>
 
-  <para><function>SaveComplete</function> [Client -> SM]</para>
+  <para><function>SaveComplete</function> [Client &rarr; SM]</para>
 
   <para>Valid Responses:</para>
 
@@ -795,7 +795,7 @@ clients a <function>SaveComplete</function> message.  The client is
 then free to change its state.
   </para>
 
-  <para><function>ShutdownCancelled</function> [Client &gt;- SM]</para>
+  <para><function>ShutdownCancelled</function> [Client &larr; SM]</para>
 
   <para>
 The shutdown currently in process has been aborted.  The client can
@@ -807,7 +807,7 @@ continue with the save and send a <function>SaveYourselfDone</function>
 with the success field set to reflect the outcome of the save.
   </para>
 
-  <para><function>ConnectionClosed</function> [Client -> SM]</para>
+  <para><function>ConnectionClosed</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>reason</emphasis>: LISTofARRAY8</para>
 
@@ -841,7 +841,7 @@ protocols will not provide immediate notification of connection
 closure.
   </para></note>
 
-  <para><function>SetProperties</function> [Client -> SM]</para>
+  <para><function>SetProperties</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>properties</emphasis>: LISTofPROPERTY</para>
 
@@ -862,13 +862,13 @@ XSMP reserves all property names not beginning with an underscore for
 future use.
   </para>
 
-  <para><function>DeleteProperties</function> [Client -> SM]</para>
+  <para><function>DeleteProperties</function> [Client &rarr; SM]</para>
 
   <para><emphasis remap='I'>property-names</emphasis>: LISTofARRAY8</para>
 
   <para>Removes the named properties.</para>
 
-  <para><function>GetProperties</function> [Client -> SM]</para>
+  <para><function>GetProperties</function> [Client &rarr; SM]</para>
 
   <para>Valid Responses: <function>GetPropertiesReply</function></para>
 
@@ -877,7 +877,7 @@ Requests that the SM respond with the values of all the properties for
 this client.
   </para>
 
-  <para><function>GetPropertiesReply</function> [Client &lt;- SM]</para>
+  <para><function>GetPropertiesReply</function> [Client &larr; SM]</para>
 
   <para><emphasis remap='I'>values</emphasis>: LISTofPROPERTY</para>
 
@@ -917,89 +917,89 @@ client and the SM.
 <!-- <literallayout remap='DS'> -->
 <literallayout>
 <emphasis remap='I'>start:</emphasis>
-     ICE protocol setup complete -> <emphasis remap='C'>register</emphasis></literallayout>
+     ICE protocol setup complete &rarr; <emphasis remap='C'>register</emphasis></literallayout>
 
 <literallayout>
 <emphasis remap='I'>register:</emphasis>
-     send <emphasis remap='B'>RegisterClient</emphasis> -> <emphasis remap='C'>collect-id</emphasis></literallayout>
+     send <emphasis remap='B'>RegisterClient</emphasis> &rarr; <emphasis remap='C'>collect-id</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>collect-id:</emphasis>
-     receive <emphasis remap='B'>RegisterClientReply</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
+     receive <emphasis remap='B'>RegisterClientReply</emphasis> &rarr; <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>shutdown-cancelled:</emphasis>
-     send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
+     send <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>idle:</emphasis> [Undoes any freeze of interaction with user.]
-     receive <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
-     receive <emphasis remap='B'>SaveYourself</emphasis> -> <emphasis remap='C'>freeze-interaction</emphasis>
-     send <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>GetPropertiesReply</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     send <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     send <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     send <emphasis remap='B'>ConnectionClosed</emphasis> -> <emphasis remap='C'>connection-closed</emphasis>
-     send <emphasis remap='B'>SaveYourselfRequest</emphasis> -> <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>Die</emphasis> &rarr; <emphasis remap='C'>die</emphasis>
+     receive <emphasis remap='B'>SaveYourself</emphasis> &rarr; <emphasis remap='C'>freeze-interaction</emphasis>
+     send <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>GetPropertiesReply</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     send <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     send <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     send <emphasis remap='B'>ConnectionClosed</emphasis> &rarr; <emphasis remap='C'>connection-closed</emphasis>
+     send <emphasis remap='B'>SaveYourselfRequest</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
 </literallayout> <!-- remap='DE' -->
 
 <literallayout remap='DS'>
 <emphasis remap='I'>die:</emphasis>
-     send <emphasis remap='B'>ConnectionClosed</emphasis> -> <emphasis remap='C'>connection-closed</emphasis></literallayout>
+     send <emphasis remap='B'>ConnectionClosed</emphasis> &rarr; <emphasis remap='C'>connection-closed</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>freeze-interaction:</emphasis>
-     freeze interaction with user -> <emphasis remap='C'>save-yourself</emphasis></literallayout>
+     freeze interaction with user &rarr; <emphasis remap='C'>save-yourself</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>save-yourself:</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>shutdown-cancelled</emphasis>
-     send <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     receive <emphasis remap='B'>GetPropertiesReply</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>InteractRequest</emphasis> -> <emphasis remap='C'>interact-request</emphasis>
-     send <emphasis remap='B'>SaveYourselfPhase2Request</emphasis> -&gt; waiting-for-phase2
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>shutdown-cancelled</emphasis>
+     send <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     receive <emphasis remap='B'>GetPropertiesReply</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>InteractRequest</emphasis> &rarr; <emphasis remap='C'>interact-request</emphasis>
+     send <emphasis remap='B'>SaveYourselfPhase2Request</emphasis> &rarr; waiting-for-phase2
 
 <emphasis remap='I'>save-yourself:</emphasis>
      if shutdown mode:
-          send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>save-yourself-done</emphasis>
+          send <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>save-yourself-done</emphasis>
      otherwise:
-          send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
+          send <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>waiting-for-phase2:</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>shutdown-cancelled</emphasis>
-     receive <emphasis remap='B'>SaveYourselfPhase2</emphasis> -> <emphasis remap='C'>phase2</emphasis></literallayout>
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>shutdown-cancelled</emphasis>
+     receive <emphasis remap='B'>SaveYourselfPhase2</emphasis> &rarr; <emphasis remap='C'>phase2</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>phase2:</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>shutdown-cancelled</emphasis>
-     send <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     receive <emphasis remap='B'>GetPropertiesReply</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>InteractRequest</emphasis> -> <emphasis remap='C'>interact-request</emphasis> (errors only)
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>shutdown-cancelled</emphasis>
+     send <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     receive <emphasis remap='B'>GetPropertiesReply</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>InteractRequest</emphasis> &rarr; <emphasis remap='C'>interact-request</emphasis> (errors only)
      if shutdown mode:
-          send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>save-yourself-done</emphasis>
+          send <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>save-yourself-done</emphasis>
      otherwise:
-          send <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
+          send <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>interact-request:</emphasis>
-     receive <emphasis remap='B'>Interact</emphasis> -> <emphasis remap='C'>interact</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>shutdown-cancelled</emphasis></literallayout>
+     receive <emphasis remap='B'>Interact</emphasis> &rarr; <emphasis remap='C'>interact</emphasis>
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>shutdown-cancelled</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>interact:</emphasis>
-     send <emphasis remap='B'>InteractDone</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>shutdown-cancelled</emphasis></literallayout>
+     send <emphasis remap='B'>InteractDone</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>shutdown-cancelled</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>save-yourself-done:</emphasis> (changing state is forbidden)
-     receive <emphasis remap='B'>SaveComplete</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
-     receive <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>idle</emphasis></literallayout>
+     receive <emphasis remap='B'>SaveComplete</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>Die</emphasis> &rarr; <emphasis remap='C'>die</emphasis>
+     receive <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>idle</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>connection-closed:</emphasis>
@@ -1011,90 +1011,90 @@ client and the SM.
 
 <literallayout remap='DS'>
 <emphasis remap='I'>start:</emphasis>
-     receive <emphasis remap='B'>ProtocolSetup</emphasis> -> <emphasis remap='C'>protocol-setup</emphasis></literallayout>
+     receive <emphasis remap='B'>ProtocolSetup</emphasis> &rarr; <emphasis remap='C'>protocol-setup</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>protocol-setup:</emphasis>
-     send <emphasis remap='B'>ProtocolSetupReply</emphasis> -> <emphasis remap='C'>register</emphasis></literallayout>
+     send <emphasis remap='B'>ProtocolSetupReply</emphasis> &rarr; <emphasis remap='C'>register</emphasis></literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>register:</emphasis>
-     receive <emphasis remap='B'>RegisterClient</emphasis> -> <emphasis remap='C'>acknowledge-register</emphasis>
+     receive <emphasis remap='B'>RegisterClient</emphasis> &rarr; <emphasis remap='C'>acknowledge-register</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>acknowledge-register:</emphasis>
-     send <emphasis remap='B'>RegisterClientReply</emphasis> -> <emphasis remap='C'>idle</emphasis>
+     send <emphasis remap='B'>RegisterClientReply</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>idle:</emphasis>
-     receive <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>ConnectionClosed</emphasis> -> <emphasis remap='C'>start</emphasis>
-     receive <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>get-properties</emphasis>
-     receive <emphasis remap='B'>SaveYourselfRequest</emphasis> -> <emphasis remap='C'>save-yourself</emphasis>
-     send <emphasis remap='B'>SaveYourself</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
+     receive <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>ConnectionClosed</emphasis> &rarr; <emphasis remap='C'>start</emphasis>
+     receive <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>get-properties</emphasis>
+     receive <emphasis remap='B'>SaveYourselfRequest</emphasis> &rarr; <emphasis remap='C'>save-yourself</emphasis>
+     send <emphasis remap='B'>SaveYourself</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>save-yourself:</emphasis>
-     send <emphasis remap='B'>SaveYourself</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>SaveYourself</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>get-properties:</emphasis>
-     send <emphasis remap='B'>GetPropertiesReply</emphasis> -> <emphasis remap='C'>idle</emphasis>
+     send <emphasis remap='B'>GetPropertiesReply</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>saving-get-properties:</emphasis>
-     send <emphasis remap='B'>GetPropertiesReply</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>GetPropertiesReply</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>saving-yourself:</emphasis>
-     receive <emphasis remap='B'>InteractRequest</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     send <emphasis remap='B'>Interact</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     send <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>InteractDone</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     receive <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-      receive <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     receive <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>saving-get-properties</emphasis>
-     receive <emphasis remap='B'>SaveYourselfPhase2Request</emphasis> -> <emphasis remap='C'>start-phase2</emphasis>
-     receive <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>save-yourself-done</emphasis>
+     receive <emphasis remap='B'>InteractRequest</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>Interact</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>InteractDone</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     receive <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+      receive <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     receive <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>saving-get-properties</emphasis>
+     receive <emphasis remap='B'>SaveYourselfPhase2Request</emphasis> &rarr; <emphasis remap='C'>start-phase2</emphasis>
+     receive <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>save-yourself-done</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>start-phase2:</emphasis>
      If all clients have sent either SaveYourselfPhase2Request or SaveYourselfDone:
-          send <emphasis remap='B'>SaveYourselfPhase2</emphasis> -> <emphasis remap='C'>phase2</emphasis>
+          send <emphasis remap='B'>SaveYourselfPhase2</emphasis> &rarr; <emphasis remap='C'>phase2</emphasis>
      else
-          -> <emphasis remap='C'>saving-yourself</emphasis>
+          &rarr; <emphasis remap='C'>saving-yourself</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>phase2:</emphasis>
-     receive <emphasis remap='B'>InteractRequest</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     send <emphasis remap='B'>Interact</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     send <emphasis remap='B'>ShutdownCancelled</emphasis> -> <emphasis remap='C'>idle</emphasis>
-     receive <emphasis remap='B'>InteractDone</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     receive <emphasis remap='B'>SetProperties</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-      receive <emphasis remap='B'>DeleteProperties</emphasis> -> <emphasis remap='C'>saving-yourself</emphasis>
-     receive <emphasis remap='B'>GetProperties</emphasis> -> <emphasis remap='C'>saving-get-properties</emphasis>
-     receive <emphasis remap='B'>SaveYourselfDone</emphasis> -> <emphasis remap='C'>save-yourself-done</emphasis>
+     receive <emphasis remap='B'>InteractRequest</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>Interact</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     send <emphasis remap='B'>ShutdownCancelled</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
+     receive <emphasis remap='B'>InteractDone</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     receive <emphasis remap='B'>SetProperties</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+      receive <emphasis remap='B'>DeleteProperties</emphasis> &rarr; <emphasis remap='C'>saving-yourself</emphasis>
+     receive <emphasis remap='B'>GetProperties</emphasis> &rarr; <emphasis remap='C'>saving-get-properties</emphasis>
+     receive <emphasis remap='B'>SaveYourselfDone</emphasis> &rarr; <emphasis remap='C'>save-yourself-done</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
 <emphasis remap='I'>save-yourself-done:</emphasis>
      If all clients are saved:
           If shutting down:
-               send <emphasis remap='B'>Die</emphasis> -> <emphasis remap='C'>die</emphasis>
+               send <emphasis remap='B'>Die</emphasis> &rarr; <emphasis remap='C'>die</emphasis>
           otherwise
-               send <emphasis remap='B'>SaveComplete</emphasis> -> <emphasis remap='C'>idle</emphasis>
+               send <emphasis remap='B'>SaveComplete</emphasis> &rarr; <emphasis remap='C'>idle</emphasis>
 
      If some clients are not saved:
-     -> <emphasis remap='C'>saving-yourself</emphasis>
+     &rarr; <emphasis remap='C'>saving-yourself</emphasis>
 </literallayout>
 
 <literallayout remap='DS'>
