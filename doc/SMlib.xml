@@ -1913,7 +1913,7 @@ If the client is first joining the session, previous_id will be NULL.</para>
 <chapter id='session_management_properties'>
 <title>Session Management Properties</title>
 
-<para>Each property is defined by the <function>SmProc</function> structure:</para>
+<para>Each property is defined by the <function>SmProp</function> structure:</para>
 
 <synopsis>
 typedef struct {
