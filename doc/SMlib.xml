@@ -130,9 +130,11 @@
   </funcprototype>
 </funcsynopsis>
 
-<para>Specifies the network ID(s) of the session manager.</para>
-
 <variablelist remap='IP'>
+  <varlistentry>
+     <term><parameter>network_ids_list</parameter></term>
+     <listitem><para>Specifies the network ID(s) of the session manager.</para></listitem>
+  </varlistentry>
   <varlistentry>
      <term><parameter>context</parameter></term>
      <listitem><para>A pointer to an opaque object or NULL.  Used to determine if an ICE connection can be shared (see <link linkend='context_sharing'>below</link>).</para></listitem>
@@ -451,7 +453,6 @@ typedef struct {
       <paramdef>SmcCallbacks *<parameter>callbacks</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
-<para>The session management connection object.</para>
 <variablelist remap='IP'>
   <varlistentry>
     <term><parameter>smc_conn</parameter></term>
