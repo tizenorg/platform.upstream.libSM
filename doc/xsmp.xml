@@ -453,7 +453,7 @@ for this client.  If the client had specified an ID in the
 specified ID.  If <parameter>previous-ID</parameter> was null,
 <parameter>client-ID</parameter> will be a unique ID freshly generated
 by the SM.  The <parameter>client-ID</parameter> format is specified in
-section 6.
+<link linkend="client_identification_string">section 6</link>.
   </para>
 
   <para>
@@ -901,7 +901,8 @@ Sets the specified <parameter>properties</parameter> to the specified values.
 Existing
 properties not specified in the <function>Set&shy;Properties</function>
 message are unaffected. Some properties have predefined semantics.
-See section 11, "Predefined Properties."
+See <link linkend='predefined_properties'>section 11, 
+&ldquo;Predefined Properties.&rdquo;</link>
   </para>
 
   <para>
