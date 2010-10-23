@@ -241,7 +241,7 @@ byte-swapping is determined at run-time by the <acronym>ICE</acronym> protocol.
 
   <para>
 If an invalid value is specified for a field of any of the enumerated
-types, a <function>BadValue</function> error message must be sent by
+types, a <errorname>BadValue</errorname> error message must be sent by
 the receiver of the message to the sender of the message.
   </para>
 
@@ -417,7 +417,7 @@ set of valid responses and possible error messages are listed.  The
 
   <para>Valid Responses: <function>RegisterClientReply</function></para>
 
-  <para>Possible Errors: <function>BadValue</function> (<symbol role='Pn'>CanContinue</symbol>)</para>
+  <para>Possible Errors: <errorname>BadValue</errorname> (<symbol role='Pn'>CanContinue</symbol>)</para>
 
   <para>
 The client must send this message to the SM to register the client's
@@ -427,7 +427,7 @@ session.  For new clients, previous-ID should be of zero length.
   </para>
 
   <para>
-If previous-ID is not valid, the SM will send a <function>BadValue</function>
+If previous-ID is not valid, the SM will send a <errorname>BadValue</errorname>
 error message to the client.  At this point the SM reverts to the
 register state and waits for another <function>RegisterClient</function>
 The client should then send a <function>RegisterClient</function> with a
@@ -685,7 +685,7 @@ application that sent the <function>Save&shy;Yourself&shy;Request</function>
 
   <para>Valid Responses: <function>Interact</function> <function>ShutdownCancelled</function></para>
 
-  <para>Possible Errors: <function>BadState</function> (<symbol role='Pn'>CanContinue</symbol>)</para>
+  <para>Possible Errors: <errorname>BadState</errorname> (<symbol role='Pn'>CanContinue</symbol>)</para>
 
   <para>
 During a checkpoint or session-save operation, only one client at a
@@ -901,13 +901,13 @@ message and includes the values of all the properties.
 When the receiver of a message detects an error condition, the
 receiver sends an <acronym>ICE</acronym> error message to the sender.  There are only two
 types of errors that are used by the XSMP:
-<function>BadValue</function> and <function>BadState</function>
+<errorname>BadValue</errorname> and <errorname>BadState</errorname>
 These are both defined in the <acronym>ICE</acronym> protocol.
   </para>
 
   <para>
 Any message received out-of-sequence will generate
-a <function>BadState</function> error message.
+a <errorname>BadState</errorname> error message.
   </para>
 </chapter>
 
