@@ -177,7 +177,7 @@ A DECnet address would look like this:
 If multiple network IDs are specified, they should be separated by commas.
   </para>
 
-  <note remap='NT'>
+  <note><title>Rationale</title>
     <para>
 There was much discussion over whether the XSMP protocol should use X
 as the transport protocol or whether it should use its own independent
@@ -382,7 +382,7 @@ Sequence number.  This is a four-digit decimal number.  It is
 incremented every time the session manager creates an ID.  After
 reaching "Q9999" it wraps to "Q0000".
        </para>
-       <note remap='NT'>
+       <note><title>Rationale</title>
 	 <para>
 Once a client ID has been assigned to the client, the client keeps
 this ID indefinitely.  If the client is terminated and restarted, it
@@ -542,7 +542,7 @@ specified, the client should first commit the data to permanent
 storage before updating its SM properties.
   </para>
 
-  <note remap='NT'>
+  <note><title>Examples</title>
     <para>
 If a word processor was sent a <function>SaveYourself</function> with
 a type of <function>Local</function> it could create a temporary file
@@ -577,7 +577,7 @@ Once the SM has send <function>SaveYourself</function> to a client, it can't sen
     </para>
   </note>
 
-  <note remap='NT'>
+  <note><title>Advice to Implementors</title>
     <para>
 If the client stores local any state in a file or similar "Qexternal"
 storage, it must create a distinct copy in response to
@@ -593,7 +593,7 @@ needed for the new checkpoint.
 The shutdown field specifies whether the system is being shut down.
   </para>
 
-  <note remap='NT'>
+  <note><title>Rationale</title>
     <para>
 The interaction may be different depending on whether or not shutdown is set.
     </para>
@@ -628,7 +628,7 @@ message informs the client that all other clients are in a fixed state
 and this client can save state that is associated with other clients.
   </para>
 
-  <note remap='NT'>
+  <note><title>Rationale</title>
     <para>
 Clients that manager other clients (window managers, workspace
 managers, etc) need to know when all clients they are managing are
@@ -664,7 +664,7 @@ SM receives this request it may generate a <function>SaveYourself</function>
 message in response and it may leave the fields intact.
   </para>
 
-  <note remap='NT'> <para>
+  <note><title>Example</title> <para>
 A vendor of a <acronym>UPS</acronym> (Uninterruptible Power Supply)
 might include an SM client that would monitor the status of
 the <acronym>UPS</acronym> and generate a fast shutdown if the power
@@ -712,7 +712,8 @@ user.  When the client is done interacting with the user it must send
 an <function>InteractDone</function> message to the SM unless a
 shutdown cancel is received.
   </para>
-  <note remap='NT'> <para> If a client receives a ShutdownCancelled
+  <note><title>Advice to Implementors</title>
+    <para>If a client receives a ShutdownCancelled
 after receiving an <function>Interact</function> message, but before
 sending a <function>InteractDone</function> the client should abort
 the interaction and send a <function>SaveYourselfDone</function>
@@ -760,7 +761,7 @@ the client should set the success field to <constant>True</constant>
 otherwise the client should set it to <constant>False</constant>
   </para>
 
-  <note remap='NT'>
+  <note><title>Example</title>
     <para>
 If a client tries to save its state and runs out of disk space, it
 should return <constant>False</constant> in the success field of
@@ -837,10 +838,10 @@ this reason to the user.
 After sending this message, the client must not send any additional
 XSMP messages to the SM.
   </para>
-  <note remap='NT'><para>
+  <note><title>Advice to Implementors</title><para>
 If additional messages are received, they should be discarded.
   </para></note>
-  <note remap='NT'><para>
+  <note><title>Rationale</title><para>
 The reason for sending the <function>ConnectionClosed</function>
 message before actually closing the connections is that some transport
 protocols will not provide immediate notification of connection
@@ -2085,7 +2086,7 @@ to <function>RestartAnyway</function> uses this property to specify a
 command that undoes the effect of the client and removes any saved
 state.
 	</para>
-	<note remap='NT'><para>
+	<note><title>Example</title><para>
 A user runs xmodmap.  xmodmap registers with the SM,
 sets <function>Restart&shy;Style&shy;Hint</function>
 to <function>Restart&shy;Anyway</function> and then terminates.  In
@@ -2150,7 +2151,7 @@ that this is only a hint and the SM will follow the policies specified
 by its users in determining what applications to restart.
 	</para>
 
-	<note remap='NT'><para>
+	<note><title>Rationale</title><para>
 This can be specified by a client which supports (as MS-Windows
 clients do) a means for the user to indicate while exiting that
 restarting is desired.  It can also be used for clients that spawn
@@ -2170,7 +2171,7 @@ meant to run continuously.  If the client exits, the SM should try to
 restart it in the current session.
 	</para>
 
-	<note remap='NT'><para>
+	<note><title>Advice to Implementors</title><para>
 It would be wise to sanity-check the frequency which
 which <function>RestartImmediately</function> clients are restarted,
 to avoid a sick client being restarted continuously.
@@ -2181,7 +2182,7 @@ The <function>RestartNever</function> style specifies that the client
 does not wish to be restarted in the next session.
 	</para>
 
-	<note remap='NT'> <para>
+	<note><title>Advice to Implementors</title> <para>
 This should be used rarely, if at all.  It will cause the client to be
 silently left out of sessions when they are restarted and will
 probably be confusing to users.
@@ -2199,7 +2200,7 @@ setting <function>RestartStyleHint</function>
 to <function>RestartAnyway</function> The command must not remove any
 saved state as the client is still part of the session.
 	</para>
-	<note remap='NT'><para>
+	<note><title>Example</title><para>
 A client is run at start up time that turns on a camera.  This client
 then exits.  At session shutdown, the user wants the camera turned
 off.  This client would set the <function>Restart&shy;Style&shy;Hint</function>
