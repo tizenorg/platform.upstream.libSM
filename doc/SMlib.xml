@@ -131,12 +131,12 @@ a <firstterm>client-ID</firstterm> that uniquely identifies them in
 the session.  The session manager maintains a list of properties for
 each client in the session.  These properties describe the client's
 environment and, most importantly, describe how the client can be
-restarted (via an <function>SmRestartCommand</function>. Clients are
+restarted (via an <property>SmRestartCommand</property>). Clients are
 expected to save their state in such a way as to allow multiple
 instantiations of themselves to be managed independently.  For
 example, clients may use their client-ID as part of a filename in
 which to store the state for a particular instantiation.  The
-client-ID should be saved as part of the <function>SmRestartCommand</function>
+client-ID should be saved as part of the <property>SmRestartCommand</property>
 so that the client will retain the same ID after it is restarted.
   </para>
 
@@ -224,16 +224,17 @@ standard.
 
   <para>
 Applications (both session managers and clients) should include the
-header file &lt;<symbol role='Pn'>X11/SM/SMlib.h</symbol>&gt;.  This
-header file defines all of the SMlib data structures and function
-prototypes.  <function>SMlib.h</function> includes the header file
-&lt;<symbol role='Pn'>X11/SM/SM.h</symbol>&gt;, which defines all of
-the SMlib constants.
+header file &lt;<filename class='headerfile'>X11/SM/SMlib.h</filename>&gt;.
+This header file defines all of the SMlib data structures and function
+prototypes.  <filename class='headerfile'>SMlib.h</filename> includes the
+header file &lt;<filename class='headerfile'>X11/SM/SM.h</filename>&gt;,
+which defines all of the SMlib constants.
   </para>
 
   <para>
 Because SMlib is dependent on ICE, applications should link against
-SMlib and ICElib by using <function>-lSM</function> <function>-lICE</function>
+SMlib and ICElib by using
+<quote><option>-lSM</option> <option>-lICE</option></quote>.
   </para>
 </chapter>
 
@@ -288,8 +289,9 @@ use <function>SmcOpenConnection</function>
       <varlistentry>
 	<term><parameter>context</parameter></term>
 	<listitem><para>
-A pointer to an opaque object or NULL.  Used to determine if an ICE
-connection can be shared (see <link linkend='context_sharing'>below</link>).
+A pointer to an opaque object or <constant>NULL</constant>.  Used to determine
+if an ICE connection can be shared
+(see <link linkend='context_sharing'>below</link>).
      </para></listitem>
       </varlistentry>
       <varlistentry>
@@ -302,7 +304,7 @@ The highest major version of the XSMP the application supports.
 	<term><parameter>xsmp_minor_rev</parameter></term>
 	<listitem><para>
 The highest minor version of the XSMP the application supports (for
-the specified xsmp_major_rev).
+the specified <parameter>xsmp_major_rev</parameter>).
 	</para></listitem>
       </varlistentry>
       <varlistentry>
@@ -326,22 +328,23 @@ messages from the session manager.
       </varlistentry>
       <varlistentry>
 	<term><parameter>error_length</parameter></term>
-	<listitem><para>Length of the error_string_ret argument passed in.</para></listitem>
+	<listitem><para>Length of the <parameter>error_string_ret</parameter> argument passed in.</para></listitem>
       </varlistentry>
       <varlistentry>
 	<term><parameter>error_string_ret</parameter></term>
 	<listitem><para>
 Returns a null-terminated error message, if any.
-The error_string_ret argument points to user supplied memory.
-No more than error_length bytes are used.
+The <parameter>error_string_ret</parameter> argument points to user supplied
+memory.  No more than <parameter>error_length</parameter> bytes are used.
 	</para></listitem>
       </varlistentry>
     </variablelist>
 
     <para>
-The network_ids_list argument is a null-terminated string containing
-a list of network IDs for the session manager, separated by commas.
-If network_ids_list is NULL, the value of
+The <parameter>network_ids_list</parameter> argument is a
+null-terminated string containing a list of network IDs for the session
+manager, separated by commas. If <parameter>network_ids_list</parameter>
+is <constant>NULL</constant>, the value of
 the <envar>SESSION_MANAGER</envar> environment variable will be used.
 Each network ID has the following format:
 
@@ -379,22 +382,24 @@ an attempt will be made using the second network ID, and so on.
     <para>
 After the connection is established, <function>SmcOpenConnection</function>
 registers the client with the session manager.  If the client is being
-restarted from a previous session, previous_id should contain a null
-terminated string representing the client ID from the previous
-session.  If the client is first joining the session, previous_id
-should be set to NULL.  If previous_id is specified but is determined
+restarted from a previous session, <parameter>previous_id</parameter>
+should contain a null terminated string representing the client ID from the
+previous session.  If the client is first joining the session,
+<parameter>previous_id</parameter> should be set to <constant>NULL</constant>.
+If <parameter>previous_id</parameter> is specified but is determined
 to be invalid by the session manager, SMlib will re-register the
-client with previous_id set to NULL.
+client with <parameter>previous_id</parameter> set to <constant>NULL</constant>.
     </para>
 
     <para>
 If <function>SmcOpenConnection</function> succeeds, it returns an
 opaque connection pointer of type <function>SmcConn</function> and the
-client_id_ret argument contains the client ID to be used for this
-session.  The client_id_ret should be freed with a call
-to <function>free</function> when no longer needed.  On
-failure, <function>SmcOpenConnection</function> returns NULL, and the
-reason for failure is returned in error_string_ret.
+<parameter>client_id_ret</parameter> argument contains the client ID to be
+used for this session.  The <parameter>client_id_ret</parameter> should be
+freed with a call to <function>free</function> when no longer needed.  On
+failure, <function>SmcOpenConnection</function> returns
+<constant>NULL</constant>, and the reason for failure is returned in
+<parameter>error_string_ret</parameter>.
     </para>
 
     <para>
@@ -406,10 +411,11 @@ connection to be used for session management.
 
     <para id='context_sharing'>
 The context argument indicates how willing the client is to share the
-ICE connection with other protocols.  If context is NULL, then the
-caller is always willing to share the connection.  If context is not
-NULL, then the caller is not willing to use a previously opened ICE
-connection that has a different non-NULL context associated with it.
+ICE connection with other protocols.  If context is <constant>NULL</constant>,
+then the caller is always willing to share the connection.  If context is not
+<constant>NULL</constant>, then the caller is not willing to use a previously
+opened ICE connection that has a different non-<constant>NULL</constant>
+context associated with it.
     </para>
 
     <para>
@@ -435,13 +441,14 @@ backwards compatibility in future versions of the library.
     </para>
 
     <para>
-The following values may be ORed together to obtain a mask value:
+The following values may be ORed together to obtain a
+<parameter>mask</parameter> value:
 
 <synopsis>
-<function>SmcSaveYourselfProcMask</function>
-<function>SmcDieProcMask</function>
-<function>SmcSaveCompleteProcMask</function>
-<function>SmcShutdownCancelledProcMask</function>
+<constant>SmcSaveYourselfProcMask</constant>
+<constant>SmcDieProcMask</constant>
+<constant>SmcSaveCompleteProcMask</constant>
+<constant>SmcShutdownCancelledProcMask</constant>
 </synopsis>
     </para>
 
@@ -534,11 +541,14 @@ been set, the client calls <function>SmcSaveYourselfDone</function>
       </para>
 
       <para>
-If interact_style is <function>SmInteractStyleNone</function> the
-client must not interact with the user while saving state.  If
-interact_style is <function>SmInteractStyleErrors</function> the
+If <parameter>interact_style</parameter> is
+<constant>SmInteractStyleNone</constant> the
+client must not interact with the user while saving state.
+If <parameter>interact_style</parameter> is
+<constant>SmInteractStyleErrors</constant> the
 client may interact with the user only if an error condition arises.
-If interact_style is <function>SmInteractStyleAny</function> then the
+If <parameter>interact_style</parameter> is
+<constant>SmInteractStyleAny</constant> then the
 client may interact with the user for any purpose.  Because only one
 client can interact with the user at a time, the client must
 call <function>SmcInteractRequest</function> and wait for an
@@ -551,13 +561,14 @@ calls <function>SmcSaveYourselfDone</function>
       </para>
 
       <para>
-If save_type is <function>SmSaveLocal</function> the client must
-update the properties to reflect its current state.  Specifically, it
-should save enough information to restore the state as seen by the
-user of this client.  It should not affect the state as seen by other
-users.  If save_type is <function>SmSaveGlobal</function> the user
-wants the client to commit all of its data to permanent, globally
-accessible storage.  If save_type is <function>SmSaveBoth</function>
+If <parameter>save_type</parameter> is <constant>SmSaveLocal</constant> the
+client must update the properties to reflect its current state.  Specifically,
+it should save enough information to restore the state as seen by the
+user of this client.  It should not affect the state as seen by other users.
+If <parameter>save_type</parameter> is <constant>SmSaveGlobal</constant>
+the user wants the client to commit all of its data to permanent, globally
+accessible storage.
+If <parameter>save_type</parameter> is <constant>SmSaveBoth</constant>
 the client should do both of these (it should first commit the data to
 permanent storage before updating its properties).
       </para>
@@ -568,30 +579,32 @@ Some examples are as follows:
         <itemizedlist mark='bullet'>
 	  <listitem><para>
 If a word processor were sent a &ldquo;Save Yourself&rdquo; with a
-type of <function>SmSaveLocal</function> it could create a temporary
+type of <constant>SmSaveLocal</constant> it could create a temporary
 file that included the current contents of the file, the location of
 the cursor, and other aspects of the current editing session.  It
-would then update its SmRestartCommand property with enough
-information to find this temporary file.
+would then update its <property>SmRestartCommand</property> property with
+enough information to find this temporary file.
 	  </para></listitem>
 	  <listitem><para>
 If a word processor were sent a &ldquo;Save Yourself&rdquo; with a
-type of <function>SmSaveGlobal</function> it would simply save the
+type of <constant>SmSaveGlobal</constant> it would simply save the
 currently edited file.
 	  </para></listitem>
 	  <listitem><para>
 If a word processor were sent a &ldquo;Save Yourself&rdquo; with a
-type of <function>SmSaveBoth</function> it would first save the
+type of <constant>SmSaveBoth</constant> it would first save the
 currently edited file.  It would then create a temporary file with
 information such as the current position of the cursor and what file
-is being edited.  Finally, it would update its SmRestartCommand
-property with enough information to find the temporary file.
+is being edited.  Finally, it would update its
+<property>SmRestartCommand</property> property with enough information
+to find the temporary file.
 	  </para></listitem>
 	</itemizedlist>
       </para>
 
       <para>
-The shutdown argument specifies whether the system is being shut down.
+The <parameter>shutdown</parameter> argument specifies whether the
+system is being shut down.
 The interaction is different depending on whether or not shutdown is
 set.  If not shutting down, the client should save its state and wait
 for a &ldquo;Save Complete&rdquo; message.  If shutting down, the
@@ -600,9 +613,10 @@ either a &ldquo;Die&rdquo; or a &ldquo;Shutdown Cancelled.&rdquo;
       </para>
 
       <para>
-The fast argument specifies that the client should save its state as
-quickly as possible.  For example, if the session manager knows that
-power is about to fail, it would set fast to <function>True</function>
+The <parameter>fast</parameter> argument specifies that the client
+should save its state as quickly as possible.  For example, if the
+session manager knows that power is about to fail, it would
+set <parameter>fast</parameter> to <constant>True</constant>.
       </para>
     </sect2>
 
@@ -705,9 +719,10 @@ when the user cancelled the shutdown during an interaction
 continue as if the shutdown had never happened.  If the client has not
 called <function>SmcSaveYourselfDone</function> yet, it can either
 abort the save and then call <function>SmcSaveYourselfDone</function>
-with the success argument set to <function>False</function> or it can
+with the success argument set to <constant>False</constant> or it can
 continue with the save and then call <function>SmcSaveYourselfDone</function>
-with the success argument set to reflect the outcome of the save.
+with the <parameter>success</parameter> argument set to reflect the outcome
+of the save.
       </para>
     </sect2>
   </sect1>
@@ -743,11 +758,11 @@ use <function>SmcCloseConnection</function>
 </variablelist>
 
     <para>
-The reason_msgs argument will most likely be NULL if resignation is
-expected by the client.  Otherwise, it contains a list of
-null-terminated Compound Text strings representing the reason for
-termination.  The session manager should display these reason messages
-to the user.
+The <parameter>reason_msgs</parameter> argument will most likely be
+<constant>NULL</constant> if resignation is expected by the client.
+Otherwise, it contains a list of null-terminated Compound Text strings
+representing the reason for termination.  The session manager should
+display these reason messages to the user.
     </para>
 
     <para>
@@ -772,11 +787,11 @@ from the list of active descriptors to call <function>select</function> on
 
       <itemizedlist mark='bullet'>
 	<listitem><para>
-<function>SmcClosedNow</function> - the ICE connection was closed at
+<constant>SmcClosedNow</constant> - the ICE connection was closed at
 this time, the watch procedures were invoked, and the connection was freed.
 	</para></listitem>
 	<listitem><para>
-<function>SmcClosedASAP</function> - an IO error had occurred on the
+<constant>SmcClosedASAP</constant> - an IO error had occurred on the
 connection, but <function>SmcCloseConnection</function> is being
 called within a nested <function>IceProcessMessages</function> The
 watch procedures have been invoked at this time, but the connection
@@ -785,7 +800,7 @@ and <function>IceProcessMessages</function> returns a status
 of <function>IceProcessMessagesConnectionClosed</function>
 	</para> </listitem>
 	<listitem><para>
-<function>SmcConnectionInUse</function> - the connection was not closed at
+<constant>SmcConnectionInUse</constant> - the connection was not closed at
 this time, because it is being used by other active protocols.
 	</para> </listitem>
       </itemizedlist>
@@ -825,14 +840,14 @@ use <function>SmcModifyCallbacks</function>
 </variablelist>
 
     <para>
-When specifying a value for the mask argument, the following values
-may be ORed together:
+When specifying a value for the <parameter>mask</parameter> argument,
+the following values may be ORed together:
 
 <synopsis>
-<function>SmcSaveYourselfProcMask</function>
-<function>SmcDieProcMask</function>
-<function>SmcSaveCompleteProcMask</function>
-<function>SmcShutdownCancelledProcMask</function>
+<constant>SmcSaveYourselfProcMask</constant>
+<constant>SmcDieProcMask</constant>
+<constant>SmcSaveCompleteProcMask</constant>
+<constant>SmcShutdownCancelledProcMask</constant>
 </synopsis>
     </para>
   </sect1>
@@ -860,7 +875,7 @@ use <function>SmcSetProperties</function>
     <listitem><para>The session management connection object.</para></listitem>
   </varlistentry>
   <varlistentry>
-    <term><parameter>num_proprs</parameter></term>
+    <term><parameter>num_props</parameter></term>
     <listitem><para>The number of properties.</para></listitem>
   </varlistentry>
   <varlistentry>
@@ -881,7 +896,7 @@ the session manager as a database for storing application specific state.
 
     <para>
 For a description of session management properties and
-the <function>SmProp</function> structure,
+the <structname>SmProp</structname> structure,
 see <link linkend='session_management_properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
     </para>
@@ -906,7 +921,7 @@ use <function>SmcDeleteProperties</function>
     <listitem><para>The session management connection object.</para></listitem>
   </varlistentry>
   <varlistentry>
-    <term><parameter>num_proprs</parameter></term>
+    <term><parameter>num_props</parameter></term>
     <listitem><para>The number of properties.</para></listitem>
   </varlistentry>
   <varlistentry>
@@ -997,8 +1012,9 @@ use <function>free</function>
 
     <para>
 After receiving a &ldquo;Save Yourself&rdquo; message with an
-interact_style of <function>SmInteractStyleErrors</function>
-or <function>SmInteractStyleAny</function> the client may choose to
+<parameter>interact_style</parameter> of
+<constant>SmInteractStyleErrors</constant>
+or <constant>SmInteractStyleAny</constant> the client may choose to
 interact with the user.  Because only one client can interact with the
 user at a time, the client must call <function>SmcInteractRequest</function>
 and wait for an &ldquo;Interact&rdquo; message from the session manager.
@@ -1043,9 +1059,9 @@ for failure and a positive value for success.
     </para>
 
     <para>
-The dialog_type argument specifies
-either <function>SmDialogError</function> indicating that the client
-wants to start an error dialog, or <function>SmDialogNormal</function>
+The <parameter>dialog_type</parameter> argument specifies
+either <constant>SmDialogError</constant> indicating that the client
+wants to start an error dialog, or <constant>SmDialogNormal</constant>
 meaning that the client wishes to start a nonerror dialog.
     </para>
 
@@ -1101,15 +1117,16 @@ message), you should call <function>SmcInteractDone</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>cancel_shutdown</parameter></term>
-    <listitem><para>If <function>True</function>, indicates that the user requests that the entire shutdown be cancelled.</para></listitem>
+    <listitem><para>If <constant>True</constant>, indicates that the user requests that the entire shutdown be cancelled.</para></listitem>
   </varlistentry>
 </variablelist>
     <para>
-The cancel_shutdown argument may only be <function>True</function> if
-the corresponding &ldquo;Save Yourself&rdquo;
-specified <function>True</function> for shutdown
-and <function>SmInteractStyleErrors</function>
-or <function>SmInteractStyleAny</function> for the interact_style.
+The <parameter>cancel_shutdown</parameter> argument may only be
+<constant>True</constant> if the corresponding &ldquo;Save Yourself&rdquo;
+specified <constant>True</constant> for shutdown
+and <constant>SmInteractStyleErrors</constant>
+or <constant>SmInteractStyleAny</constant> for
+the <parameter>interact_style</parameter>.
     </para>
   </sect1>
 
@@ -1153,7 +1170,7 @@ use <function>SmcRequestSaveYourself</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>fast</parameter></term>
-    <listitem><para>If <function>True</function> the client should save its state as quickly as possible.</para></listitem>
+    <listitem><para>If <constant>True</constant> the client should save its state as quickly as possible.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>global</parameter></term>
@@ -1162,14 +1179,16 @@ use <function>SmcRequestSaveYourself</function>
 </variablelist>
 
     <para>
-The save_type, shutdown, interact_style, and fast arguments are discussed
-in more detail in <link linkend='the_save_yourself_callback'>section 5.1.1,
+The <parameter>save_type</parameter>, <parameter>shutdown</parameter>,
+<parameter>interact_style</parameter>, and <parameter>fast</parameter>
+arguments are discussed in more detail in
+<link linkend='the_save_yourself_callback'>section 5.1.1,
 &ldquo;The Save Yourself Callback.&rdquo;</link>
     </para>
 
     <para>
-If global is set to <function>True</function> then the resulting
-&ldquo;Save Yourself&rdquo; should be sent to all clients in the
+If <parameter>global</parameter> is set to <constant>True</constant> then
+the resulting &ldquo;Save Yourself&rdquo; should be sent to all clients in the
 session.  For example, a vendor of a Uninterruptible Power Supply
 (<acronym>UPS</acronym>) might include a Session Management client
 that would monitor the status of the UPS and generate a fast shutdown
@@ -1177,7 +1196,7 @@ if the power is about to be lost.
     </para>
 
     <para>
-If global is set to <function>False</function> then the &ldquo;Save
+If global is set to <constant>False</constant> then the &ldquo;Save
 Yourself&rdquo; should only be sent to the client that requested it.
     </para>
   </sect1>
@@ -1251,7 +1270,7 @@ message, you should call <function>SmcSaveYourselfDone</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>success</parameter></term>
-    <listitem><para>If <function>True</function> the &ldquo;Save Yourself&rdquo; operation was completed successfully.</para></listitem>
+    <listitem><para>If <constant>True</constant> the &ldquo;Save Yourself&rdquo; operation was completed successfully.</para></listitem>
   </varlistentry>
 </variablelist>
 
@@ -1292,7 +1311,7 @@ the session management protocol associated with this session.
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmcVendor</function></funcdef>
+      <funcdef>char *<function>SmcVendor</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -1305,7 +1324,7 @@ be freed with a call to <function>free</function>
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmcRelease</function></funcdef>
+      <funcdef>char *<function>SmcRelease</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -1318,7 +1337,7 @@ with a call to <function>free</function>
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmcClientID</function></funcdef>
+      <funcdef>char *<function>SmcClientID</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -1360,7 +1379,7 @@ standard.
 If the client receives an unexpected protocol error from the session
 manager, an error handler is invoked by SMlib.  A default error
 handler exists that simply prints the error message
-to <function>stderr</function> and exits if the severity of the error
+to <varname>stderr</varname> and exits if the severity of the error
 is fatal.  The client can change this error handler by calling
 the <function>SmcSetErrorHandler</function> function.
     </para>
@@ -1373,7 +1392,8 @@ the <function>SmcSetErrorHandler</function> function.
 </funcsynopsis>
 
     <para>
-The error handler.  You should pass NULL to restore the default handler.
+The error handler.  You should pass <constant>NULL</constant> to
+restore the default handler.
     </para>
 
 
@@ -1421,7 +1441,10 @@ The <function>SmcErrorHandler</function> has the following type:
   </varlistentry>
   <varlistentry>
      <term><parameter>severity</parameter></term>
-     <listitem><para><function>IceCanContinue</function><function>IceFatalToProtocol</function> or <function>IceFatalToConnection</function></para></listitem>
+     <listitem><para><constant>IceCanContinue</constant>,
+	 <constant>IceFatalToProtocol</constant>, or
+	 <constant>IceFatalToConnection</constant>
+     </para></listitem>
   </varlistentry>
   <varlistentry>
      <term><parameter>values</parameter></term>
@@ -1510,11 +1533,15 @@ time a new client connects to the session manager.
   </varlistentry>
   <varlistentry>
     <term><parameter>error_length</parameter></term>
-    <listitem><para>Length of the error_string_ret argument passed in.</para></listitem>
+    <listitem><para>Length of the <parameter>error_string_ret</parameter> argument passed in.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>error_string_ret</parameter></term>
-    <listitem><para>Returns a null-terminated error message, if any.  The error_string_ret points to user supplied memory.  No more than error_length bytes are used.</para></listitem>
+    <listitem><para>
+Returns a null-terminated error message, if any.
+The <parameter>error_string_ret</parameter> points to user supplied memory.
+No more than <parameter>error_length</parameter> bytes are used.
+    </para></listitem>
   </varlistentry>
 </variablelist>
 
@@ -1581,32 +1608,33 @@ the different messages that the client might send.
     <para>
 If a failure occurs, the <function>SmsNewClientProc</function> should
 return a zero status as well as allocate and return a failure reason
-string in failure_reason_ret.
+string in <parameter>failure_reason_ret</parameter>.
 SMlib will be responsible for freeing this memory.
     </para>
 
     <para>
 The session manager must register a set of callbacks to respond to
-client events.  The mask_ret argument specifies which callbacks are
-set.  All of the callbacks specified in this version of SMlib are
-mandatory.  The mask_ret argument is necessary in order to maintain
-backwards compatibility in future versions of the library.
+client events.  The <parameter>mask_ret</parameter> argument specifies
+which callbacks are set.  All of the callbacks specified in this version of
+SMlib are mandatory.  The <parameter>mask_ret</parameter> argument is
+necessary in order to maintain backwards compatibility in future versions
+of the library.
     </para>
 
     <para>
 The following values may be ORed together to obtain a mask value:
 
 <synopsis>
-<function>SmsRegisterClientProcMask</function>
-<function>SmsInteractRequestProcMask</function>
-<function>SmsInteractDoneProcMask</function>
-<function>SmsSaveYourselfRequestProcMask</function>
-<function>SmsSaveYourselfP2RequestProcMask</function>
-<function>SmsSaveYourselfDoneProcMask</function>
-<function>SmsCloseConnectionProcMask</function>
-<function>SmsSetPropertiesProcMask</function>
-<function>SmsDeletePropertiesProcMask</function>
-<function>SmsGetPropertiesProcMask</function>
+<constant>SmsRegisterClientProcMask</constant>
+<constant>SmsInteractRequestProcMask</constant>
+<constant>SmsInteractDoneProcMask</constant>
+<constant>SmsSaveYourselfRequestProcMask</constant>
+<constant>SmsSaveYourselfP2RequestProcMask</constant>
+<constant>SmsSaveYourselfDoneProcMask</constant>
+<constant>SmsCloseConnectionProcMask</constant>
+<constant>SmsSetPropertiesProcMask</constant>
+<constant>SmsDeletePropertiesProcMask</constant>
+<constant>SmsGetPropertiesProcMask</constant>
 </synopsis>
     </para>
 
@@ -1710,18 +1738,19 @@ must be registered with the session manager.
       </para>
 
       <para>
-If the client is being restarted from a previous session, previous_id
-will contain a null-terminated string representing the client ID from
-the previous session.  Call <function>free</function> on the
-previous_id pointer when it is no longer needed.  If the client is
-first joining the session, previous_id will be NULL.
+If the client is being restarted from a previous session,
+<parameter>previous_id</parameter> will contain a null-terminated string
+representing the client ID from the previous session.
+Call <function>free</function> on the <parameter>previous_id</parameter>
+pointer when it is no longer needed.  If the client is first joining the
+session, <parameter>previous_id</parameter> will be <constant>NULL</constant>.
       </para>
 
       <para>
-If previous_id is invalid, the session manager should not register the
-client at this time.  This callback should return a status of zero,
-which will cause an error message to be sent to the client.  The
-client should re-register with previous_id set to NULL.
+If <parameter>previous_id</parameter> is invalid, the session manager should
+not register the client at this time.  This callback should return a status
+of zero, which will cause an error message to be sent to the client.  The
+client should re-register with previous_id set to <constant>NULL</constant>.
       </para>
 
       <para>
@@ -1767,8 +1796,9 @@ type <function>SmsInteractRequestProc</function>
 
       <para>
 When a client receives a &ldquo;Save Yourself&rdquo; message with an
-interact_style of <function>SmInteractStyleErrors</function>
-or <function>SmInteractStyleAny</function> the client may choose to
+<parameter>interact_style</parameter> of
+<constant>SmInteractStyleErrors</constant>
+or <constant>SmInteractStyleAny</constant> the client may choose to
 interact with the user.  Because only one client can interact with the
 user at a time, the client must request to interact with the user.
 The session manager should keep a queue of all clients wishing to
@@ -1778,9 +1808,9 @@ before continuing with the next client.
       </para>
 
       <para>
-The dialog_type argument specifies
-either <function>SmDialogError</function> indicating that the client
-wants to start an error dialog, or <function>SmDialogNormal</function>
+The <parameter>dialog_type</parameter> argument specifies
+either <constant>SmDialogError</constant> indicating that the client
+wants to start an error dialog, or <constant>SmDialogNormal</constant>
 meaning that the client wishes to start a nonerror dialog.
       </para>
 
@@ -1827,9 +1857,10 @@ the <function>SmsInteractDoneProc</function> callback will be invoked.
 
       <para>
 Note that the shutdown can be cancelled only if the corresponding
-&ldquo;Save Yourself&rdquo; specified <function>True</function> for
-shutdown and <function>SmInteractStyleErrors</function>
-or <function>SmInteractStyleAny</function> for the interact_style.
+&ldquo;Save Yourself&rdquo; specified <constant>True</constant> for
+shutdown and <constant>SmInteractStyleErrors</constant>
+or <constant>SmInteractStyleAny</constant> for the
+<parameter>interact_style</parameter>.
       </para>
     </sect2>
 
@@ -1878,7 +1909,7 @@ type <function>SmsSaveYourselfRequestProc</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>fast</parameter></term>
-    <listitem><para>If <function>True</function> the client should save its state as quickly as possible.</para></listitem>
+    <listitem><para>If <constant>True</constant> the client should save its state as quickly as possible.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>global</parameter></term>
@@ -1888,17 +1919,18 @@ type <function>SmsSaveYourselfRequestProc</function>
 
       <para>
 The Save Yourself Request prompts the session manager to initiate a
-checkpoint or shutdown.  For information on the save_type, shutdown,
-interact_style, and fast arguments,
-see <link linkend='sending_a_save_yourself_message'>section 6.3,
+checkpoint or shutdown.  For information on the
+<parameter>save_type</parameter>, <parameter>shutdown</parameter>,
+<parameter>interact_style</parameter>, and <parameter>fast</parameter>
+arguments, see <link linkend='sending_a_save_yourself_message'>section 6.3,
 &ldquo;Sending a Save Yourself Message.&rdquo;</link>
       </para>
 
       <para>
-If global is set to <function>True</function> then the resulting
-&ldquo;Save Yourself&rdquo; should be sent to all applications.  If
-global is set to <function>False</function> then the &ldquo;Save
-Yourself&rdquo; should only be sent to the client that requested it.
+If <parameter>global</parameter> is set to <constant>True</constant> then the
+resulting &ldquo;Save Yourself&rdquo; should be sent to all applications.
+If <parameter>global</parameter> is set to <constant>False</constant> then the
+&ldquo;Save Yourself&rdquo; should only be sent to the client that requested it.
       </para>
     </sect2>
 
@@ -1906,7 +1938,8 @@ Yourself&rdquo; should only be sent to the client that requested it.
       <title>The Save Yourself Phase 2 Request Callback</title>
 
       <para>
-The Save Yourself Phase 2 Request callback is of type <function>SmsSaveYourselfPhase2RequestProc</function>
+The Save Yourself Phase 2 Request callback is of
+type <function>SmsSaveYourselfPhase2RequestProc</function>
       </para>
 
 <funcsynopsis>
@@ -1965,7 +1998,7 @@ the <function>SmsSaveYourselfDoneProc</function> will be invoked.
   </varlistentry>
   <varlistentry>
     <term><parameter>success</parameter></term>
-    <listitem><para>If <function>True</function> the Save Yourself operation was completed successfully.</para></listitem>
+    <listitem><para>If <constant>True</constant> the Save Yourself operation was completed successfully.</para></listitem>
   </varlistentry>
 </variablelist>
 
@@ -1981,7 +2014,7 @@ the session manager.
 
       <para>
 If the client properly terminates (that is, it
-calls <function>SmcCloseConnection</function>
+calls <function>SmcCloseConnection</function>,
 the <function>SmsCloseConnectionProc</function> callback is invoked.
       </para>
 
@@ -2015,7 +2048,8 @@ the <function>SmsCloseConnectionProc</function> callback is invoked.
 </variablelist>
 
       <para>
-The reason_msgs argument will most likely be NULL and the count
+The <parameter>reason_msgs</parameter> argument will most likely
+be <constant>NULL</constant> and the <parameter>count</parameter>
 argument zero (0) if resignation is expected by the user.  Otherwise,
 it contains a list of null-terminated Compound Text strings
 representing the reason for termination.  The session manager should
@@ -2069,7 +2103,7 @@ the <function>SmsSetPropertiesProc</function> callback will be invoked.
       <para>
 The properties are specified as an array of property pointers.  For a
 description of session management properties and
-the <function>SmProp</function> structure,
+the <structname>SmProp</structname> structure,
 see <link linkend='session_management_properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
       </para>
@@ -2128,7 +2162,7 @@ the <function>SmsDeletePropertiesProc</function> callback will be invoked.
       <para>
 The properties are specified as an array of strings.  For a
 description of session management properties and
-the <function>SmProp</function> structure,
+the <structname>SmProp</structname> structure,
 see <link linkend='session_management_properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
       </para>
@@ -2205,15 +2239,19 @@ it's own internal needs.
     </para>
 
     <para>
-If a non-NULL previous_id was specified when the client registered
-itself, client_id should be identical to previous_id.
+If a non-<constant>NULL</constant> <parameter>previous_id</parameter> was
+specified when the client registered itself, <parameter>client_id</parameter>
+should be identical to <parameter>previous_id</parameter>.
     </para>
 
     <para>
-Otherwise, client_id should be a unique ID freshly generated by the
-session manager.  In addition, the session manager should send a
-&ldquo;Save Yourself&rdquo; message with type = Local,
-shutdown = False, interact-style = None, and fast = False
+Otherwise, <parameter>client_id</parameter> should be a unique ID freshly
+generated by the session manager.  In addition, the session manager should
+send a &ldquo;Save Yourself&rdquo; message with
+<parameter>type</parameter> = <constant>Local</constant>,
+<parameter>shutdown</parameter> = <constant>False</constant>,
+<parameter>interact-style</parameter> = <constant>None</constant>,
+and <parameter>fast</parameter> = <constant>False</constant>
 immediately after registering the client.
     </para>
 
@@ -2235,7 +2273,7 @@ to generate a globally unique client ID.
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmsGenerateClientID</function></funcdef>
+      <funcdef>char *<function>SmsGenerateClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -2249,7 +2287,7 @@ to generate a globally unique client ID.
 
 
     <para>
-NULL will be returned if the ID could not be generated.
+<constant>NULL</constant> will be returned if the ID could not be generated.
 Otherwise, the return value of the function is the client ID.
 It should be freed with a call to <function>free</function> when
 no longer needed.
@@ -2294,7 +2332,7 @@ use <function>SmsSaveYourself</function>.
   </varlistentry>
   <varlistentry>
     <term><parameter>fast</parameter></term>
-    <listitem><para>If <function>True</function> the client should save its state as quickly as possible.</para></listitem>
+    <listitem><para>If <constant>True</constant> the client should save its state as quickly as possible.</para></listitem>
   </varlistentry>
 </variablelist>
 
@@ -2309,11 +2347,14 @@ sends a &ldquo;Save Yourself Done&rdquo; message.
     </para>
 
     <para>
-If interact_style is <function>SmInteractStyleNone</function> the
-client must not interact with the user while saving state.  If
-interact_style is <function>SmInteractStyleErrors</function> the
+If <parameter>interact_style</parameter>
+is <constant>SmInteractStyleNone</constant> the
+client must not interact with the user while saving state.
+If <parameter>interact_style</parameter>
+is <constant>SmInteractStyleErrors</constant> the
 client may interact with the user only if an error condition arises.
-If interact_style is <function>SmInteractStyleAny</function> then the
+If <parameter>interact_style</parameter>
+is <constant>SmInteractStyleAny</constant> then the
 client may interact with the user for any purpose.  The client must
 send an &ldquo;Interact Request&rdquo; message and wait for an
 &ldquo;Interact&rdquo; message from the session manager before it can
@@ -2325,20 +2366,22 @@ Done.&rdquo;
     </para>
 
     <para>
-If save_type is <function>SmSaveLocal</function> the client must
-update the properties to reflect its current state.  Specifically, it
-should save enough information to restore the state as seen by the
-user of this client.  It should not affect the state as seen by other
-users.  If save_type is <function>SmSaveGlobal</function> the user
-wants the client to commit all of its data to permanent, globally
-accessible storage.  If save_type is <function>SmSaveBoth</function>
+If <parameter>save_type</parameter> is <constant>SmSaveLocal</constant>
+the client must update the properties to reflect its current state.
+Specifically, it should save enough information to restore the state as
+seen by the user of this client.  It should not affect the state as seen
+by other users.
+If <parameter>save_type</parameter> is <constant>SmSaveGlobal</constant>
+the user wants the client to commit all of its data to permanent, globally
+accessible storage.
+If <parameter>save_type</parameter> is <constant>SmSaveBoth</constant>
 the client should do both of these (it should first commit the data to
 permanent storage before updating its properties).
     </para>
 
     <para>
-The shutdown argument specifies whether the session is being shut
-down.  The interaction is different depending on whether or not
+The <parameter>shutdown</parameter> argument specifies whether the session
+is being shut down.  The interaction is different depending on whether or not
 shutdown is set.  If not shutting down, then the client can save and
 resume normal operation.  If shutting down, the client must save and
 then must prevent interaction until it receives either a
@@ -2347,10 +2390,10 @@ anything the user does after the save will be lost.
     </para>
 
     <para>
-The fast argument specifies that the client should save its state as
-quickly as possible.  For example, if the session manager knows that
-power is about to fail, it should set fast
-to <function>True</function>
+The <parameter>fast</parameter> argument specifies that the client should
+save its state as quickly as possible.  For example, if the session manager
+knows that power is about to fail, it should set <parameter>fast</parameter>
+to <constant>True</constant>.
     </para>
   </sect1>
 
@@ -2496,9 +2539,10 @@ To cancel a shutdown, use <function>SmsShutdownCancelled</function>.
 The client can now continue as if the shutdown had never happened.  If
 the client has not sent a &ldquo;Save Yourself Done&rdquo; message
 yet, it can either abort the save and send a &ldquo;Save Yourself
-Done&rdquo; with the success argument set to <function>False</function>
+Done&rdquo; with the success argument set to <constant>False</constant>
 or it can continue with the save and send a &ldquo;Save Yourself Done&rdquo;
-with the success argument set to reflect the outcome of the save.
+with the <parameter>success</parameter> argument set to reflect the outcome
+of the save.
     </para>
   </sect1>
 <!-- aaaaaaaaaaaaaaaaa -->
@@ -2538,7 +2582,7 @@ manager should call <function>SmsReturnProperties</function>.
     <para>
 The properties are returned as an array of property pointers.  For a
 description of session management properties and
-the <function>SmProp</function> structure,
+the <structname>SmProp</structname> structure,
 see <link linkend='session_management_properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
     </para>
@@ -2665,7 +2709,7 @@ the session management protocol associated with this session.
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmsClientID</function></funcdef>
+      <funcdef>char *<function>SmsClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -2686,7 +2730,7 @@ This host name will be needed to restart the client.
 
 <funcsynopsis>
    <funcprototype>
-      <funcdef>char <function>*SmsClientHostName</function></funcdef>
+      <funcdef>char *<function>SmsClientHostName</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
   </funcprototype>
 </funcsynopsis>
@@ -2739,7 +2783,8 @@ calling <function>SmsSetErrorHandler</function>.
 </funcsynopsis>
 
     <para>
-The error handler.  You should pass NULL to restore the default handler.
+The error handler.  You should pass <constant>NULL</constant>
+to restore the default handler.
     </para>
 
     <para>
@@ -2783,7 +2828,11 @@ The <function>SmsErrorHandler</function> has the following type:
   </varlistentry>
   <varlistentry>
     <term><parameter>severity</parameter></term>
-    <listitem><para><function>IceCanContinue</function><function>IceFatalToProtocol</function> or <function>IceFatalToConnection</function></para></listitem>
+    <listitem><para>
+	<constant>IceCanContinue</constant>,
+	<constant>IceFatalToProtocol</constant>, or
+	<constant>IceFatalToConnection</constant>
+    </para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>values</parameter></term>
@@ -2806,7 +2855,7 @@ standard.
   <title>Session Management Properties</title>
 
   <para>
-Each property is defined by the <function>SmProp</function> structure:
+Each property is defined by the <structname>SmProp</structname> structure:
 
 <synopsis>
 typedef struct {
@@ -2831,9 +2880,9 @@ which ones are required.  Each property has a type associated with it.
   </para>
 
   <para>
-A type of SmCARD8 indicates that there is a single 1-byte value.
-A type of SmARRAY8 indicates that there is a single array of bytes.
-A type of SmLISTofARRAY8 indicates that there is a list of array of
+A type of <type>SmCARD8</type> indicates that there is a single 1-byte value.
+A type of <type>SmARRAY8</type> indicates that there is a single array of bytes.
+A type of <type>SmLISTofARRAY8</type> indicates that there is a list of array of
 bytes.
   </para>
 
@@ -2853,69 +2902,69 @@ bytes.
     </thead>
     <tbody>
       <row>
-        <entry align='left'>SmCloneCommand</entry>
+        <entry align='left'><property>SmCloneCommand</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>Yes</entry>
       </row>
       <row>
-        <entry align='left'>SmCurrentDirectory</entry>
+        <entry align='left'><property>SmCurrentDirectory</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmARRAY8</entry>
+        <entry align='left'><type>SmARRAY8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmDiscardCommand</entry>
+        <entry align='left'><property>SmDiscardCommand</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>No*</entry>
       </row>
       <row>
-        <entry align='left'>SmEnvironment</entry>
+        <entry align='left'><property>SmEnvironment</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmProcessID</entry>
+        <entry align='left'><property>SmProcessID</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmARRAY8</entry>
+        <entry align='left'><type>SmARRAY8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmProgram</entry>
+        <entry align='left'><property>SmProgram</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmARRAY8</entry>
+        <entry align='left'><type>SmARRAY8</type></entry>
         <entry align='center'>Yes</entry>
       </row>
       <row>
-        <entry align='left'>SmRestartCommand</entry>
+        <entry align='left'><property>SmRestartCommand</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>Yes</entry>
       </row>
       <row>
-        <entry align='left'>SmResignCommand</entry>
+        <entry align='left'><property>SmResignCommand</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmRestartStyleHint</entry>
-        <entry align='left'>SmCARD8</entry>
-        <entry align='left'>SmCARD8</entry>
+        <entry align='left'><property>SmRestartStyleHint</property></entry>
+        <entry align='left'><type>SmCARD8</type></entry>
+        <entry align='left'><type>SmCARD8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmShutdownCommand</entry>
+        <entry align='left'><property>SmShutdownCommand</property></entry>
         <entry align='left'>OS-specific</entry>
-        <entry align='left'>SmLISTofARRAY8</entry>
+        <entry align='left'><type>SmLISTofARRAY8</type></entry>
         <entry align='center'>No</entry>
       </row>
       <row>
-        <entry align='left'>SmUserID</entry>
-        <entry align='left'>SmARRAY8</entry>
-        <entry align='left'>SmARRAY8</entry>
+        <entry align='left'><property>SmUserID</property></entry>
+        <entry align='left'><type>SmARRAY8</type></entry>
+        <entry align='left'><type>SmARRAY8</type></entry>
         <entry align='center'>Yes</entry>
       </row>
     </tbody>
@@ -2928,72 +2977,78 @@ example, state file).
   </para>
 
   <itemizedlist mark='bullet'>
-    <listitem><para>SmCloneCommand</para>
+    <listitem><para><property>SmCloneCommand</property></para>
       <para>
-This is like the SmRestartCommand, except it restarts a copy of the
-application.  The only difference is that the application does not
-supply its client ID at register time.  On POSIX systems, this should
-be of type SmLISTofARRAY8.
+This is like the <property>SmRestartCommand</property>, except it restarts a
+copy of the application.  The only difference is that the application does not
+supply its client ID at register time.  On <acronym>POSIX</acronym> systems,
+this should be of type <type>SmLISTofARRAY8</type>.
     </para></listitem>
-    <listitem><para>SmCurrentDirectory</para>
+    <listitem><para><property>SmCurrentDirectory</property></para>
       <para>
-On POSIX-based systems, this specifies the value of the current
-directory that needs to be set up prior to starting the SmProgram and
-should of type SmARRAY8.
+On <acronym>POSIX</acronym>-based systems, this specifies the value of the
+current directory that needs to be set up prior to starting the
+<property>SmProgram</property> and should of type <type>SmARRAY8</type>.
     </para></listitem>
-    <listitem><para>SmDiscardCommand</para>
+    <listitem><para><property>SmDiscardCommand</property></para>
       <para>
 The discard command contains a command that when delivered to the host
 that the client is running on (determined from the connection), will
 cause it to discard any information about the current state.  If this
 command is not specified, the Session Manager will assume that all of
-the client's state is encoded in the SmRestartCommand.  On POSIX
-systems, the type should be SmLISTofARRAY8.
+the client's state is encoded in the <property>SmRestartCommand</property>.
+On <acronym>POSIX</acronym> systems, the type should be
+<type>SmLISTofARRAY8</type>.
     </para></listitem>
-    <listitem><para>SmEnvironment</para>
+    <listitem><para><property>SmEnvironment</property></para>
       <para>
-On POSIX based systems, this will be of type SmLISTofARRAY8, where the
-ARRAY8s alternate between environment variable name and environment
-variable value.
+On <acronym>POSIX</acronym> based systems, this will be of type
+<type>SmLISTofARRAY8</type>, where the <type>ARRAY8</type>s alternate between
+environment variable name and environment variable value.
     </para></listitem>
-    <listitem><para>SmProcessID</para>
+    <listitem><para><property>SmProcessID</property></para>
       <para>
 This specifies an OS-specific identifier for the process.
-On POSIX systems, this should contain the return value
+On <acronym>POSIX</acronym> systems, this should contain the return value
 of <function>getpid</function> turned into a Latin-1 (decimal) string.
     </para></listitem>
-    <listitem><para>SmProgram</para>
+    <listitem><para><property>SmProgram</property></para>
       <para>
-This is the name of the program that is running.  On POSIX systems,
-this should be first parameter passed to <function>execve</function>
-and should be of type SmARRAY8.
+This is the name of the program that is running.  On <acronym>POSIX</acronym>
+systems, this should be first parameter passed to <function>execve</function>
+and should be of type <type>SmARRAY8</type>.
     </para></listitem>
-    <listitem><para>SmRestartCommand</para>
+    <listitem><para><property>SmRestartCommand</property></para>
       <para>
 The restart command contains a command that, when delivered to the
 host that the client is running on (determined from the connection),
-will cause the client to restart in its current state.  On POSIX-based
-systems, this is of type SmLISTofARRAY8, and each of the elements in
-the array represents an element in the <function>argv</function>
+will cause the client to restart in its current state.
+On <acronym>POSIX</acronym>-based systems, this is of
+type <type>SmLISTofARRAY8</type>, and each of the elements in
+the array represents an element in the <varname>argv</varname>
 array.  This restart command should ensure that the client restarts
 with the specified client-ID.
     </para></listitem>
-    <listitem><para>SmResignCommand</para>
+    <listitem><para><property>SmResignCommand</property></para>
       <para>
-A client that sets the SmRestartStyleHint to SmRestartAnway uses this
-property to specify a command that undoes the effect of the client and
-removes any saved state.  As an example, consider a user that
-runs <function>xmodmap</function> which registers with the Session
-Manager, sets SmRestartStyleHint to SmRestartAnyway, and then
+A client that sets the <property>SmRestartStyleHint</property>
+to <constant>SmRestartAnyway</constant> uses this property to specify a
+command that undoes the effect of the client and removes any saved state.
+As an example, consider a user that runs <command>xmodmap</command> which
+registers with the Session Manager,
+sets <property>SmRestartStyleHint</property>
+to <constant>SmRestartAnyway</constant>, and then
 terminates.  To allow the Session Manager (at the user's request) to
-undo this, <function>xmodmap</function> would register a
-SmResignCommand that undoes the effects of the <function>xmodmap</function>.
+undo this, <command>xmodmap</command> would register a
+<property>SmResignCommand</property> that undoes the effects of
+the <command>xmodmap</command>.
     </para></listitem>
-    <listitem><para>SmRestartStyleHint</para>
+    <listitem><para><property>SmRestartStyleHint</property></para>
       <para>
-If the RestartStyleHint property is present, it will contain the style
-of restarting the client prefers.  If this style is not specified,
-SmRestartIfRunning is assumed.  The possible values are as follows:
+If the <property>SmRestartStyleHint</property> is present, it will contain the
+style of restarting the client prefers.  If this style is not specified,
+<constant>SmRestartIfRunning</constant> is assumed.
+The possible values are as follows:
 
 <informaltable pgwide='0' frame='none'>
   <tgroup cols='2' align='center'>
@@ -3007,19 +3062,19 @@ SmRestartIfRunning is assumed.  The possible values are as follows:
     </thead>
     <tbody>
       <row>
-        <entry align='left'>SmRestartIfRunning</entry>
+        <entry align='left'><constant>SmRestartIfRunning</constant></entry>
         <entry align='right'>0</entry>
       </row>
       <row>
-        <entry align='left'>SmRestartAnyway</entry>
+        <entry align='left'><constant>SmRestartAnyway</constant></entry>
         <entry align='right'>1</entry>
       </row>
       <row>
-        <entry align='left'>SmRestartImmediately</entry>
+        <entry align='left'><constant>SmRestartImmediately</constant></entry>
         <entry align='right'>2</entry>
       </row>
       <row>
-        <entry align='left'>SmRestartNever</entry>
+        <entry align='left'><constant>SmRestartNever</constant></entry>
         <entry align='right'>3</entry>
       </row>
     </tbody>
@@ -3028,23 +3083,23 @@ SmRestartIfRunning is assumed.  The possible values are as follows:
       </para>
 
       <para>
-The SmRestartIfRunning style is used in the usual case.
+The <constant>SmRestartIfRunning</constant> style is used in the usual case.
 The client should be restarted in the next session if it was running at
 the end of the current session.
       </para>
 
       <para>
-The SmRestartAnyway style is used to tell the Session Manager that the
-application should be restarted in the next session even if it exits
-before the current session is terminated.  It should be noted that
+The <constant>SmRestartAnyway</constant> style is used to tell the Session
+Manager that the application should be restarted in the next session even if
+it exits before the current session is terminated.  It should be noted that
 this is only a hint and the Session Manager will follow the policies
 specified by its users in determining what applications to restart.
       </para>
 
       <para>
-A client that uses SmRestartAnyway should also set the SmResignCommand
-and SmShutdownCommand properties to commands that undo the state of
-the client after it exits.
+A client that uses <constant>SmRestartAnyway</constant> should also set the
+<property>SmResignCommand</property> and <property>SmShutdownCommand</property>
+properties to commands that undo the state of the client after it exits.
       </para>
 
       <para>
@@ -3052,26 +3107,29 @@ The SmRestartImmediately style is like SmRestartAnyway, but, in addition, the cl
       </para>
 
       <para>
-SmRestartNever style specifies that the client does not wish to be
-restarted in the next session.
+<constant>SmRestartNever</constant> style specifies that the client does not
+wish to be restarted in the next session.
       </para>
     </listitem>
-    <listitem><para>SmShutdownCommand</para>
+    <listitem><para><property>SmShutdownCommand</property></para>
       <para>
 This command is executed at shutdown time to clean up after a client
 that is no longer running but retained its state by setting
-SmRestartStyleHint to SmRestartAnyway.  The client must not remove any
-saved state as the client is still part of the session.  As an
+<property>SmRestartStyleHint</property> to
+<constant>SmRestartAnyway</constant>.  The client must not remove any saved
+state as the client is still part of the session.  As an
 example, consider a client that turns on a camera at start up time.
 This client then exits.  At session shutdown, the user wants the
-camera turned off.  This client would set the SmRestartStyleHint to
-SmRestartAnyway and would register a SmShutdownCommand that would turn
-off the camera.
+camera turned off.  This client would set the
+<property>SmRestartStyleHint</property> to
+<constant>SmRestartAnyway</constant> and would register
+a <property>SmShutdownCommand</property> that would turn off the camera.
     </para></listitem>
-    <listitem><para>SmUserID</para>
+    <listitem><para><property>SmUserID</property></para>
       <para>
-Specifies the user ID.  On POSIX-based systems, this will contain the
-user's name (the pw_name member of struct <function>passwd</function>).
+Specifies the user ID.  On <acronym>POSIX</acronym>-based systems, this will
+contain the user's name (the <structfield>pw_name</structfield> member of
+<structname>struct passwd</structname>).
     </para></listitem>
   </itemizedlist>
 </chapter>
