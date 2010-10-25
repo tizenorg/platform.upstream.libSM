@@ -444,12 +444,12 @@ backwards compatibility in future versions of the library.
 The following values may be ORed together to obtain a
 <parameter>mask</parameter> value:
 
-<synopsis>
-<constant>SmcSaveYourselfProcMask</constant>
-<constant>SmcDieProcMask</constant>
-<constant>SmcSaveCompleteProcMask</constant>
-<constant>SmcShutdownCancelledProcMask</constant>
-</synopsis>
+      <simplelist type='vert'>
+	<member><constant>SmcSaveYourselfProcMask</constant></member>
+	<member><constant>SmcDieProcMask</constant></member>
+	<member><constant>SmcSaveCompleteProcMask</constant></member>
+	<member><constant>SmcShutdownCancelledProcMask</constant></member>
+      </simplelist>
     </para>
 
     <para>
@@ -843,12 +843,12 @@ use <function>SmcModifyCallbacks</function>
 When specifying a value for the <parameter>mask</parameter> argument,
 the following values may be ORed together:
 
-<synopsis>
-<constant>SmcSaveYourselfProcMask</constant>
-<constant>SmcDieProcMask</constant>
-<constant>SmcSaveCompleteProcMask</constant>
-<constant>SmcShutdownCancelledProcMask</constant>
-</synopsis>
+      <simplelist type='vert'>
+	<member><constant>SmcSaveYourselfProcMask</constant></member>
+	<member><constant>SmcDieProcMask</constant></member>
+	<member><constant>SmcSaveCompleteProcMask</constant></member>
+	<member><constant>SmcShutdownCancelledProcMask</constant></member>
+      </simplelist>
     </para>
   </sect1>
 
@@ -1624,18 +1624,18 @@ of the library.
     <para>
 The following values may be ORed together to obtain a mask value:
 
-<synopsis>
-<constant>SmsRegisterClientProcMask</constant>
-<constant>SmsInteractRequestProcMask</constant>
-<constant>SmsInteractDoneProcMask</constant>
-<constant>SmsSaveYourselfRequestProcMask</constant>
-<constant>SmsSaveYourselfP2RequestProcMask</constant>
-<constant>SmsSaveYourselfDoneProcMask</constant>
-<constant>SmsCloseConnectionProcMask</constant>
-<constant>SmsSetPropertiesProcMask</constant>
-<constant>SmsDeletePropertiesProcMask</constant>
-<constant>SmsGetPropertiesProcMask</constant>
-</synopsis>
+      <simplelist type='vert'>
+	<member><constant>SmsRegisterClientProcMask</constant></member>
+	<member><constant>SmsInteractRequestProcMask</constant></member>
+	<member><constant>SmsInteractDoneProcMask</constant></member>
+	<member><constant>SmsSaveYourselfRequestProcMask</constant></member>
+	<member><constant>SmsSaveYourselfP2RequestProcMask</constant></member>
+	<member><constant>SmsSaveYourselfDoneProcMask</constant></member>
+	<member><constant>SmsCloseConnectionProcMask</constant></member>
+	<member><constant>SmsSetPropertiesProcMask</constant></member>
+	<member><constant>SmsDeletePropertiesProcMask</constant></member>
+	<member><constant>SmsGetPropertiesProcMask</constant></member>
+      </simplelist>
     </para>
 
     <para>
