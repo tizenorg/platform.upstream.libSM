@@ -1,15 +1,15 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+dnl                                               -*- Autoconf -*-
+dnl Process this file with autoconf to produce a configure script.
 
+# Initialize Autoconf
 AC_PREREQ(2.60)
-AC_INIT([libSM],
-        [1.2.0],
-        [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],
-        libSM)
-
+AC_INIT([libSM], [1.2.0],
+        [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg], [libSM])
 AC_CONFIG_SRCDIR([Makefile.am])
-AM_INIT_AUTOMAKE([foreign dist-bzip2])
+AC_CONFIG_HEADERS([config.h])
 
+# Initialize Automake
+AM_INIT_AUTOMAKE([foreign dist-bzip2])
 AM_MAINTAINER_MODE
 
 # Require xorg-macros minimum of 1.10 for DocBook XML documentation
@@ -21,8 +21,6 @@ XORG_ENABLE_DOCS
 XORG_WITH_XMLTO(0.0.20)
 XORG_WITH_FOP
 XORG_CHECK_SGML_DOCTOOLS(1.5)
-
-AM_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_LIBTOOL
