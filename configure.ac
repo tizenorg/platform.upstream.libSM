@@ -26,16 +26,10 @@ AM_CONFIG_HEADER([config.h])
 
 # Checks for programs.
 AC_PROG_LIBTOOL
-AC_PROG_CC
 
 # Checks for pkg-config packages
 PKG_CHECK_MODULES(SM, [ice >= 1.0.5] xproto)
-AC_SUBST(SM_CFLAGS)
-AC_SUBST(SM_LIBS)
-
 PKG_CHECK_MODULES(XTRANS, xtrans)
-AC_SUBST(XTRANS_CFLAGS)
-AC_SUBST(XTRANS_LIBS)
 
 # Checks for libraries.
 
