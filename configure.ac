@@ -29,11 +29,6 @@ AC_PROG_LIBTOOL
 PKG_CHECK_MODULES(SM, [ice >= 1.0.5] xproto)
 PKG_CHECK_MODULES(XTRANS, xtrans)
 
-# Checks for libraries.
-
-# Checks for header files.
-AC_HEADER_STDC
-
 # Needed to check for TCP & IPv6 support and set flags appropriately
 XTRANS_CONNECTION_FLAGS
 
