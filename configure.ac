@@ -32,7 +32,7 @@ PKG_CHECK_MODULES(XTRANS, xtrans)
 # Needed to check for TCP & IPv6 support and set flags appropriately
 XTRANS_CONNECTION_FLAGS
 
-AC_ARG_WITH(libuuid, AC_HELP_STRING([--with-libuuid], [Build with libuuid support for client IDs]))
+AC_ARG_WITH(libuuid, AS_HELP_STRING([--with-libuuid], [Build with libuuid support for client IDs]))
 
 AC_CHECK_FUNCS([uuid_create], [], [
     if test x"$with_libuuid" != xno && test x"$have_system_uuid" != xyes; then
