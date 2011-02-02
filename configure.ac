@@ -1,5 +1,3 @@
-dnl                                               -*- Autoconf -*-
-dnl Process this file with autoconf to produce a configure script.
 
 # Initialize Autoconf
 AC_PREREQ(2.60)
@@ -12,6 +10,9 @@ AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign dist-bzip2])
 AM_MAINTAINER_MODE
 
+# Initialize libtool
+AC_PROG_LIBTOOL
+
 # Require xorg-macros minimum of 1.10 for DocBook XML documentation
 m4_ifndef([XORG_MACROS_VERSION],
           [m4_fatal([must install xorg-macros 1.10 or later before running autoconf/autogen])])
@@ -21,9 +22,6 @@ XORG_ENABLE_DOCS
 XORG_WITH_XMLTO(0.0.20)
 XORG_WITH_FOP
 XORG_CHECK_SGML_DOCTOOLS(1.5)
-
-# Checks for programs.
-AC_PROG_LIBTOOL
 
 # Checks for pkg-config packages
 PKG_CHECK_MODULES(SM, [ice >= 1.0.5] xproto)
@@ -45,7 +43,8 @@ AC_CHECK_FUNCS([uuid_create], [], [
 
 AM_CONDITIONAL(WITH_LIBUUID, test x"$HAVE_LIBUUID" = xyes)
 
-AC_OUTPUT([Makefile
-	   doc/Makefile
-	   src/Makefile
-	   sm.pc])
+AC_CONFIG_FILES([Makefile
+		doc/Makefile
+		src/Makefile
+		sm.pc])
+AC_OUTPUT
