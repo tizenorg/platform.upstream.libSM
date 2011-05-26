@@ -265,7 +265,7 @@ To open a connection with a session manager,
 use <function>SmcOpenConnection</function>
     </para>
 
-    <funcsynopsis>
+    <funcsynopsis id='smcopenconnection'>
       <funcprototype>
 	<funcdef>SmcConn <function>SmcOpenConnection</function></funcdef>
 	<paramdef>char *<parameter>network_ids_list</parameter></paramdef>
@@ -492,7 +492,7 @@ typedef struct {
 The Save Yourself callback is of type <function>SmcSaveYourselfProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='saveyourselfproc'>
 <funcprototype>
   <funcdef>typedef void (*<function>SaveYourselfProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -627,7 +627,7 @@ set <parameter>fast</parameter> to <constant>True</constant>.
 The Die callback is of type <function>SmcDieProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcdieproc'>
 <funcprototype>
   <funcdef>typedef void (*<function>SmcDieProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -663,7 +663,7 @@ before the &ldquo;Die&rdquo; message.
 The Save Complete callback is of type <function>SmcSaveCompleteProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcsavecompleteproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcSaveCompleteProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -692,7 +692,7 @@ The Shutdown Cancelled callback is of type
 <function>SmcShutdownCancelledProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcshutdowncancelledproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcShutdownCancelledProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -734,7 +734,7 @@ To close a connection with a session manager,
 use <function>SmcCloseConnection</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smccloseconnection'>
    <funcprototype>
       <funcdef>SmcCloseStatus <function>SmcCloseConnection</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -816,7 +816,7 @@ To modify callbacks set up in <function>SmcOpenConnection</function>
 use <function>SmcModifyCallbacks</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcmodifycallbacks'>
    <funcprototype>
       <funcdef>void <function>SmcModifyCallbacks</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -860,7 +860,7 @@ To set session management properties for this client,
 use <function>SmcSetProperties</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcsetproperties'>
    <funcprototype>
       <funcdef>void <function>SmcSetProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -907,7 +907,7 @@ To delete properties previously set by the client,
 use <function>SmcDeleteProperties</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcdeleteproperties'>
    <funcprototype>
       <funcdef>void <function>SmcDeleteProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -935,7 +935,7 @@ To get properties previously stored by the client,
 use <function>SmcGetProperties</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcgetproperties'>
    <funcprototype>
       <funcdef>Status <function>SmcGetProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -970,7 +970,7 @@ back.  Rather, a callback of type <function>SmcPropReplyProc</function>
 is invoked when the data is ready.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcpropreplyproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcPropReplyProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1020,7 +1020,7 @@ user at a time, the client must call <function>SmcInteractRequest</function>
 and wait for an &ldquo;Interact&rdquo; message from the session manager.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcinteractrequest'>
    <funcprototype>
       <funcdef>Status <function>SmcInteractRequest</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1078,7 +1078,7 @@ The <function>SmcInteractProc</function> callback will be invoked when
 the &ldquo;Interact&rdquo; message arrives from the session manager.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcinteractproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcInteractProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1102,7 +1102,7 @@ After interacting with the user (in response to an &ldquo;Interact&rdquo;
 message), you should call <function>SmcInteractDone</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcinteractdone'>
    <funcprototype>
       <funcdef>void <function>SmcInteractDone</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1138,7 +1138,7 @@ To request a checkpoint from the session manager,
 use <function>SmcRequestSaveYourself</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcrequestsaveyourself'>
    <funcprototype>
       <funcdef>void <function>SmcRequestSaveYourself</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1210,7 +1210,7 @@ informed when all the other clients are quiescent so that it can save their
 state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcrequestsaveyourselfphase2'>
    <funcprototype>
       <funcdef>Status <function>SmcRequestSaveYourselfPhase2</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1255,7 +1255,7 @@ After saving state in response to a &ldquo;Save Yourself&rdquo;
 message, you should call <function>SmcSaveYourselfDone</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcsaveyourselfdone'>
    <funcprototype>
       <funcdef>void <function>SmcSaveYourselfDone</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1284,7 +1284,7 @@ registered with the session manager.
   <sect1 id='using_smc_informational_functions'>
     <title>Using Smc Informational Functions</title>
 
-<funcsynopsis>
+<funcsynopsis id='smcprotocolversion'>
    <funcprototype>
       <funcdef>int <function>SmcProtocolVersion</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1297,7 +1297,7 @@ the session management protocol associated with this session.
     </para>
 
 
-<funcsynopsis>
+<funcsynopsis id='smcprotocolrevision'>
    <funcprototype>
       <funcdef>int <function>SmcProtocolRevision</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1309,7 +1309,7 @@ the session management protocol associated with this session.
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcvendor'>
    <funcprototype>
       <funcdef>char *<function>SmcVendor</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1322,7 +1322,7 @@ identification of the owner of the session manager.  The string should
 be freed with a call to <function>free</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcrelease'>
    <funcprototype>
       <funcdef>char *<function>SmcRelease</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1335,7 +1335,7 @@ release number of the session manager.  The string should be freed
 with a call to <function>free</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcclientid'>
    <funcprototype>
       <funcdef>char *<function>SmcClientID</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1350,7 +1350,7 @@ provided here for convenience).  Call <function>free</function> on
 this pointer when the client ID is no longer needed.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcgeticeconnection'>
    <funcprototype>
       <funcdef>IceConn <function>SmcGetIceConnection</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1384,7 +1384,7 @@ is fatal.  The client can change this error handler by calling
 the <function>SmcSetErrorHandler</function> function.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcseterrorhandler'>
   <funcprototype>
       <funcdef>SmcErrorHandler <function>SmcSetErrorHandler</function></funcdef>
       <paramdef>SmcErrorHandler <parameter>handler</parameter></paramdef>
@@ -1405,7 +1405,7 @@ restore the default handler.
 The <function>SmcErrorHandler</function> has the following type:
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smcerrorhandler'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcErrorHandler</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1495,7 +1495,7 @@ the session manager and registers a callback that will be invoked each
 time a new client connects to the session manager.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsinitialize'>
    <funcprototype>
       <funcdef>Status <function>SmsInitialize</function></funcdef>
       <paramdef>char *<parameter>vendor</parameter></paramdef>
@@ -1571,7 +1571,7 @@ session manager must also register a set of callbacks to respond to
 the different messages that the client might send.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsnewclientproc'>
    <funcprototype>
       <funcdef>typedef Status (*<function>SmsNewClientProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1708,7 +1708,7 @@ invoked after the client connects to the session manager.  Its type
 is <function>SmsRegisterClientProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsregisterclientproc'>
    <funcprototype>
       <funcdef>typedef Status (*<function>SmsRegisterClientProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1770,7 +1770,7 @@ The Interact Request callback is of
 type <function>SmsInteractRequestProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsinteractrequestproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsInteractRequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1831,7 +1831,7 @@ When the client is done interacting with the user,
 the <function>SmsInteractDoneProc</function> callback will be invoked.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsinteractdoneproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsInteractDoneProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1873,7 +1873,7 @@ The Save Yourself Request callback is of
 type <function>SmsSaveYourselfRequestProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='saveyourselfrequestproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SaveYourselfRequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1942,7 +1942,7 @@ The Save Yourself Phase 2 Request callback is of
 type <function>SmsSaveYourselfPhase2RequestProc</function>
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smssaveyourselfphase2requestproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsSaveYourselfPhase2RequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1978,7 +1978,7 @@ When the client is done saving its state in response to a
 the <function>SmsSaveYourselfDoneProc</function> will be invoked.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='saveyourselfdoneproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SaveYourselfDoneProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2018,7 +2018,7 @@ calls <function>SmcCloseConnection</function>,
 the <function>SmsCloseConnectionProc</function> callback is invoked.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smscloseconnectionproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsCloseConnectionProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2071,7 +2071,7 @@ When the client sets session management properties,
 the <function>SmsSetPropertiesProc</function> callback will be invoked.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smssetpropertiesproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsSetPropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2130,7 +2130,7 @@ When the client deletes session management properties,
 the <function>SmsDeletePropertiesProc</function> callback will be invoked.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsdeletepropertiesproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsDeletePropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2176,7 +2176,7 @@ The <function>SmsGetPropertiesProc</function> callback is invoked when
 the client wants to retrieve properties it set.
       </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsgetpropertiesproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsGetPropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2212,7 +2212,7 @@ a <function>SmsRegisterClientProc</function> callback),
 use <function>SmsRegisterClientReply</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsregisterclientreply'>
    <funcprototype>
       <funcdef>Status <function>SmsRegisterClientReply</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2271,7 +2271,7 @@ You should call the <function>SmsGenerateClientID</function> function
 to generate a globally unique client ID.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsgenerateclientid'>
    <funcprototype>
       <funcdef>char *<function>SmsGenerateClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2302,7 +2302,7 @@ To send a &ldquo;Save Yourself&rdquo; to a client,
 use <function>SmsSaveYourself</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smssaveyourself'>
    <funcprototype>
       <funcdef>void <function>SmsSaveYourself</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2405,7 +2405,7 @@ In order to send a &ldquo;Save Yourself Phase 2&rdquo; message to a
 client, use <function>SmsSaveYourselfPhase2</function>
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smssaveyourselfphase2'>
    <funcprototype>
       <funcdef>void <function>SmsSaveYourselfPhase2</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2435,7 +2435,7 @@ To send an &ldquo;Interact&rdquo; message to a client,
 use <function>SmsInteract</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsinteract'>
    <funcprototype>
       <funcdef>void <function>SmsInteract</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2465,7 +2465,7 @@ To send a &ldquo;Save Complete&rdquo; message to a client,
 use <function>SmsSaveComplete</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smssavecomplete'>
    <funcprototype>
       <funcdef>void <function>SmsSaveComplete</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2493,7 +2493,7 @@ To send a &ldquo;Die&rdquo; message to a client,
 use <function>SmsDie</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsdie'>
    <funcprototype>
       <funcdef>void <function>SmsDie</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2521,7 +2521,7 @@ a &ldquo;Die&rdquo; message to, timing out appropriately.
 To cancel a shutdown, use <function>SmsShutdownCancelled</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsshutdowncancelled'>
    <funcprototype>
       <funcdef>void <function>SmsShutdownCancelled</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2555,7 +2555,7 @@ In response to a &ldquo;Get Properties&rdquo; message, the session
 manager should call <function>SmsReturnProperties</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsreturnproperties'>
    <funcprototype>
       <funcdef>void <function>SmsReturnProperties</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2601,7 +2601,7 @@ the <function>SmsGetIceConnection</function>
     </para>
 
 
-<funcsynopsis>
+<funcsynopsis id='iceping'>
    <funcprototype>
       <funcdef>void <function>IcePing</function></funcdef>
       <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
@@ -2633,7 +2633,7 @@ session manager should have some sort of timeout period, after which
 it assumes the client has unexpectedly died.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='icepingreplyproc'>
    <funcprototype>
       <funcdef>typedef void (*<function>IcePingReplyProc</function>)</funcdef>
       <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
@@ -2664,7 +2664,7 @@ it should call the <function>SmsCleanUp</function> function in order
 to free up the connection object.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smscleanup'>
    <funcprototype>
       <funcdef>void <function>SmsCleanUp</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2683,7 +2683,7 @@ to free up the connection object.
   <sect1 id='using_sms_informational_functions'>
     <title>Using Sms Informational Functions</title>
 
-<funcsynopsis>
+<funcsynopsis id='smsprotocolversion'>
    <funcprototype>
       <funcdef>int <function>SmsProtocolVersion</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2695,7 +2695,7 @@ to free up the connection object.
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsprotocolrevision'>
    <funcprototype>
       <funcdef>int <function>SmsProtocolRevision</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2707,7 +2707,7 @@ the session management protocol associated with this session.
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsclientid'>
    <funcprototype>
       <funcdef>char *<function>SmsClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2728,7 +2728,7 @@ use <function>SmsClientHostName</function>.
 This host name will be needed to restart the client.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsclienthostname'>
    <funcprototype>
       <funcdef>char *<function>SmsClientHostName</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2744,7 +2744,7 @@ You should call <function>free</function> on the string returned when
 it is no longer needed.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsgeticeconnection'>
    <funcprototype>
       <funcdef>IceConn <function>SmsGetIceConnection</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2775,7 +2775,7 @@ session manager can change this error handler by
 calling <function>SmsSetErrorHandler</function>.
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smsseterrorhandler'>
    <funcprototype>
       <funcdef>SmsErrorHandler <function>SmsSetErrorHandler</function></funcdef>
       <paramdef>SmsErrorHandler <parameter>handler</parameter></paramdef>
@@ -2792,7 +2792,7 @@ to restore the default handler.
 The <function>SmsErrorHandler</function> has the following type:
     </para>
 
-<funcsynopsis>
+<funcsynopsis id='smserrorhandler'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsErrorHandler</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -3141,7 +3141,7 @@ contain the user's name (the <structfield>pw_name</structfield> member of
 To free an individual property, use <function>SmFreeProperty</function>
   </para>
 
-<funcsynopsis>
+<funcsynopsis id='smfreeproperty'>
    <funcprototype>
       <funcdef>void <function>SmFreeProperty</function></funcdef>
       <paramdef>SmProp *<parameter>prop</parameter></paramdef>
@@ -3161,7 +3161,7 @@ the <function>SmsCloseConnectionProc</function> callback,
 use <function>SmFreeReasons</function>
   </para>
 
-<funcsynopsis>
+<funcsynopsis id='smfreereasons'>
    <funcprototype>
       <funcdef>void <function>SmFreeReasons</function></funcdef>
       <paramdef>int <parameter>count</parameter></paramdef>
