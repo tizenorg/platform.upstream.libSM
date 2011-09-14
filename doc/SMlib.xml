@@ -16,15 +16,14 @@
    <authorgroup>
       <author>
          <firstname>Ralph</firstname><surname>Mor</surname>
+         <affiliation><orgname>X Consortium</orgname></affiliation>
       </author>
    </authorgroup>
-   <corpname>X Consortium Standard</corpname>
    <copyright>
      <year>1993</year><year>1994</year>
      <holder>X Consortium</holder>
    </copyright>
    <releaseinfo>Version 1.0</releaseinfo>
-   <affiliation><orgname>X Consortium</orgname></affiliation>
 
    <legalnotice>
      <para>
