@@ -308,7 +308,7 @@ SmcCloseConnection(SmcConn smcConn, int count, char **reasonMsgs)
     pData += 4;
 
     for (i = 0; i < count; i++)
-	STORE_ARRAY8 (pData, strlen (reasonMsgs[i]), reasonMsgs[i]); 
+	STORE_ARRAY8 (pData, strlen (reasonMsgs[i]), reasonMsgs[i]);
 
     IceFlush (iceConn);
 
@@ -336,7 +336,7 @@ SmcCloseConnection(SmcConn smcConn, int count, char **reasonMsgs)
 	    free ((char *) ptr);
 	    ptr = next;
 	}
-	
+
     }
 
     free ((char *) smcConn);
@@ -408,7 +408,7 @@ SmcDeleteProperties(SmcConn smcConn, int numProps, char **propNames)
     pData += 4;
 
     for (i = 0; i < numProps; i++)
-	STORE_ARRAY8 (pData, strlen (propNames[i]), propNames[i]); 
+	STORE_ARRAY8 (pData, strlen (propNames[i]), propNames[i]);
 
     IceFlush (iceConn);
 }

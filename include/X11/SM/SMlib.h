@@ -168,7 +168,7 @@ typedef struct {
 typedef Status (*SmsRegisterClientProc) (
     SmsConn 		/* smsConn */,
     SmPointer		/* managerData */,
-    char *		/* previousId */				     
+    char *		/* previousId */
 );
 
 typedef void (*SmsInteractRequestProc) (

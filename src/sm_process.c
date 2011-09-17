@@ -152,7 +152,7 @@ _SmcProcessMessage(IceConn iceConn, IcePointer clientData, int opcode,
 	{
 	    smRegisterClientReplyMsg 	*pMsg;
 	    char			*pData, *pStart;
-	    _SmcRegisterClientReply 	*reply = 
+	    _SmcRegisterClientReply 	*reply =
 	        (_SmcRegisterClientReply *) (replyWait->reply);
 
 #if 0 /* No-op */
@@ -770,7 +770,7 @@ _SmsProcessMessage(IceConn iceConn, IcePointer clientData, int opcode,
 	char 			*pData, *pStart;
 	SmProp			**props = NULL;
 	int 			numProps;
-	
+
 #if 0 /* No-op */
 	CHECK_AT_LEAST_SIZE (iceConn, _SmsOpcode, opcode,
 	    length, SIZEOF (smSetPropertiesMsg), IceFatalToProtocol);

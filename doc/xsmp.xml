@@ -426,12 +426,12 @@ set of valid responses and possible error messages are listed.  The
 The client must send this message to the SM to register the client's
 existence.  If a client is being restarted from a previous session,
 the <parameter>previous-ID</parameter> field must contain the client
-ID from the previous session.  For new clients, 
+ID from the previous session.  For new clients,
 <parameter>previous-ID</parameter> should be of zero length.
   </para>
 
   <para>
-If <parameter>previous-ID</parameter> is not valid, 
+If <parameter>previous-ID</parameter> is not valid,
 the SM will send a <errorname>BadValue</errorname>
 error message to the client.  At this point the SM reverts to the
 register state and waits for another <function>RegisterClient</function>
@@ -447,9 +447,9 @@ null <parameter>previous-ID</parameter> field.
 
   <para>
 The <parameter>client-ID</parameter> specifies a unique identification
-for this client.  If the client had specified an ID in the 
-<parameter>previous-ID</parameter> field of the 
-<function>RegisterClient</function> message, 
+for this client.  If the client had specified an ID in the
+<parameter>previous-ID</parameter> field of the
+<function>RegisterClient</function> message,
 <parameter>client-ID</parameter> will be identical to the previously
 specified ID.  If <parameter>previous-ID</parameter> was null,
 <parameter>client-ID</parameter> will be a unique ID freshly generated
@@ -779,7 +779,7 @@ and <function>Any</function> or <function>Errors</function> for the
     <function>SaveComplete</function>
     <function>Die</function>
     <function>ShutdownCancelled</function>
-  
+
   </synopsis>
 
   <para>
@@ -808,7 +808,7 @@ field of the <function>SaveYourselfDone</function> message.
   Valid Responses:
     <function>ShutdownCancelled</function>
     <function>SaveYourselfPhase2</function>
-  
+
   </synopsis>
 
   <para>
@@ -902,7 +902,7 @@ Sets the specified <parameter>properties</parameter> to the specified values.
 Existing
 properties not specified in the <function>Set&shy;Properties</function>
 message are unaffected. Some properties have predefined semantics.
-See <link linkend='predefined_properties'>section 11, 
+See <link linkend='predefined_properties'>section 11,
 &ldquo;Predefined Properties.&rdquo;</link>
   </para>
 

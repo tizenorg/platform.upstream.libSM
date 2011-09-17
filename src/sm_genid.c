@@ -167,17 +167,17 @@ SmsGenerateClientID(SmsConn smsConn)
 	return NULL;
 
     for (first_ai = ai; ai != NULL; ai = ai->ai_next) {
-	if ( (ai->ai_family == AF_INET) || (ai->ai_family == AF_INET6) ) 
+	if ( (ai->ai_family == AF_INET) || (ai->ai_family == AF_INET6) )
 	    break;
     }
     if (ai == NULL) {
 	freeaddrinfo(first_ai);
 	return NULL;
-    } 
+    }
 
     if (ai->ai_family == AF_INET6) {
 	unsigned char *cp = (unsigned char *) &((struct sockaddr_in6 *)ai->ai_addr)->sin6_addr.s6_addr;
-	
+
 	*addr_ptr++ = '6';	/* IPv6 address code */
 
 	for (i = 0 ; i < 16 ; i++) {
