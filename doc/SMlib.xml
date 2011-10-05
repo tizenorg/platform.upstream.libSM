@@ -65,7 +65,7 @@ X Window System is a trademark of The Open Group.
 
 </bookinfo>
 
-<chapter id="overview_of_session_management">
+<chapter id='Overview_of_Session_Management'>
   <title>Overview of Session Management</title>
 
   <abstract>
@@ -97,7 +97,7 @@ displays at all.
   </abstract>
 </chapter>
 
-<chapter id='the_session_management_library'>
+<chapter id='The_Session_Management_Library'>
   <title>The Session Management Library</title>
   <abstract>
     <para>
@@ -150,7 +150,7 @@ chance to interact with the user and cancel the shutdown.
   </para>
 </chapter>
 
-<chapter id='understanding_smlibs_dependence_on_ice'>
+<chapter id='Understanding_SMlibs_Dependence_on_ICE'>
   <title>Understanding SMlib's Dependence on ICE</title>
 
   <para>
@@ -164,8 +164,8 @@ knowledge of how the ICE library works.
   <para>
 The ICE library utilizes callbacks to process messages.  When a client
 detects that there is data to read on an ICE connection, it should
-call the <function>IceProcessMessages</function> function.
-<function>IceProcessMessages</function> will read the message header
+call the <olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink> function.
+<olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink> will read the message header
 and look at the major opcode in order to determine which protocol the
 message was intended for.  The appropriate protocol library will then
 be triggered to unpack the message and hand it off to the client via a
@@ -178,7 +178,7 @@ have some code that detects when there is data to read on an ICE
 connection.  This can be done via a <function>select</function> call
 on the file descriptor for the ICE connection, but more
 typically, <function>XtAppAddInput</function> will be used to register
-a callback that will invoke <function>IceProcessMessages</function>
+a callback that will invoke <olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink>
 each time there is data to read on the ICE connection.
   </para>
 
@@ -186,9 +186,9 @@ each time there is data to read on the ICE connection.
 To further complicate things, knowing which file descriptors to
 call <function>select</function> on requires an understanding of how
 ICE connections are created.  On the client side, a call must be made
-to <function>SmcOpenConnection</function> in order to open a connection
-with a session manager.  <function>SmcOpenConnection</function> will
-internally makea call into <function>IceOpenConnection</function>
+to <xref linkend='SmcOpenConnection' xrefstyle='select: title'/> in order to open a connection
+with a session manager.  <xref linkend='SmcOpenConnection' xrefstyle='select: title'/> will
+internally makea call into <olink targetdoc='ICElib' targetptr='IceOpenConnection'><function>IceOpenConnection</function></olink>
 which will, in turn, determine if an ICE connection already exists
 between the client and session manager.  Most likely, a connection
 will not already exist and a new ICE connection will be created.  The
@@ -205,9 +205,9 @@ the list of descriptors to call <function>select</function> on.
 On the session manager side, things work a bit differently.  The
 session manager has complete control over the creation of ICE
 connections.  The session manager has to first
-call <function>IceListenForConnections</function> in order to start
+call <olink targetdoc='ICElib' targetptr='IceListenForConnections'><function>IceListenForConnections</function></olink> in order to start
 listening for connections from clients.  Once a connection attempt is
-detected, <function>IceAcceptConnection</function> must be called, and
+detected, <olink targetdoc='ICElib' targetptr='IceAcceptConnection'><function>IceAcceptConnection</function></olink> must be called, and
 the session manager can simply add the new ICE file descriptor to the
 list of descriptors to call <function>select</function> on.
 
@@ -220,7 +220,7 @@ standard.
   </para>
 </chapter>
 
-<chapter id='header_files_and_library_name'>
+<chapter id='Header_Files_and_Library_Name'>
 <title>Header Files and Library Name</title>
 
   <para>
@@ -239,7 +239,7 @@ SMlib and ICElib by using
   </para>
 </chapter>
 
-<chapter id='session_management_client'>
+<chapter id='Session_Management_Client_Smc_Functions'>
   <title>Session Management Client (<acronym>Smc</acronym>) Functions</title>
 
   <para>
@@ -258,15 +258,15 @@ SMlib and ICElib by using
     </itemizedlist>
   </para>
 
-  <sect1 id='connecting_to_the_session_manager'>
-    <title>Connecting to the Session Manager</title>
+  <sect1 id='Connecting_to_the_Session_Manager'>
+<title>Connecting to the Session Manager</title>
 
     <para>
 To open a connection with a session manager,
-use <function>SmcOpenConnection</function>
+use <xref linkend='SmcOpenConnection' xrefstyle='select: title'/>
     </para>
 
-    <funcsynopsis id='smcopenconnection'>
+    <funcsynopsis id='SmcOpenConnection'>
       <funcprototype>
 	<funcdef>SmcConn <function>SmcOpenConnection</function></funcdef>
 	<paramdef>char *<parameter>network_ids_list</parameter></paramdef>
@@ -381,7 +381,7 @@ an attempt will be made using the second network ID, and so on.
     </para>
 
     <para>
-After the connection is established, <function>SmcOpenConnection</function>
+After the connection is established, <xref linkend='SmcOpenConnection' xrefstyle='select: title'/>
 registers the client with the session manager.  If the client is being
 restarted from a previous session, <parameter>previous_id</parameter>
 should contain a null terminated string representing the client ID from the
@@ -393,12 +393,12 @@ client with <parameter>previous_id</parameter> set to <constant>NULL</constant>.
     </para>
 
     <para>
-If <function>SmcOpenConnection</function> succeeds, it returns an
+If <xref linkend='SmcOpenConnection' xrefstyle='select: title'/> succeeds, it returns an
 opaque connection pointer of type <function>SmcConn</function> and the
 <parameter>client_id_ret</parameter> argument contains the client ID to be
 used for this session.  The <parameter>client_id_ret</parameter> should be
 freed with a call to <function>free</function> when no longer needed.  On
-failure, <function>SmcOpenConnection</function> returns
+failure, <xref linkend='SmcOpenConnection' xrefstyle='select: title'/> returns
 <constant>NULL</constant>, and the reason for failure is returned in
 <parameter>error_string_ret</parameter>.
     </para>
@@ -421,12 +421,12 @@ context associated with it.
 
     <para>
 As previously discussed
-(<link linkend='understanding_smlibs_dependence_on_ice'>section 3,
+(<link linkend='Understanding_SMlibs_Dependence_on_ICE'>section 3,
 &ldquo;Understanding SMlib's Dependence on ICE&rdquo;</link>), the
 client will have to keep track of when ICE connections are created or
-destroyed (using <function>IceAddConnectionWatch</function>
-and <function>IceRemoveConnectionWatch</function> and will have to
-call <function>IceProcessMessages</function> each time
+destroyed (using <olink targetdoc='ICElib' targetptr='IceAddConnectionWatch'><function>IceAddConnectionWatch</function></olink>
+and <olink targetdoc='ICElib' targetptr='IceRemoveConnectionWatch'><function>IceRemoveConnectionWatch</function></olink> and will have to
+call <olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink> each time
 a <function>select</function> shows that there is data to read on an
 ICE connection.  For further information, see the
 <citetitle pubwork='article'>Inter-Client Exchange Library</citetitle>
@@ -486,14 +486,14 @@ typedef struct {
 } SmcCallbacks;
 </synopsis>
 
-    <sect2 id='the_save_yourself_callback'>
-      <title>The Save Yourself Callback</title>
+    <sect2 id='The_Save_Yourself_Callback'>
+<title>The Save Yourself Callback</title>
 
       <para>
 The Save Yourself callback is of type <function>SmcSaveYourselfProc</function>
       </para>
 
-<funcsynopsis id='saveyourselfproc'>
+<funcsynopsis id='SaveYourselfProc'>
 <funcprototype>
   <funcdef>typedef void (*<function>SaveYourselfProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -536,9 +536,9 @@ The Save Yourself callback is of type <function>SmcSaveYourselfProc</function>
 The session manager sends a &ldquo;Save Yourself&rdquo; message to a
 client either to checkpoint it or just before termination so that it
 can save its state.  The client responds with zero or more calls
-to <function>SmcSetProperties</function> to update the properties
+to <xref linkend='SmcSetProperties' xrefstyle='select: title'/> to update the properties
 indicating how to restart the client.  When all the properties have
-been set, the client calls <function>SmcSaveYourselfDone</function>
+been set, the client calls <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/>
       </para>
 
       <para>
@@ -552,13 +552,13 @@ If <parameter>interact_style</parameter> is
 <constant>SmInteractStyleAny</constant> then the
 client may interact with the user for any purpose.  Because only one
 client can interact with the user at a time, the client must
-call <function>SmcInteractRequest</function> and wait for an
+call <xref linkend='SmcInteractRequest' xrefstyle='select: title'/> and wait for an
 &ldquo;Interact&rdquo; message from the session manager.  When the
 client is done interacting with the user, it
-calls <function>SmcInteractDone</function> The client may only
-call <function>SmcInteractRequest</function> after it receives a
+calls <xref linkend='SmcInteractDone' xrefstyle='select: title'/> The client may only
+call <xref linkend='SmcInteractRequest' xrefstyle='select: title'/> after it receives a
 &ldquo;Save Yourself&rdquo; message and before it
-calls <function>SmcSaveYourselfDone</function>
+calls <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/>
       </para>
 
       <para>
@@ -621,14 +621,14 @@ set <parameter>fast</parameter> to <constant>True</constant>.
       </para>
     </sect2>
 
-    <sect2 id='the_die_callback'>
-      <title>The Die Callback</title>
+    <sect2 id='The_Die_Callback'>
+<title>The Die Callback</title>
 
       <para>
-The Die callback is of type <function>SmcDieProc</function>
+The Die callback is of type <xref linkend='SmcDieProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smcdieproc'>
+<funcsynopsis id='SmcDieProc'>
 <funcprototype>
   <funcdef>typedef void (*<function>SmcDieProc</function>)</funcdef>
     <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -651,20 +651,20 @@ The Die callback is of type <function>SmcDieProc</function>
       <para>
 The session manager sends a &ldquo;Die&rdquo; message to a client when
 it wants it to die.  The client should respond by calling
-<function>SmcCloseConnection</function>.  A session manager that
+<xref linkend='SmcCloseConnection' xrefstyle='select: title'/>.  A session manager that
 behaves properly will send a &ldquo;Save Yourself&rdquo; message
 before the &ldquo;Die&rdquo; message.
       </para>
     </sect2>
 
-    <sect2 id='the_save_complete_callback'>
-      <title>The Save Complete Callback</title>
+    <sect2 id='The_Save_Complete_Callback'>
+<title>The Save Complete Callback</title>
 
       <para>
-The Save Complete callback is of type <function>SmcSaveCompleteProc</function>
+The Save Complete callback is of type <xref linkend='SmcSaveCompleteProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smcsavecompleteproc'>
+<funcsynopsis id='SmcSaveCompleteProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcSaveCompleteProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -685,15 +685,15 @@ The Save Complete callback is of type <function>SmcSaveCompleteProc</function>
     </sect2>
 
 
-    <sect2 id='the_shutdown_cancelled_callback'>
-      <title>The Shutdown Cancelled Callback</title>
+    <sect2 id='The_Shutdown_Cancelled_Callback'>
+<title>The Shutdown Cancelled Callback</title>
 
       <para>
 The Shutdown Cancelled callback is of type
-<function>SmcShutdownCancelledProc</function>
+<xref linkend='SmcShutdownCancelledProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smcshutdowncancelledproc'>
+<funcsynopsis id='SmcShutdownCancelledProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcShutdownCancelledProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -715,27 +715,28 @@ The Shutdown Cancelled callback is of type
       <para>
 The session manager sends a &ldquo;Shutdown Cancelled&rdquo; message
 when the user cancelled the shutdown during an interaction
-(see <link linkend='interacting_with_the_user'>section 5.5,
+(see <link linkend='Interacting_With_the_User'>section 5.5,
 &ldquo;Interacting With the User&rdquo;</link>).  The client can now
 continue as if the shutdown had never happened.  If the client has not
-called <function>SmcSaveYourselfDone</function> yet, it can either
-abort the save and then call <function>SmcSaveYourselfDone</function>
+called <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/> yet, it can either
+abort the save and then call <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/>
 with the success argument set to <constant>False</constant> or it can
-continue with the save and then call <function>SmcSaveYourselfDone</function>
+continue with the save and then call <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/>
 with the <parameter>success</parameter> argument set to reflect the outcome
 of the save.
       </para>
     </sect2>
   </sect1>
 
-  <sect1 id='closing_the_connection'><title>Closing the Connection</title>
+  <sect1 id='Closing_the_Connection'>
+<title>Closing the Connection</title>
 
     <para>
 To close a connection with a session manager,
-use <function>SmcCloseConnection</function>
+use <xref linkend='SmcCloseConnection' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smccloseconnection'>
+<funcsynopsis id='SmcCloseConnection'>
    <funcprototype>
       <funcdef>SmcCloseStatus <function>SmcCloseConnection</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -770,11 +771,11 @@ display these reason messages to the user.
 Note that SMlib used the ICE protocol to establish a connection with
 the session manager, and various protocols other than session
 management may be active on the ICE connection.
-When <function>SmcCloseConnection</function> is called, the ICE
+When <xref linkend='SmcCloseConnection' xrefstyle='select: title'/> is called, the ICE
 connection will be closed only if all protocols have been shutdown on
 the connection.  Check the ICElib standard
-for <function>IceAddConnectionWatch</function>
-and <function>IceRemoveConnectionWatch</function> to learn how to set
+for <olink targetdoc='ICElib' targetptr='IceAddConnectionWatch'><function>IceAddConnectionWatch</function></olink>
+and <olink targetdoc='ICElib' targetptr='IceRemoveConnectionWatch'><function>IceRemoveConnectionWatch</function></olink> to learn how to set
 up a callback to be invoked each time an ICE connection is opened or
 closed.  Typically this callback adds/removes the ICE file descriptor
 from the list of active descriptors to call <function>select</function> on
@@ -784,7 +785,7 @@ from the list of active descriptors to call <function>select</function> on
 
 
     <para>
-<function>SmcCloseConnection</function> returns one of the following values:
+<xref linkend='SmcCloseConnection' xrefstyle='select: title'/> returns one of the following values:
 
       <itemizedlist mark='bullet'>
 	<listitem><para>
@@ -793,11 +794,11 @@ this time, the watch procedures were invoked, and the connection was freed.
 	</para></listitem>
 	<listitem><para>
 <constant>SmcClosedASAP</constant> - an IO error had occurred on the
-connection, but <function>SmcCloseConnection</function> is being
-called within a nested <function>IceProcessMessages</function> The
+connection, but <xref linkend='SmcCloseConnection' xrefstyle='select: title'/> is being
+called within a nested <olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink> The
 watch procedures have been invoked at this time, but the connection
 will be freed as soon as possible (when the nesting level reaches zero
-and <function>IceProcessMessages</function> returns a status
+and <olink targetdoc='ICElib' targetptr='IceProcessMessages'><function>IceProcessMessages</function></olink> returns a status
 of <function>IceProcessMessagesConnectionClosed</function>
 	</para> </listitem>
 	<listitem><para>
@@ -809,15 +810,15 @@ this time, because it is being used by other active protocols.
   </sect1>
 
 
-  <sect1 id='modifying_callbacks'>
-    <title>Modifying Callbacks</title>
+  <sect1 id='Modifying_Callbacks'>
+<title>Modifying Callbacks</title>
 
     <para>
-To modify callbacks set up in <function>SmcOpenConnection</function>
-use <function>SmcModifyCallbacks</function>
+To modify callbacks set up in <xref linkend='SmcOpenConnection' xrefstyle='select: title'/>
+use <xref linkend='SmcModifyCallbacks' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcmodifycallbacks'>
+<funcsynopsis id='SmcModifyCallbacks'>
    <funcprototype>
       <funcdef>void <function>SmcModifyCallbacks</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -853,15 +854,15 @@ the following values may be ORed together:
     </para>
   </sect1>
 
-  <sect1 id='setting_deleting_and_retrieving_session_management_properties'>
-    <title>Setting, Deleting, and Retrieving Session Management Properties</title>
+  <sect1 id='Setting_Deleting_and_Retrieving_Session_Management_Properties'>
+<title>Setting, Deleting, and Retrieving Session Management Properties</title>
 
     <para>
 To set session management properties for this client,
-use <function>SmcSetProperties</function>
+use <xref linkend='SmcSetProperties' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcsetproperties'>
+<funcsynopsis id='SmcSetProperties'>
    <funcprototype>
       <funcdef>void <function>SmcSetProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -889,7 +890,7 @@ use <function>SmcSetProperties</function>
     <para>
 The properties are specified as an array of property pointers.
 Previously set property values may be over-written using
-the <function>SmcSetProperties</function> function.  Note that the
+the <xref linkend='SmcSetProperties' xrefstyle='select: title'/> function.  Note that the
 session manager is not expected to restore property values when the
 session is restarted.  Because of this, clients should not try to use
 the session manager as a database for storing application specific state.
@@ -898,17 +899,17 @@ the session manager as a database for storing application specific state.
     <para>
 For a description of session management properties and
 the <structname>SmProp</structname> structure,
-see <link linkend='session_management_properties'>section 7,
+see <link linkend='Session_Management_Properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
     </para>
 
 
     <para>
 To delete properties previously set by the client,
-use <function>SmcDeleteProperties</function>
+use <xref linkend='SmcDeleteProperties' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcdeleteproperties'>
+<funcsynopsis id='SmcDeleteProperties'>
    <funcprototype>
       <funcdef>void <function>SmcDeleteProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -933,10 +934,10 @@ use <function>SmcDeleteProperties</function>
 
     <para>
 To get properties previously stored by the client,
-use <function>SmcGetProperties</function>
+use <xref linkend='SmcGetProperties' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcgetproperties'>
+<funcsynopsis id='SmcGetProperties'>
    <funcprototype>
       <funcdef>Status <function>SmcGetProperties</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -956,22 +957,22 @@ use <function>SmcGetProperties</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>client_data</parameter></term>
-    <listitem><para>This pointer to client data will be passed to the <function>SmcPropReplyProc</function> callback.</para></listitem>
+    <listitem><para>This pointer to client data will be passed to the <xref linkend='SmcPropReplyProc' xrefstyle='select: title'/> callback.</para></listitem>
   </varlistentry>
 </variablelist>
 
     <para>
-The return value of <function>SmcGetProperties</function> is zero for
+The return value of <xref linkend='SmcGetProperties' xrefstyle='select: title'/> is zero for
 failure and a positive value for success.
     </para>
 
     <para>
 Note that the library does not block until the properties reply comes
-back.  Rather, a callback of type <function>SmcPropReplyProc</function>
+back.  Rather, a callback of type <xref linkend='SmcPropReplyProc' xrefstyle='select: title'/>
 is invoked when the data is ready.
     </para>
 
-<funcsynopsis id='smcpropreplyproc'>
+<funcsynopsis id='SmcPropReplyProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcPropReplyProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -988,7 +989,7 @@ is invoked when the data is ready.
   </varlistentry>
   <varlistentry>
     <term><parameter>client_data</parameter></term>
-    <listitem><para>This pointer to client data will be passed to the <function>SmcPropReplyProc</function> callback.</para></listitem>
+    <listitem><para>This pointer to client data will be passed to the <xref linkend='SmcPropReplyProc' xrefstyle='select: title'/> callback.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>num_props</parameter></term>
@@ -1001,15 +1002,15 @@ is invoked when the data is ready.
 </variablelist>
 
     <para>
-To free each property, use <function>SmFreeProperty</function>
-(see <link linkend='freeing_data'>section 8, &ldquo;Freeing
+To free each property, use <xref linkend='SmFreeProperty' xrefstyle='select: title'/>
+(see <link linkend='Freeing_Data'>section 8, &ldquo;Freeing
 Data&rdquo;</link>).  To free the actual array of pointers,
 use <function>free</function>
     </para>
   </sect1>
 
-  <sect1 id='interacting_with_the_user'>
-    <title>Interacting With the User</title>
+  <sect1 id='Interacting_With_the_User'>
+<title>Interacting With the User</title>
 
     <para>
 After receiving a &ldquo;Save Yourself&rdquo; message with an
@@ -1017,11 +1018,11 @@ After receiving a &ldquo;Save Yourself&rdquo; message with an
 <constant>SmInteractStyleErrors</constant>
 or <constant>SmInteractStyleAny</constant> the client may choose to
 interact with the user.  Because only one client can interact with the
-user at a time, the client must call <function>SmcInteractRequest</function>
+user at a time, the client must call <xref linkend='SmcInteractRequest' xrefstyle='select: title'/>
 and wait for an &ldquo;Interact&rdquo; message from the session manager.
     </para>
 
-<funcsynopsis id='smcinteractrequest'>
+<funcsynopsis id='SmcInteractRequest'>
    <funcprototype>
       <funcdef>Status <function>SmcInteractRequest</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1048,14 +1049,14 @@ and wait for an &ldquo;Interact&rdquo; message from the session manager.
     <term><parameter>client_data</parameter></term>
     <listitem><para>
 This pointer to client data will be passed to
-the <function>SmcInteractProc</function> callback when the
+the <xref linkend='SmcInteractProc' xrefstyle='select: title'/> callback when the
 &ldquo;Interact&rdquo; message arrives.
     </para></listitem>
   </varlistentry>
 </variablelist>
 
     <para>
-The return value of <function>SmcInteractRequest</function> is zero
+The return value of <xref linkend='SmcInteractRequest' xrefstyle='select: title'/> is zero
 for failure and a positive value for success.
     </para>
 
@@ -1075,11 +1076,11 @@ that have not interacted yet with the user will receive a
     </para>
 
     <para>
-The <function>SmcInteractProc</function> callback will be invoked when
+The <xref linkend='SmcInteractProc' xrefstyle='select: title'/> callback will be invoked when
 the &ldquo;Interact&rdquo; message arrives from the session manager.
     </para>
 
-<funcsynopsis id='smcinteractproc'>
+<funcsynopsis id='SmcInteractProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcInteractProc</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1100,10 +1101,10 @@ the &ldquo;Interact&rdquo; message arrives from the session manager.
 
     <para>
 After interacting with the user (in response to an &ldquo;Interact&rdquo;
-message), you should call <function>SmcInteractDone</function>
+message), you should call <xref linkend='SmcInteractDone' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcinteractdone'>
+<funcsynopsis id='SmcInteractDone'>
    <funcprototype>
       <funcdef>void <function>SmcInteractDone</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1131,15 +1132,15 @@ the <parameter>interact_style</parameter>.
     </para>
   </sect1>
 
-  <sect1 id='requesting_a_save_yourself'>
-    <title>Requesting a Save Yourself</title>
+  <sect1 id='Requesting_a_Save_Yourself'>
+<title>Requesting a Save Yourself</title>
 
     <para>
 To request a checkpoint from the session manager,
-use <function>SmcRequestSaveYourself</function>
+use <xref linkend='SmcRequestSaveYourself' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcrequestsaveyourself'>
+<funcsynopsis id='SmcRequestSaveYourself'>
    <funcprototype>
       <funcdef>void <function>SmcRequestSaveYourself</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1183,7 +1184,7 @@ use <function>SmcRequestSaveYourself</function>
 The <parameter>save_type</parameter>, <parameter>shutdown</parameter>,
 <parameter>interact_style</parameter>, and <parameter>fast</parameter>
 arguments are discussed in more detail in
-<link linkend='the_save_yourself_callback'>section 5.1.1,
+<link linkend='The_Save_Yourself_Callback'>section 5.1.1,
 &ldquo;The Save Yourself Callback.&rdquo;</link>
     </para>
 
@@ -1202,16 +1203,16 @@ Yourself&rdquo; should only be sent to the client that requested it.
     </para>
   </sect1>
 
-  <sect1 id='requesting_a_save_yourself_phase_2'>
-    <title>Requesting a Save Yourself Phase 2</title>
+  <sect1 id='Requesting_a_Save_Yourself_Phase_2_2'>
+<title>Requesting a Save Yourself Phase 2</title>
 
     <para>
 In response to a &ldquo;Save Yourself&rdquo;, the client may request to be
 informed when all the other clients are quiescent so that it can save their
-state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function>
+state.  To do so, use <xref linkend='SmcRequestSaveYourselfPhase2' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcrequestsaveyourselfphase2'>
+<funcsynopsis id='SmcRequestSaveYourselfPhase2'>
    <funcprototype>
       <funcdef>Status <function>SmcRequestSaveYourselfPhase2</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1236,7 +1237,7 @@ state.  To do so, use <function>SmcRequestSaveYourselfPhase2</function>
 </variablelist>
 
     <para>
-The return value of <function>SmcRequestSaveYourselfPhase2</function>
+The return value of <xref linkend='SmcRequestSaveYourselfPhase2' xrefstyle='select: title'/>
 is zero for failure and a positive value for success.
     </para>
 
@@ -1248,15 +1249,15 @@ an idle state so that their state can be saved.
     </para>
   </sect1>
 
-  <sect1 id='completing_a_save_yourself'>
-    <title>Completing a Save Yourself</title>
+  <sect1 id='Completing_a_Save_Yourself'>
+<title>Completing a Save Yourself</title>
 
     <para>
 After saving state in response to a &ldquo;Save Yourself&rdquo;
-message, you should call <function>SmcSaveYourselfDone</function>
+message, you should call <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smcsaveyourselfdone'>
+<funcsynopsis id='SmcSaveYourselfDone'>
    <funcprototype>
       <funcdef>void <function>SmcSaveYourselfDone</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1276,16 +1277,16 @@ message, you should call <function>SmcSaveYourselfDone</function>
 </variablelist>
 
     <para>
-Before calling <function>SmcSaveYourselfDone</function> the client
+Before calling <xref linkend='SmcSaveYourselfDone' xrefstyle='select: title'/> the client
 must have set each required property at least once since the client
 registered with the session manager.
     </para>
   </sect1>
 
-  <sect1 id='using_smc_informational_functions'>
-    <title>Using Smc Informational Functions</title>
+  <sect1 id='Using_Smc_Informational_Functions'>
+<title>Using Smc Informational Functions</title>
 
-<funcsynopsis id='smcprotocolversion'>
+<funcsynopsis id='SmcProtocolVersion'>
    <funcprototype>
       <funcdef>int <function>SmcProtocolVersion</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1293,12 +1294,12 @@ registered with the session manager.
 </funcsynopsis>
 
     <para>
-<function>SmcProtocolVersion</function> returns the major version of
+<xref linkend='SmcProtocolVersion' xrefstyle='select: title'/> returns the major version of
 the session management protocol associated with this session.
     </para>
 
 
-<funcsynopsis id='smcprotocolrevision'>
+<funcsynopsis id='SmcProtocolRevision'>
    <funcprototype>
       <funcdef>int <function>SmcProtocolRevision</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1306,11 +1307,11 @@ the session management protocol associated with this session.
 </funcsynopsis>
 
     <para>
-<function>SmcProtocolRevision</function> returns the minor version of
+<xref linkend='SmcProtocolRevision' xrefstyle='select: title'/> returns the minor version of
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis id='smcvendor'>
+<funcsynopsis id='SmcVendor'>
    <funcprototype>
       <funcdef>char *<function>SmcVendor</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1318,12 +1319,12 @@ the session management protocol associated with this session.
 </funcsynopsis>
 
     <para>
-<function>SmcVendor</function> returns a string that provides some
+<xref linkend='SmcVendor' xrefstyle='select: title'/> returns a string that provides some
 identification of the owner of the session manager.  The string should
 be freed with a call to <function>free</function>
     </para>
 
-<funcsynopsis id='smcrelease'>
+<funcsynopsis id='SmcRelease'>
    <funcprototype>
       <funcdef>char *<function>SmcRelease</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1331,12 +1332,12 @@ be freed with a call to <function>free</function>
 </funcsynopsis>
 
     <para>
-<function>SmcRelease</function> returns a string that provides the
+<xref linkend='SmcRelease' xrefstyle='select: title'/> returns a string that provides the
 release number of the session manager.  The string should be freed
 with a call to <function>free</function>
     </para>
 
-<funcsynopsis id='smcclientid'>
+<funcsynopsis id='SmcClientID'>
    <funcprototype>
       <funcdef>char *<function>SmcClientID</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1344,14 +1345,14 @@ with a call to <function>free</function>
 </funcsynopsis>
 
     <para>
-<function>SmcClientID</function> returns a null-terminated string for
+<xref linkend='SmcClientID' xrefstyle='select: title'/> returns a null-terminated string for
 the client ID associated with this connection.  This information was
-also returned in <function>SmcOpenConnection</function> (it is
+also returned in <xref linkend='SmcOpenConnection' xrefstyle='select: title'/> (it is
 provided here for convenience).  Call <function>free</function> on
 this pointer when the client ID is no longer needed.
     </para>
 
-<funcsynopsis id='smcgeticeconnection'>
+<funcsynopsis id='SmcGetIceConnection'>
    <funcprototype>
       <funcdef>IceConn <function>SmcGetIceConnection</function></funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1359,22 +1360,22 @@ this pointer when the client ID is no longer needed.
 </funcsynopsis>
 
     <para>
-<function>SmcGetIceConnection</function> returns the ICE connection
+<xref linkend='SmcGetIceConnection' xrefstyle='select: title'/> returns the ICE connection
 object associated with this session management connection object.  The
 ICE connection object can be used to get some additional information
 about the connection.  Some of the more useful functions which can be
 used on the IceConn are <function>IceConnectionNumber</function>,
 <function>IceConnectionString</function>,
-<function>IceLastSentSequenceNumber</function>,
+<olink targetdoc='ICElib' targetptr='IceLastSentSequenceNumber'><function>IceLastSentSequenceNumber</function></olink>,
 <function>IceLastReceivedSequenceNumber</function>,
-and <function>IcePing</function>. For further information, see
+and <olink targetdoc='ICElib' targetptr='IcePing'><function>IcePing</function></olink>. For further information, see
 the <citetitle pubwork='article'>Inter-Client Exchange Library</citetitle>
 standard.
     </para>
   </sect1>
 
-  <sect1 id='error_handling'>
-    <title>Error Handling</title>
+  <sect1 id='Error_Handling'>
+<title>Error Handling</title>
 
     <para>
 If the client receives an unexpected protocol error from the session
@@ -1382,10 +1383,10 @@ manager, an error handler is invoked by SMlib.  A default error
 handler exists that simply prints the error message
 to <varname>stderr</varname> and exits if the severity of the error
 is fatal.  The client can change this error handler by calling
-the <function>SmcSetErrorHandler</function> function.
+the <xref linkend='SmcSetErrorHandler' xrefstyle='select: title'/> function.
     </para>
 
-<funcsynopsis id='smcseterrorhandler'>
+<funcsynopsis id='SmcSetErrorHandler'>
   <funcprototype>
       <funcdef>SmcErrorHandler <function>SmcSetErrorHandler</function></funcdef>
       <paramdef>SmcErrorHandler <parameter>handler</parameter></paramdef>
@@ -1399,14 +1400,14 @@ restore the default handler.
 
 
     <para>
-<function>SmcSetErrorHandler</function> returns the previous error handler.
+<xref linkend='SmcSetErrorHandler' xrefstyle='select: title'/> returns the previous error handler.
     </para>
 
     <para>
-The <function>SmcErrorHandler</function> has the following type:
+The <xref linkend='SmcErrorHandler' xrefstyle='select: title'/> has the following type:
     </para>
 
-<funcsynopsis id='smcerrorhandler'>
+<funcsynopsis id='SmcErrorHandler'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmcErrorHandler</function>)</funcdef>
       <paramdef>SmcConn <parameter>smc_conn</parameter></paramdef>
@@ -1456,14 +1457,14 @@ The <function>SmcErrorHandler</function> has the following type:
     <para>
 Note that this error handler is invoked for protocol related errors.
 To install an error handler to be invoked when an IO error occurs, use
-<function>IceSetIOErrorHandler</function> For further information, see
+<olink targetdoc='ICElib' targetptr='IceSetIOErrorHandler'><function>IceSetIOErrorHandler</function></olink> For further information, see
 the <citetitle pubwork='article'>Inter-Client Exchange Library</citetitle>
 standard.
     </para>
   </sect1>
 </chapter>
 
-<chapter id='session_management_server'>
+<chapter id='Session_Management_Server_Sms_Functions'>
   <title>Session Management Server (<acronym>Sms</acronym>) Functions</title>
 
   <para>
@@ -1486,17 +1487,17 @@ This section discusses how Session Management servers:
     </itemizedlist>
   </para>
 
-  <sect1 id='initializing_the_library'>
-    <title>Initializing the Library</title>
+  <sect1 id='Initializing_the_Library'>
+<title>Initializing the Library</title>
 
     <para>
-<function>SmsInitialize</function> is the first SMlib function that
+<xref linkend='SmsInitialize' xrefstyle='select: title'/> is the first SMlib function that
 should be called by a session manager.  It provides information about
 the session manager and registers a callback that will be invoked each
 time a new client connects to the session manager.
     </para>
 
-<funcsynopsis id='smsinitialize'>
+<funcsynopsis id='SmsInitialize'>
    <funcprototype>
       <funcdef>Status <function>SmsInitialize</function></funcdef>
       <paramdef>char *<parameter>vendor</parameter></paramdef>
@@ -1526,7 +1527,7 @@ time a new client connects to the session manager.
   </varlistentry>
   <varlistentry>
     <term><parameter>manager_data</parameter></term>
-    <listitem><para>When the <function>SmsNewClientProc</function> callback is invoked, this pointer to manager data will be passed.</para></listitem>
+    <listitem><para>When the <xref linkend='SmsNewClientProc' xrefstyle='select: title'/> callback is invoked, this pointer to manager data will be passed.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term><parameter>host_based_auth_proc</parameter></term>
@@ -1547,15 +1548,15 @@ No more than <parameter>error_length</parameter> bytes are used.
 </variablelist>
 
     <para>
-After the <function>SmsInitialize</function> function is called, the
-session manager should call the <function>IceListenForConnections</function>
+After the <xref linkend='SmsInitialize' xrefstyle='select: title'/> function is called, the
+session manager should call the <olink targetdoc='ICElib' targetptr='IceListenForConnections'><function>IceListenForConnections</function></olink>
 function to listen for new connections.  Afterwards, each time a
 client connects, the session manager should
-call <function>IceAcceptConnection</function>
+call <olink targetdoc='ICElib' targetptr='IceAcceptConnection'><function>IceAcceptConnection</function></olink>
     </para>
 
     <para>
-See <link linkend='authentication_of_clients'>section 9,
+See <link linkend='Authentication_of_Clients'>section 9,
 &ldquo;Authentication of Clients,&rdquo;</link> for more details on
 authentication (including host based authentication).  Also see
 the <citetitle pubwork='article'>Inter-Client Exchange
@@ -1565,14 +1566,14 @@ accepting ICE connections.
 
     <para>
 Each time a new client connects to the session manager,
-the <function>SmsNewClientProc</function> callback is invoked.  The
+the <xref linkend='SmsNewClientProc' xrefstyle='select: title'/> callback is invoked.  The
 session manager obtains a new opaque connection object that it should
 use for all future interaction with the client.  At this time, the
 session manager must also register a set of callbacks to respond to
 the different messages that the client might send.
     </para>
 
-<funcsynopsis id='smsnewclientproc'>
+<funcsynopsis id='SmsNewClientProc'>
    <funcprototype>
       <funcdef>typedef Status (*<function>SmsNewClientProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1607,7 +1608,7 @@ the different messages that the client might send.
 </variablelist>
 
     <para>
-If a failure occurs, the <function>SmsNewClientProc</function> should
+If a failure occurs, the <xref linkend='SmsNewClientProc' xrefstyle='select: title'/> should
 return a zero status as well as allocate and return a failure reason
 string in <parameter>failure_reason_ret</parameter>.
 SMlib will be responsible for freeing this memory.
@@ -1700,16 +1701,16 @@ typedef struct {
 } SmsCallbacks;
 </synopsis>
 
-    <sect2 id='the_register_client_callback'>
-      <title>The Register Client Callback</title>
+    <sect2 id='The_Register_Client_Callback'>
+<title>The Register Client Callback</title>
 
       <para>
 The Register Client callback is the first callback that will be
 invoked after the client connects to the session manager.  Its type
-is <function>SmsRegisterClientProc</function>
+is <xref linkend='SmsRegisterClientProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smsregisterclientproc'>
+<funcsynopsis id='SmsRegisterClientProc'>
    <funcprototype>
       <funcdef>typedef Status (*<function>SmsRegisterClientProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1756,22 +1757,22 @@ client should re-register with previous_id set to <constant>NULL</constant>.
 
       <para>
 Otherwise, the session manager should register the client with a unique
-client ID by calling the <function>SmsRegisterClientReply</function>
+client ID by calling the <xref linkend='SmsRegisterClientReply' xrefstyle='select: title'/>
 function (to be discussed shortly), and the
-<function>SmsRegisterClientProc</function> callback should return a
+<xref linkend='SmsRegisterClientProc' xrefstyle='select: title'/> callback should return a
 status of one.
       </para>
     </sect2>
 
-    <sect2 id='the_interact_request_callback'>
-      <title>The Interact Request Callback</title>
+    <sect2 id='The_Interact_Request_Callback'>
+<title>The Interact Request Callback</title>
 
       <para>
 The Interact Request callback is of
-type <function>SmsInteractRequestProc</function>
+type <xref linkend='SmsInteractRequestProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smsinteractrequestproc'>
+<funcsynopsis id='SmsInteractRequestProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsInteractRequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1824,15 +1825,15 @@ requested to interact.
       </para>
     </sect2>
 
-    <sect2 id='the_interact_done_callback'>
-      <title>The Interact Done Callback</title>
+    <sect2 id='The_Interact_Done_Callback'>
+<title>The Interact Done Callback</title>
 
       <para>
 When the client is done interacting with the user,
-the <function>SmsInteractDoneProc</function> callback will be invoked.
+the <xref linkend='SmsInteractDoneProc' xrefstyle='select: title'/> callback will be invoked.
       </para>
 
-<funcsynopsis id='smsinteractdoneproc'>
+<funcsynopsis id='SmsInteractDoneProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsInteractDoneProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1866,15 +1867,15 @@ or <constant>SmInteractStyleAny</constant> for the
     </sect2>
 
 
-    <sect2 id='the_save_yourself_request_callback'>
-      <title>The Save Yourself Request Callback</title>
+    <sect2 id='The_Save_Yourself_Request_Callback'>
+<title>The Save Yourself Request Callback</title>
 
       <para>
 The Save Yourself Request callback is of
 type <function>SmsSaveYourselfRequestProc</function>
       </para>
 
-<funcsynopsis id='saveyourselfrequestproc'>
+<funcsynopsis id='SaveYourselfRequestProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SaveYourselfRequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1923,7 +1924,7 @@ The Save Yourself Request prompts the session manager to initiate a
 checkpoint or shutdown.  For information on the
 <parameter>save_type</parameter>, <parameter>shutdown</parameter>,
 <parameter>interact_style</parameter>, and <parameter>fast</parameter>
-arguments, see <link linkend='sending_a_save_yourself_message'>section 6.3,
+arguments, see <link linkend='Sending_a_Save_Yourself_Message'>section 6.3,
 &ldquo;Sending a Save Yourself Message.&rdquo;</link>
       </para>
 
@@ -1935,15 +1936,15 @@ If <parameter>global</parameter> is set to <constant>False</constant> then the
       </para>
     </sect2>
 
-    <sect2 id='the_save_yourself_phase_2_request_callback'>
-      <title>The Save Yourself Phase 2 Request Callback</title>
+    <sect2 id='The_Save_Yourself_Phase_2_Request_Callback'>
+<title>The Save Yourself Phase 2 Request Callback</title>
 
       <para>
 The Save Yourself Phase 2 Request callback is of
-type <function>SmsSaveYourselfPhase2RequestProc</function>
+type <xref linkend='SmsSaveYourselfPhase2RequestProc' xrefstyle='select: title'/>
       </para>
 
-<funcsynopsis id='smssaveyourselfphase2requestproc'>
+<funcsynopsis id='SmsSaveYourselfPhase2RequestProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsSaveYourselfPhase2RequestProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -1970,8 +1971,8 @@ are in an idle state so that their state can be saved.
       </para>
     </sect2>
 
-    <sect2 id='the_save_yourself_done_callback'>
-      <title>The Save Yourself Done Callback</title>
+    <sect2 id='The_Save_Yourself_Done_Callback'>
+<title>The Save Yourself Done Callback</title>
 
       <para>
 When the client is done saving its state in response to a
@@ -1979,7 +1980,7 @@ When the client is done saving its state in response to a
 the <function>SmsSaveYourselfDoneProc</function> will be invoked.
       </para>
 
-<funcsynopsis id='saveyourselfdoneproc'>
+<funcsynopsis id='SaveYourselfDoneProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SaveYourselfDoneProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2010,16 +2011,16 @@ the session manager.
       </para>
     </sect2>
 
-    <sect2 id='the_connection_closed_callback'>
-      <title>The Connection Closed Callback</title>
+    <sect2 id='The_Connection_Closed_Callback'>
+<title>The Connection Closed Callback</title>
 
       <para>
 If the client properly terminates (that is, it
-calls <function>SmcCloseConnection</function>,
-the <function>SmsCloseConnectionProc</function> callback is invoked.
+calls <xref linkend='SmcCloseConnection' xrefstyle='select: title'/>,
+the <xref linkend='SmsCloseConnectionProc' xrefstyle='select: title'/> callback is invoked.
       </para>
 
-<funcsynopsis id='smscloseconnectionproc'>
+<funcsynopsis id='SmsCloseConnectionProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsCloseConnectionProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2058,21 +2059,21 @@ display these reason messages to the user.
       </para>
 
       <para>
-Call <function>SmFreeReasons</function> to free the reason messages.
+Call <xref linkend='SmFreeReasons' xrefstyle='select: title'/> to free the reason messages.
 For further information, see
-<link linkend='freeing_data'>section 8, &ldquo;Freeing Data&rdquo;</link>
+<link linkend='Freeing_Data'>section 8, &ldquo;Freeing Data&rdquo;</link>
       </para>
     </sect2>
 
-    <sect2 id='the_set_properties_callback'>
-      <title>The Set Properties Callback</title>
+    <sect2 id='The_Set_Properties_Callback'>
+<title>The Set Properties Callback</title>
 
       <para>
 When the client sets session management properties,
-the <function>SmsSetPropertiesProc</function> callback will be invoked.
+the <xref linkend='SmsSetPropertiesProc' xrefstyle='select: title'/> callback will be invoked.
       </para>
 
-<funcsynopsis id='smssetpropertiesproc'>
+<funcsynopsis id='SmsSetPropertiesProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsSetPropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2105,7 +2106,7 @@ the <function>SmsSetPropertiesProc</function> callback will be invoked.
 The properties are specified as an array of property pointers.  For a
 description of session management properties and
 the <structname>SmProp</structname> structure,
-see <link linkend='session_management_properties'>section 7,
+see <link linkend='Session_Management_Properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
       </para>
 
@@ -2116,22 +2117,22 @@ nonpredefined properties.
       </para>
 
       <para>
-To free each property, use <function>SmFreeProperty</function>.
-For further information, see <link linkend='freeing_data'>section 8,
+To free each property, use <xref linkend='SmFreeProperty' xrefstyle='select: title'/>.
+For further information, see <link linkend='Freeing_Data'>section 8,
 &ldquo;Freeing Data&rdquo;</link> You should free the actual array of
 pointers with a call to <function>free</function>
       </para>
     </sect2>
 
-    <sect2 id='the_delete_properties_callback'>
-      <title>The Delete Properties Callback</title>
+    <sect2 id='The_Delete_Properties_Callback'>
+<title>The Delete Properties Callback</title>
 
       <para>
 When the client deletes session management properties,
-the <function>SmsDeletePropertiesProc</function> callback will be invoked.
+the <xref linkend='SmsDeletePropertiesProc' xrefstyle='select: title'/> callback will be invoked.
       </para>
 
-<funcsynopsis id='smsdeletepropertiesproc'>
+<funcsynopsis id='SmsDeletePropertiesProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsDeletePropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2164,20 +2165,20 @@ the <function>SmsDeletePropertiesProc</function> callback will be invoked.
 The properties are specified as an array of strings.  For a
 description of session management properties and
 the <structname>SmProp</structname> structure,
-see <link linkend='session_management_properties'>section 7,
+see <link linkend='Session_Management_Properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
       </para>
     </sect2>
 
-    <sect2 id='the_get_properties_callback'>
-      <title>The Get Properties Callback</title>
+    <sect2 id='The_Get_Properties_Callback'>
+<title>The Get Properties Callback</title>
 
       <para>
-The <function>SmsGetPropertiesProc</function> callback is invoked when
+The <xref linkend='SmsGetPropertiesProc' xrefstyle='select: title'/> callback is invoked when
 the client wants to retrieve properties it set.
       </para>
 
-<funcsynopsis id='smsgetpropertiesproc'>
+<funcsynopsis id='SmsGetPropertiesProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsGetPropertiesProc</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2198,22 +2199,22 @@ the client wants to retrieve properties it set.
 
       <para>
 The session manager should respond by
-calling <function>SmsReturnProperties</function>.
+calling <xref linkend='SmsReturnProperties' xrefstyle='select: title'/>.
 All of the properties set for this client should be returned.
       </para>
     </sect2>
   </sect1>
 
-  <sect1 id='registering_the_client'>
-    <title>Registering the Client</title>
+  <sect1 id='Registering_the_Client'>
+<title>Registering the Client</title>
 
     <para>
 To register a client (in response to
-a <function>SmsRegisterClientProc</function> callback),
-use <function>SmsRegisterClientReply</function>.
+a <xref linkend='SmsRegisterClientProc' xrefstyle='select: title'/> callback),
+use <xref linkend='SmsRegisterClientReply' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsregisterclientreply'>
+<funcsynopsis id='SmsRegisterClientReply'>
    <funcprototype>
       <funcdef>Status <function>SmsRegisterClientReply</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2233,7 +2234,7 @@ use <function>SmsRegisterClientReply</function>.
 </variablelist>
 
     <para>
-The return value of <function>SmsRegisterClientReply</function> is
+The return value of <xref linkend='SmsRegisterClientReply' xrefstyle='select: title'/> is
 zero for failure and a positive value for success.  Failure will occur
 if SMlib can not allocate memory to hold a copy of the client ID for
 it's own internal needs.
@@ -2268,11 +2269,11 @@ unique.
     </para>
 
     <para>
-You should call the <function>SmsGenerateClientID</function> function
+You should call the <xref linkend='SmsGenerateClientID' xrefstyle='select: title'/> function
 to generate a globally unique client ID.
     </para>
 
-<funcsynopsis id='smsgenerateclientid'>
+<funcsynopsis id='SmsGenerateClientID'>
    <funcprototype>
       <funcdef>char *<function>SmsGenerateClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2295,15 +2296,15 @@ no longer needed.
     </para>
   </sect1>
 
-  <sect1 id='sending_a_save_yourself_message'>
-    <title>Sending a Save Yourself Message</title>
+  <sect1 id='Sending_a_Save_Yourself_Message'>
+<title>Sending a Save Yourself Message</title>
 
     <para>
 To send a &ldquo;Save Yourself&rdquo; to a client,
-use <function>SmsSaveYourself</function>.
+use <xref linkend='SmsSaveYourself' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smssaveyourself'>
+<funcsynopsis id='SmsSaveYourself'>
    <funcprototype>
       <funcdef>void <function>SmsSaveYourself</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2398,15 +2399,15 @@ to <constant>True</constant>.
     </para>
   </sect1>
 
-  <sect1 id='sending_a_save_yourself_phase_2_message'>
-    <title>Sending a Save Yourself Phase 2 Message</title>
+  <sect1 id='Sending_a_Save_Yourself_Phase_2_Message'>
+<title>Sending a Save Yourself Phase 2 Message</title>
 
     <para>
 In order to send a &ldquo;Save Yourself Phase 2&rdquo; message to a
-client, use <function>SmsSaveYourselfPhase2</function>
+client, use <xref linkend='SmsSaveYourselfPhase2' xrefstyle='select: title'/>
     </para>
 
-<funcsynopsis id='smssaveyourselfphase2'>
+<funcsynopsis id='SmsSaveYourselfPhase2'>
    <funcprototype>
       <funcdef>void <function>SmsSaveYourselfPhase2</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2428,15 +2429,15 @@ and this client can save state that is associated with other clients.
     </para>
   </sect1>
 
-  <sect1 id='sending_an_interact_message'>
-    <title>Sending an Interact Message</title>
+  <sect1 id='Sending_an_Interact_Message'>
+<title>Sending an Interact Message</title>
 
     <para>
 To send an &ldquo;Interact&rdquo; message to a client,
-use <function>SmsInteract</function>.
+use <xref linkend='SmsInteract' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsinteract'>
+<funcsynopsis id='SmsInteract'>
    <funcprototype>
       <funcdef>void <function>SmsInteract</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2458,15 +2459,15 @@ session manager.
     </para>
   </sect1>
 
-  <sect1 id='sending_a_save_complete_message'>
-    <title>Sending a Save Complete Message</title>
+  <sect1 id='Sending_a_Save_Complete_Message'>
+<title>Sending a Save Complete Message</title>
 
     <para>
 To send a &ldquo;Save Complete&rdquo; message to a client,
-use <function>SmsSaveComplete</function>.
+use <xref linkend='SmsSaveComplete' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smssavecomplete'>
+<funcsynopsis id='SmsSaveComplete'>
    <funcprototype>
       <funcdef>void <function>SmsSaveComplete</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2486,15 +2487,15 @@ checkpoint.  The client is then free to change its state.
     </para>
   </sect1>
 
-  <sect1 id='sending_a_die_message'>
-    <title>Sending a Die Message</title>
+  <sect1 id='Sending_a_Die_Message'>
+<title>Sending a Die Message</title>
 
     <para>
 To send a &ldquo;Die&rdquo; message to a client,
-use <function>SmsDie</function>.
+use <xref linkend='SmsDie' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsdie'>
+<funcsynopsis id='SmsDie'>
    <funcprototype>
       <funcdef>void <function>SmsDie</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2515,14 +2516,14 @@ a &ldquo;Die&rdquo; message to, timing out appropriately.
     </para>
   </sect1>
 
-  <sect1 id='cancelling_a_shutdown'>
-    <title>Cancelling a Shutdown</title>
+  <sect1 id='Cancelling_a_Shutdown'>
+<title>Cancelling a Shutdown</title>
 
     <para>
-To cancel a shutdown, use <function>SmsShutdownCancelled</function>.
+To cancel a shutdown, use <xref linkend='SmsShutdownCancelled' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsshutdowncancelled'>
+<funcsynopsis id='SmsShutdownCancelled'>
    <funcprototype>
       <funcdef>void <function>SmsShutdownCancelled</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2548,15 +2549,15 @@ of the save.
   </sect1>
 <!-- aaaaaaaaaaaaaaaaa -->
 
-  <sect1 id='returning_properties'>
-    <title>Returning Properties</title>
+  <sect1 id='Returning_Properties'>
+<title>Returning Properties</title>
 
     <para>
 In response to a &ldquo;Get Properties&rdquo; message, the session
-manager should call <function>SmsReturnProperties</function>.
+manager should call <xref linkend='SmsReturnProperties' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsreturnproperties'>
+<funcsynopsis id='SmsReturnProperties'>
    <funcprototype>
       <funcdef>void <function>SmsReturnProperties</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2584,25 +2585,25 @@ manager should call <function>SmsReturnProperties</function>.
 The properties are returned as an array of property pointers.  For a
 description of session management properties and
 the <structname>SmProp</structname> structure,
-see <link linkend='session_management_properties'>section 7,
+see <link linkend='Session_Management_Properties'>section 7,
 &ldquo;Session Management Properties.&rdquo;</link>
     </para>
   </sect1>
 
-  <sect1 id='pinging_a_client'>
-    <title>Pinging a Client</title>
+  <sect1 id='Pinging_a_Client'>
+<title>Pinging a Client</title>
 
     <para>
 To check that a client is still alive, you should use
-the <function>IcePing</function> function provided by the ICE library.
+the <olink targetdoc='ICElib' targetptr='IcePing'><function>IcePing</function></olink> function provided by the ICE library.
 To do so, the ICE connection must be obtained using
-the <function>SmsGetIceConnection</function>
-(see <link linkend='using_sms_informational_functions'>section 6.12,
+the <xref linkend='SmsGetIceConnection' xrefstyle='select: title'/>
+(see <link linkend='Using_Sms_Informational_Functions'>section 6.12,
 &ldquo;Using Sms Informational Functions&rdquo;</link>).
     </para>
 
 
-<funcsynopsis id='iceping'>
+<funcsynopsis id='IcePing'>
    <funcprototype>
       <funcdef>void <function>IcePing</function></funcdef>
       <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
@@ -2622,19 +2623,19 @@ the <function>SmsGetIceConnection</function>
   </varlistentry>
   <varlistentry>
     <term><parameter>client_data</parameter></term>
-    <listitem><para>This pointer will be passed to the <function>IcePingReplyProc</function> callback.</para></listitem>
+    <listitem><para>This pointer will be passed to the <xref linkend='IcePingReplyProc' xrefstyle='select: title'/> callback.</para></listitem>
   </varlistentry>
 </variablelist>
 
 
     <para>
 When the Ping reply is ready (if ever),
-the <function>IcePingReplyProc</function> callback will be invoked.  A
+the <xref linkend='IcePingReplyProc' xrefstyle='select: title'/> callback will be invoked.  A
 session manager should have some sort of timeout period, after which
 it assumes the client has unexpectedly died.
     </para>
 
-<funcsynopsis id='icepingreplyproc'>
+<funcsynopsis id='IcePingReplyProc'>
    <funcprototype>
       <funcdef>typedef void (*<function>IcePingReplyProc</function>)</funcdef>
       <paramdef>IceConn <parameter>ice_conn</parameter></paramdef>
@@ -2649,23 +2650,23 @@ it assumes the client has unexpectedly died.
   </varlistentry>
   <varlistentry>
     <term><parameter>client_data</parameter></term>
-    <listitem><para>The client data specified in the call to <function>IcePing</function></para></listitem>
+    <listitem><para>The client data specified in the call to <olink targetdoc='ICElib' targetptr='IcePing'><function>IcePing</function></olink></para></listitem>
   </varlistentry>
 </variablelist>
 
   </sect1>
 
-  <sect1 id='cleaning_up_after_a_client_disconnects'>
-    <title>Cleaning Up After a Client Disconnects</title>
+  <sect1 id='Cleaning_Up_After_a_Client_Disconnects'>
+<title>Cleaning Up After a Client Disconnects</title>
 
     <para>
 When the session manager receives a &ldquo;Connection Closed&rdquo;
 message or otherwise detects that the client aborted the connection,
-it should call the <function>SmsCleanUp</function> function in order
+it should call the <xref linkend='SmsCleanUp' xrefstyle='select: title'/> function in order
 to free up the connection object.
     </para>
 
-<funcsynopsis id='smscleanup'>
+<funcsynopsis id='SmsCleanUp'>
    <funcprototype>
       <funcdef>void <function>SmsCleanUp</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2681,10 +2682,10 @@ to free up the connection object.
 
   </sect1>
 
-  <sect1 id='using_sms_informational_functions'>
-    <title>Using Sms Informational Functions</title>
+  <sect1 id='Using_Sms_Informational_Functions'>
+<title>Using Sms Informational Functions</title>
 
-<funcsynopsis id='smsprotocolversion'>
+<funcsynopsis id='SmsProtocolVersion'>
    <funcprototype>
       <funcdef>int <function>SmsProtocolVersion</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2692,11 +2693,11 @@ to free up the connection object.
 </funcsynopsis>
 
     <para>
-<function>SmsProtocolVersion</function> returns the major version of
+<xref linkend='SmsProtocolVersion' xrefstyle='select: title'/> returns the major version of
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis id='smsprotocolrevision'>
+<funcsynopsis id='SmsProtocolRevision'>
    <funcprototype>
       <funcdef>int <function>SmsProtocolRevision</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2704,11 +2705,11 @@ the session management protocol associated with this session.
 </funcsynopsis>
 
     <para>
-<function>SmsProtocolRevision</function> returns the minor version of
+<xref linkend='SmsProtocolRevision' xrefstyle='select: title'/> returns the minor version of
 the session management protocol associated with this session.
     </para>
 
-<funcsynopsis id='smsclientid'>
+<funcsynopsis id='SmsClientID'>
    <funcprototype>
       <funcdef>char *<function>SmsClientID</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2716,7 +2717,7 @@ the session management protocol associated with this session.
 </funcsynopsis>
 
     <para>
-<function>SmsClientID</function> returns a null-terminated string for
+<xref linkend='SmsClientID' xrefstyle='select: title'/> returns a null-terminated string for
 the client ID associated with this connection.  You should
 call <function>free</function> on this pointer when the client ID is
 no longer needed.
@@ -2725,11 +2726,11 @@ no longer needed.
 
     <para>
 To obtain the host name of a client,
-use <function>SmsClientHostName</function>.
+use <xref linkend='SmsClientHostName' xrefstyle='select: title'/>.
 This host name will be needed to restart the client.
     </para>
 
-<funcsynopsis id='smsclienthostname'>
+<funcsynopsis id='SmsClientHostName'>
    <funcprototype>
       <funcdef>char *<function>SmsClientHostName</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2745,7 +2746,7 @@ You should call <function>free</function> on the string returned when
 it is no longer needed.
     </para>
 
-<funcsynopsis id='smsgeticeconnection'>
+<funcsynopsis id='SmsGetIceConnection'>
    <funcprototype>
       <funcdef>IceConn <function>SmsGetIceConnection</function></funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2753,7 +2754,7 @@ it is no longer needed.
 </funcsynopsis>
 
     <para>
-<function>SmsGetIceConnection</function> returns the ICE connection
+<xref linkend='SmsGetIceConnection' xrefstyle='select: title'/> returns the ICE connection
 object associated with this session management connection object.  The
 ICE connection object can be used to get some additional information
 about the connection.  Some of the more useful functions which can be
@@ -2765,18 +2766,18 @@ standard.
     </para>
   </sect1>
 
-  <sect1 id='error_handling2'>
-    <title>Error Handling</title>
+  <sect1 id='Error_Handling_2'>
+<title>Error Handling</title>
 
     <para>
 If the session manager receives an unexpected protocol error from a
 client, an error handler is invoked by SMlib.  A default error handler
 exists which simply prints the error message (it does not exit).  The
 session manager can change this error handler by
-calling <function>SmsSetErrorHandler</function>.
+calling <xref linkend='SmsSetErrorHandler' xrefstyle='select: title'/>.
     </para>
 
-<funcsynopsis id='smsseterrorhandler'>
+<funcsynopsis id='SmsSetErrorHandler'>
    <funcprototype>
       <funcdef>SmsErrorHandler <function>SmsSetErrorHandler</function></funcdef>
       <paramdef>SmsErrorHandler <parameter>handler</parameter></paramdef>
@@ -2789,11 +2790,11 @@ to restore the default handler.
     </para>
 
     <para>
-<function>SmsSetErrorHandler</function> returns the previous error handler.
-The <function>SmsErrorHandler</function> has the following type:
+<xref linkend='SmsSetErrorHandler' xrefstyle='select: title'/> returns the previous error handler.
+The <xref linkend='SmsErrorHandler' xrefstyle='select: title'/> has the following type:
     </para>
 
-<funcsynopsis id='smserrorhandler'>
+<funcsynopsis id='SmsErrorHandler'>
    <funcprototype>
       <funcdef>typedef void (*<function>SmsErrorHandler</function>)</funcdef>
       <paramdef>SmsConn <parameter>sms_conn</parameter></paramdef>
@@ -2844,7 +2845,7 @@ The <function>SmsErrorHandler</function> has the following type:
     <para>
 Note that this error handler is invoked for protocol related errors.
 To install an error handler to be invoked when an IO error occurs,
-use <function>IceSetIOErrorHandler</function>.
+use <olink targetdoc='ICElib' targetptr='IceSetIOErrorHandler'><function>IceSetIOErrorHandler</function></olink>.
 For further information, see the
 <citetitle pubwork='article'>Inter-Client Exchange Library</citetitle>
 standard.
@@ -2852,7 +2853,7 @@ standard.
   </sect1>
 </chapter>
 
-<chapter id='session_management_properties'>
+<chapter id='Session_Management_Properties'>
   <title>Session Management Properties</title>
 
   <para>
@@ -3135,14 +3136,14 @@ contain the user's name (the <structfield>pw_name</structfield> member of
   </itemizedlist>
 </chapter>
 
-<chapter id='freeing_data'>
+<chapter id='Freeing_Data'>
   <title>Freeing Data</title>
 
   <para>
-To free an individual property, use <function>SmFreeProperty</function>
+To free an individual property, use <xref linkend='SmFreeProperty' xrefstyle='select: title'/>
   </para>
 
-<funcsynopsis id='smfreeproperty'>
+<funcsynopsis id='SmFreeProperty'>
    <funcprototype>
       <funcdef>void <function>SmFreeProperty</function></funcdef>
       <paramdef>SmProp *<parameter>prop</parameter></paramdef>
@@ -3158,11 +3159,11 @@ To free an individual property, use <function>SmFreeProperty</function>
 
   <para>
 To free the reason strings from
-the <function>SmsCloseConnectionProc</function> callback,
-use <function>SmFreeReasons</function>
+the <xref linkend='SmsCloseConnectionProc' xrefstyle='select: title'/> callback,
+use <xref linkend='SmFreeReasons' xrefstyle='select: title'/>
   </para>
 
-<funcsynopsis id='smfreereasons'>
+<funcsynopsis id='SmFreeReasons'>
    <funcprototype>
       <funcdef>void <function>SmFreeReasons</function></funcdef>
       <paramdef>int <parameter>count</parameter></paramdef>
@@ -3182,7 +3183,7 @@ use <function>SmFreeReasons</function>
 </variablelist>
 </chapter>
 
-<chapter id='authentication_of_clients'>
+<chapter id='Authentication_of_Clients'>
   <title>Authentication of Clients</title>
 
   <para>
@@ -3204,7 +3205,7 @@ standard.
   </para>
 </chapter>
 
-<chapter id='working_in_a_multithreaded_environment'>
+<chapter id='Working_in_a_Multi_Threaded_Environment'>
   <title>Working in a Multi-Threaded Environment</title>
 
   <para>
@@ -3217,7 +3218,7 @@ standard.
   </para>
 </chapter>
 
-<chapter id='acknowledgements'>
+<chapter id='Acknowledgements'>
   <title>Acknowledgements</title>
 
   <para>

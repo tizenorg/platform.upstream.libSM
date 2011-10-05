@@ -75,7 +75,7 @@ top of the X.Org <acronym>ICE</acronym> protocol.
 
 </bookinfo>
 
-<chapter id="acknowledgments">
+<chapter id='Acknowledgments'>
   <title>Acknowledgments</title>
 
   <para>
@@ -87,7 +87,7 @@ and Bob Scheifler.
   </para>
 </chapter>
 
-<chapter id="definitions_and_goals">
+<chapter id='Definitions_and_Goals'>
   <title>Definitions and Goals</title>
 
   <para>
@@ -124,7 +124,7 @@ relies on the <acronym>ICE</acronym> protocol to handle connection management an
 
 </chapter>
 
-<chapter id="overview_of_the_protocol">
+<chapter id='Overview_of_the_Protocol'>
   <title>Overview of the Protocol</title>
 
   <para>
@@ -230,7 +230,7 @@ no properties set.
   </para>
 </chapter>
 
-<chapter id="data_types">
+<chapter id='Data_Types'>
   <title>Data Types</title>
 
   <para>
@@ -307,7 +307,7 @@ the receiver of the message to the sender of the message.
 
 </chapter>
 
-<chapter id="protocol_setup_and_message_format">
+<chapter id='Protocol_Setup_and_Message_Format'>
   <title>Protocol Setup and Message Format</title>
 
   <para>
@@ -322,7 +322,7 @@ message this message contains.
   </para>
 </chapter>
 
-<chapter id="client_identification_string">
+<chapter id='Client_Identification_String'>
   <title>Client Identification String</title>
   <para>
 A client ID is a string of XPCS characters encoded in ISO Latin 1 (ISO
@@ -400,7 +400,7 @@ any user, session manager, and machine will be different from any other.
   </itemizedlist>
 </chapter>
 
-<chapter id="protocol">
+<chapter id='Protocol'>
   <title>Protocol</title>
   <para>
 The protocol consists of a sequence of messages as described below.
@@ -454,7 +454,7 @@ for this client.  If the client had specified an ID in the
 specified ID.  If <parameter>previous-ID</parameter> was null,
 <parameter>client-ID</parameter> will be a unique ID freshly generated
 by the SM.  The <parameter>client-ID</parameter> format is specified in
-<link linkend="client_identification_string">section 6</link>.
+<link linkend='Client_Identification_String'>section 6</link>.
   </para>
 
   <para>
@@ -902,7 +902,7 @@ Sets the specified <parameter>properties</parameter> to the specified values.
 Existing
 properties not specified in the <function>Set&shy;Properties</function>
 message are unaffected. Some properties have predefined semantics.
-See <link linkend='predefined_properties'>section 11,
+See <link linkend='Predefined_Properties'>section 11, 
 &ldquo;Predefined Properties.&rdquo;</link>
   </para>
 
@@ -947,7 +947,7 @@ message and includes the <parameter>values</parameter> of all the properties.
   </para>
 </chapter>
 
-<chapter id="errors">
+<chapter id='Errors'>
   <title>Errors</title>
 
   <para>
@@ -964,15 +964,15 @@ a <errorname>BadState</errorname> error message.
   </para>
 </chapter>
 
-<chapter id="state_diagrams">
+<chapter id='State_Diagrams'>
   <title>State Diagrams</title>
   <para>
 These state diagrams are designed to cover all actions of both the
 client and the SM.
   </para>
 
-  <sect1 id='client_state_diagram'>
-    <title>Client State Diagram</title>
+  <sect1 id='Client_State_Diagram'>
+<title>Client State Diagram</title>
 
 <!-- <literallayout remap='DS'> -->
 <literallayout>
@@ -1066,7 +1066,7 @@ client and the SM.
      client stops participating in session </literallayout>
 </sect1>
 
-<sect1 id='session_manager_state_diagram'>
+<sect1 id='Session_Manager_State_Diagram'>
 <title>Session Manager State Diagram</title>
 
 <literallayout remap='DS'>
@@ -1164,10 +1164,10 @@ client and the SM.
   </sect1>
 </chapter>
 
-<chapter id='protocol_encoding'>
+<chapter id='Protocol_Encoding'>
   <title>Protocol Encoding</title>
-  <sect1 id="types">
-    <title>Types</title>
+  <sect1 id='Types'>
+<title>Types</title>
 
 <informaltable pgwide='0' frame='none'>
   <tgroup cols='4'>
@@ -1363,8 +1363,8 @@ client and the SM.
 
   </sect1>
 
-  <sect1 id='messages'>
-    <title>Messages</title>
+  <sect1 id='Messages'>
+<title>Messages</title>
     <para>
 XSMP is a sub-protocol of <acronym>ICE</acronym>.  The major opcode is
 assigned at run-time by <acronym>ICE</acronym> and is represented here
@@ -1955,7 +1955,7 @@ manager.  The session manager should supply this information in the
   </sect1>
 </chapter>
 
-<chapter id='predefined_properties'>
+<chapter id='Predefined_Properties'>
   <title>Predefined Properties</title>
   <para>
 All property values are stored in a LISTofARRAY8.  If the type of the
