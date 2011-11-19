@@ -68,7 +68,7 @@ _SmsProtocolSetupProc (IceConn    iceConn,
      * Allocate new SmsConn.
      */
 
-    if ((smsConn = (SmsConn) malloc (sizeof (struct _SmsConn))) == NULL)
+    if ((smsConn = malloc (sizeof (struct _SmsConn))) == NULL)
     {
 	const char *str = "Memory allocation failed";
 
@@ -335,5 +335,5 @@ SmsCleanUp(SmsConn smsConn)
     if (smsConn->client_id)
 	free (smsConn->client_id);
 
-    free ((char *) smsConn);
+    free (smsConn);
 }

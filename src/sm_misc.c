@@ -54,11 +54,11 @@ SmFreeProperty(SmProp *prop)
 	{
 	    for (i = 0; i < prop->num_vals; i++)
 		if (prop->vals[i].value)
-		    free ((char *) prop->vals[i].value);
-	    free ((char *) prop->vals);
+		    free (prop->vals[i].value);
+	    free (prop->vals);
 	}
 
-	free ((char *) prop);
+	free (prop);
     }
 }
 
@@ -77,7 +77,7 @@ SmFreeReasons(int count, char **reasonMsgs)
 	for (i = 0; i < count; i++)
 	    free (reasonMsgs[i]);
 
-	free ((char *) reasonMsgs);
+	free (reasonMsgs);
     }
 }
 
