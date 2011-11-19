@@ -192,45 +192,45 @@ SmsGenerateClientID(SmsConn smsConn)
 	haddr = &((struct sockaddr_in *)ai->ai_addr)->sin_addr;
 #  else
 #   ifdef XTHREADS_NEEDS_BYNAMEPARAMS
-    _Xgethostbynameparams hparams;
+	_Xgethostbynameparams hparams;
 #   endif
-    struct hostent *hostp;
+	struct hostent *hostp;
 
-    if ((hostp = _XGethostbyname (hostname,hparams)) != NULL)
-	haddr = (struct in_addr *)(hostp->h_addr);
-    else
-	return NULL;
+	if ((hostp = _XGethostbyname (hostname,hparams)) != NULL)
+	    haddr = (struct in_addr *)(hostp->h_addr);
+	else
+	    return NULL;
 #  endif
 
-    inet_addr = inet_ntoa (*haddr);
-    for (i = 0, ptr1 = inet_addr; i < 3; i++)
-    {
-	char temp4[4];
-	char *ptr2 = strchr (ptr1, '.');
+	inet_addr = inet_ntoa (*haddr);
+	for (i = 0, ptr1 = inet_addr; i < 3; i++)
+	{
+	    char temp4[4];
+	    char *ptr2 = strchr (ptr1, '.');
 
-	len = ptr2 - ptr1;
-	if (!ptr2 || len > 3) {
+	    len = ptr2 - ptr1;
+	    if (!ptr2 || len > 3) {
 #  if defined(IPv6) && defined(AF_INET6)
-	    freeaddrinfo(first_ai);
+		freeaddrinfo(first_ai);
 #  endif
-	    return (NULL);
+		return (NULL);
+	    }
+	    strncpy (temp4, ptr1, len);
+	    temp4[len] = '\0';
+	    decimal[i] = atoi (temp4);
+	    ptr1 = ptr2 + 1;
 	}
-	strncpy (temp4, ptr1, len);
-	temp4[len] = '\0';
-	decimal[i] = atoi (temp4);
-	ptr1 = ptr2 + 1;
-    }
 
-    decimal[3] = atoi (ptr1);
+	decimal[3] = atoi (ptr1);
 
-    *addr_ptr++ = '1';
+	*addr_ptr++ = '1';
 
-    for (i = 0; i < 4; i++) {
-        *addr_ptr++ = hex[decimal[i] >> 4];
-        *addr_ptr++ = hex[decimal[i] & 0x0f];
-    }
+	for (i = 0; i < 4; i++) {
+	    *addr_ptr++ = hex[decimal[i] >> 4];
+	    *addr_ptr++ = hex[decimal[i] & 0x0f];
+	}
 
-    *addr_ptr++ = '\0';
+	*addr_ptr++ = '\0';
 
 #  if defined(IPv6) && defined(AF_INET6)
     }
