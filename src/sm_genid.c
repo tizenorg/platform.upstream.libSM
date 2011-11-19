@@ -53,15 +53,15 @@ in this Software without prior written authorization from The Open Group.
  */
 
 #ifdef WIN32
-#define _WILLWINSOCK_
+# define _WILLWINSOCK_
 #endif
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+# include <config.h>
 #endif
 #include <X11/SM/SMlib.h>
 #include "SMlibint.h"
 #ifdef XTHREADS
-#include <X11/Xthreads.h>
+# include <X11/Xthreads.h>
 #endif
 #include <stdio.h>
 
@@ -70,39 +70,39 @@ in this Software without prior written authorization from The Open Group.
 
 #ifndef WIN32
 
-#if defined(TCPCONN) || defined(STREAMSCONN)
-#ifndef Lynx
-#include <sys/socket.h>
-#else
-#include <socket.h>
-#endif
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#define XOS_USE_NO_LOCKING
-#define X_INCLUDE_NETDB_H
-#include <X11/Xos_r.h>
-#endif
+# if defined(TCPCONN) || defined(STREAMSCONN)
+#  ifndef Lynx
+#   include <sys/socket.h>
+#  else
+#   include <socket.h>
+#  endif
+#  include <netinet/in.h>
+#  include <arpa/inet.h>
+#  define XOS_USE_NO_LOCKING
+#  define X_INCLUDE_NETDB_H
+#  include <X11/Xos_r.h>
+# endif
 
 #else /* WIN32 */
 
-#include <X11/Xwinsock.h>
-#include <X11/Xw32defs.h>
-#define X_INCLUDE_NETDB_H
-#define XOS_USE_MTSAFE_NETDBAPI
-#include <X11/Xos_r.h>
+# include <X11/Xwinsock.h>
+# include <X11/Xw32defs.h>
+# define X_INCLUDE_NETDB_H
+# define XOS_USE_MTSAFE_NETDBAPI
+# include <X11/Xos_r.h>
 
 #endif /* WIN32 */
 
 #ifdef MNX_TCPCONN
-#include <net/gen/netdb.h>
+# include <net/gen/netdb.h>
 
-#define TCPCONN
+# define TCPCONN
 #endif
 
 #if defined(HAVE_UUID_CREATE)
-#include <uuid.h>
+# include <uuid.h>
 #elif defined(HAVE_LIBUUID)
-#include <uuid/uuid.h>
+# include <uuid/uuid.h>
 #endif
 
 
@@ -144,7 +144,7 @@ SmsGenerateClientID(SmsConn smsConn)
 
     return id;
 #else
-#if defined(TCPCONN) || defined(STREAMSCONN)
+# if defined(TCPCONN) || defined(STREAMSCONN)
     static const char hex[] = "0123456789abcdef";
     char hostname[256];
     char address[64], *addr_ptr = address;
@@ -161,7 +161,7 @@ SmsGenerateClientID(SmsConn smsConn)
     unsigned char decimal[4];
     int i, len;
     struct in_addr *haddr = NULL;
-#if defined(IPv6) && defined(AF_INET6)
+#  if defined(IPv6) && defined(AF_INET6)
     struct addrinfo *ai, *first_ai;
     if (getaddrinfo(hostname,NULL,NULL,&ai) != 0)
 	return NULL;
@@ -189,17 +189,17 @@ SmsGenerateClientID(SmsConn smsConn)
 
     } else { /* Fall through to IPv4 address handling */
 	haddr = &((struct sockaddr_in *)ai->ai_addr)->sin_addr;
-#else
-#ifdef XTHREADS_NEEDS_BYNAMEPARAMS
+#  else
+#   ifdef XTHREADS_NEEDS_BYNAMEPARAMS
     _Xgethostbynameparams hparams;
-#endif
+#   endif
     struct hostent *hostp;
 
     if ((hostp = _XGethostbyname (hostname,hparams)) != NULL)
 	haddr = (struct in_addr *)(hostp->h_addr);
     else
 	return NULL;
-#endif
+#  endif
 
     inet_addr = inet_ntoa (*haddr);
     for (i = 0, ptr1 = inet_addr; i < 3; i++)
@@ -207,9 +207,9 @@ SmsGenerateClientID(SmsConn smsConn)
 	ptr2 = strchr (ptr1, '.');
 	len = ptr2 - ptr1;
 	if (!ptr2 || len > 3) {
-#if defined(IPv6) && defined(AF_INET6)
+#  if defined(IPv6) && defined(AF_INET6)
 	    freeaddrinfo(first_ai);
-#endif
+#  endif
 	    return (NULL);
 	}
 	strncpy (temp, ptr1, len);
@@ -229,10 +229,10 @@ SmsGenerateClientID(SmsConn smsConn)
 
     *addr_ptr++ = '\0';
 
-#if defined(IPv6) && defined(AF_INET6)
+#  if defined(IPv6) && defined(AF_INET6)
     }
     freeaddrinfo(first_ai);
-#endif
+#  endif
     }
 
     sprintf (temp, "1%s%.13ld%.10ld%.4d", address, (long)time((Time_t*)0),
@@ -245,8 +245,8 @@ SmsGenerateClientID(SmsConn smsConn)
 	strcpy (id, temp);
 
     return (id);
-#else
+# else
     return (NULL);
-#endif
+# endif
 #endif
 }
