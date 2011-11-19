@@ -139,8 +139,7 @@ SmsGenerateClientID(SmsConn smsConn)
     temp[1] = '\0';
     uuid_unparse_lower(uuid, &temp[1]);
 
-    if ((id = malloc (strlen (temp) + 1)) != NULL)
-	strcpy (id, temp);
+    id = strdup (temp);
 
     return id;
 #else
@@ -243,8 +242,7 @@ SmsGenerateClientID(SmsConn smsConn)
     if (++sequence > 9999)
 	sequence = 0;
 
-    if ((id = malloc (strlen (temp) + 1)) != NULL)
-	strcpy (id, temp);
+    id = strdup (temp);
 
     return (id);
 # else

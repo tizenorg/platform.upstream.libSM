@@ -72,8 +72,7 @@ _SmsProtocolSetupProc (IceConn    iceConn,
     {
 	const char *str = "Memory allocation failed";
 
-	if ((*failureReasonRet = (char *) malloc (strlen (str) + 1)) != NULL)
-	    strcpy (*failureReasonRet, str);
+	*failureReasonRet = strdup (str);
 
 	return (0);
     }
@@ -187,12 +186,10 @@ SmsRegisterClientReply(SmsConn smsConn, char *clientId)
     smRegisterClientReplyMsg 	*pMsg;
     char 			*pData;
 
-    if ((smsConn->client_id = (char *) malloc (strlen (clientId) + 1)) == NULL)
+    if ((smsConn->client_id = strdup (clientId)) == NULL)
     {
 	return (0);
     }
-
-    strcpy (smsConn->client_id, clientId);
 
     extra = ARRAY8_BYTES (strlen (clientId));
 

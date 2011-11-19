@@ -249,10 +249,7 @@ SmcOpenConnection(char *networkIdsList, SmPointer context,
 
 		*clientIdRet = reply.client_id;
 
-		smcConn->client_id = (char *) malloc (
-		    strlen (*clientIdRet) + 1);
-
-		strcpy (smcConn->client_id, *clientIdRet);
+		smcConn->client_id = strdup (*clientIdRet);
 	    }
 	    else
 	    {
