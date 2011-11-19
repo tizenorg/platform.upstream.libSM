@@ -445,8 +445,8 @@ extern IceConn SmcGetIceConnection (
 );
 
 extern Status SmsInitialize (
-    char *			/* vendor */,
-    char *			/* release */,
+    const char *		/* vendor */,
+    const char *		/* release */,
     SmsNewClientProc		/* newClientProc */,
     SmPointer			/* managerData */,
     IceHostBasedAuthProc	/* hostBasedAuthProc */,

@@ -1500,8 +1500,8 @@ time a new client connects to the session manager.
 <funcsynopsis id='SmsInitialize'>
    <funcprototype>
       <funcdef>Status <function>SmsInitialize</function></funcdef>
-      <paramdef>char *<parameter>vendor</parameter></paramdef>
-      <paramdef>char *<parameter>release</parameter></paramdef>
+      <paramdef>const char *<parameter>vendor</parameter></paramdef>
+      <paramdef>const char *<parameter>release</parameter></paramdef>
       <paramdef>SmsNewClientProc <parameter>new_client_proc</parameter></paramdef>
       <paramdef>SmPointer <parameter>manager_data</parameter></paramdef>
       <paramdef>IceHostBasedAuthProc <parameter>host_based_auth_proc</parameter></paramdef>

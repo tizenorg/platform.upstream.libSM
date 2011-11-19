@@ -110,7 +110,8 @@ _SmsProtocolSetupProc (IceConn    iceConn,
 
 
 Status
-SmsInitialize(char *vendor, char *release, SmsNewClientProc newClientProc,
+SmsInitialize(const char *vendor, const char *release,
+	      SmsNewClientProc newClientProc,
 	      SmPointer managerData, IceHostBasedAuthProc hostBasedAuthProc,
 	      int errorLength, char *errorStringRet)
 {
