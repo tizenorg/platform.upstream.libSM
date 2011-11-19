@@ -157,7 +157,7 @@ SmsGenerateClientID(SmsConn smsConn)
 
     {
     char* inet_addr;
-    char temp[4], *ptr1, *ptr2;
+    char *ptr1;
     unsigned char decimal[4];
     int i, len;
     struct in_addr *haddr = NULL;
@@ -204,7 +204,9 @@ SmsGenerateClientID(SmsConn smsConn)
     inet_addr = inet_ntoa (*haddr);
     for (i = 0, ptr1 = inet_addr; i < 3; i++)
     {
-	ptr2 = strchr (ptr1, '.');
+	char temp4[4];
+	char *ptr2 = strchr (ptr1, '.');
+
 	len = ptr2 - ptr1;
 	if (!ptr2 || len > 3) {
 #  if defined(IPv6) && defined(AF_INET6)
@@ -212,9 +214,9 @@ SmsGenerateClientID(SmsConn smsConn)
 #  endif
 	    return (NULL);
 	}
-	strncpy (temp, ptr1, len);
-	temp[len] = '\0';
-	decimal[i] = atoi (temp);
+	strncpy (temp4, ptr1, len);
+	temp4[len] = '\0';
+	decimal[i] = atoi (temp4);
 	ptr1 = ptr2 + 1;
     }
 
