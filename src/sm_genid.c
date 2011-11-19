@@ -151,11 +151,6 @@ SmsGenerateClientID(SmsConn smsConn)
     char temp[256];
     char *id;
     static int sequence = 0;
-
-    if (gethostname (hostname, sizeof (hostname)))
-	return (NULL);
-
-    {
     char* inet_addr;
     char *ptr1;
     unsigned char decimal[4];
@@ -163,6 +158,12 @@ SmsGenerateClientID(SmsConn smsConn)
     struct in_addr *haddr = NULL;
 #  if defined(IPv6) && defined(AF_INET6)
     struct addrinfo *ai, *first_ai;
+#  endif
+
+    if (gethostname (hostname, sizeof (hostname)))
+	return (NULL);
+
+#  if defined(IPv6) && defined(AF_INET6)
     if (getaddrinfo(hostname,NULL,NULL,&ai) != 0)
 	return NULL;
 
@@ -235,7 +236,6 @@ SmsGenerateClientID(SmsConn smsConn)
     }
     freeaddrinfo(first_ai);
 #  endif
-    }
 
     sprintf (temp, "1%s%.13ld%.10ld%.4d", address, (long)time((Time_t*)0),
 	     (long)getpid(), sequence);
