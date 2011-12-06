@@ -71,11 +71,7 @@ in this Software without prior written authorization from The Open Group.
 #ifndef WIN32
 
 # if defined(TCPCONN) || defined(STREAMSCONN)
-#  ifndef Lynx
-#   include <sys/socket.h>
-#  else
-#   include <socket.h>
-#  endif
+#  include <sys/socket.h>
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
 #  define XOS_USE_NO_LOCKING
