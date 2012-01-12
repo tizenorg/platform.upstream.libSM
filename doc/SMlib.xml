@@ -349,26 +349,23 @@ is <constant>NULL</constant>, the value of
 the <envar>SESSION_MANAGER</envar> environment variable will be used.
 Each network ID has the following format:
 
-<informaltable pgwide='0' frame='none'>
-  <tgroup cols='3' align='center'>
-    <colspec colname='c1'/>
-    <colspec colname='c2'/>
-    <colspec colname='c3'/>
+<informaltable frame='none'>
+  <?dbfo keep-together="always" ?>
+  <tgroup cols='2' align='left' colsep='0' rowsep='0'>
+    <colspec colname='c1' colwidth='1.0*'/>
+    <colspec colname='c2' colwidth='1.5*'/>
     <tbody>
       <row>
-        <entry align='left'></entry>
-        <entry align='left'><literal>tcp/</literal><parameter>&lt;hostname&gt;</parameter><literal>:</literal><parameter>&lt;portnumber&gt;</parameter></entry>
-        <entry align='left'>or</entry>
+        <entry><literal>tcp/</literal><parameter>&lt;hostname&gt;</parameter><literal>:</literal><parameter>&lt;portnumber&gt;</parameter></entry>
+        <entry>or</entry>
       </row>
       <row>
-        <entry align='left'></entry>
-        <entry align='left'><literal>decnet/</literal><parameter>&lt;hostname&gt;</parameter><literal>::</literal><parameter>&lt;objname&gt;</parameter></entry>
-        <entry align='left'>or</entry>
+        <entry><literal>decnet/</literal><parameter>&lt;hostname&gt;</parameter><literal>::</literal><parameter>&lt;objname&gt;</parameter></entry>
+        <entry>or</entry>
       </row>
       <row>
-        <entry align='left'></entry>
-        <entry align='left'><literal>local/</literal><parameter>&lt;hostname&gt;</parameter><literal>:</literal><parameter>&lt;path&gt;</parameter></entry>
-        <entry align='left'></entry>
+        <entry><literal>local/</literal><parameter>&lt;hostname&gt;</parameter><literal>:</literal><parameter>&lt;path&gt;</parameter></entry>
+        <entry></entry>
       </row>
     </tbody>
   </tgroup>
@@ -2888,86 +2885,86 @@ A type of <type>SmLISTofARRAY8</type> indicates that there is a list of array of
 bytes.
   </para>
 
-<informaltable pgwide='0' frame='none'>
-  <tgroup cols='4' align='center'>
-    <colspec colname='c1'/>
-    <colspec colname='c2'/>
-    <colspec colname='c3'/>
-    <colspec colname='c4'/>
+<informaltable pgwide='0' frame='topbot'>
+  <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+    <colspec colname='c1' colwidth='2.0*'/>
+    <colspec colname='c2' colwidth='2.0*'/>
+    <colspec colname='c3' colwidth='2.0*'/>
+    <colspec colname='c4' colwidth='1.0*'/>
     <thead>
-      <row>
-        <entry align='left'>Name</entry>
-        <entry align='left'>Type</entry>
-        <entry align='left'><acronym>POSIX</acronym> Type</entry>
-        <entry align='center'>Required</entry>
+      <row rowsep='1'>
+        <entry>Name</entry>
+        <entry>Type</entry>
+        <entry><acronym>POSIX</acronym> Type</entry>
+        <entry>Required</entry>
       </row>
     </thead>
     <tbody>
       <row>
-        <entry align='left'><property>SmCloneCommand</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>Yes</entry>
+        <entry><property>SmCloneCommand</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>Yes</entry>
       </row>
       <row>
-        <entry align='left'><property>SmCurrentDirectory</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmARRAY8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmCurrentDirectory</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmARRAY8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmDiscardCommand</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>No*</entry>
+        <entry><property>SmDiscardCommand</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>No*</entry>
       </row>
       <row>
-        <entry align='left'><property>SmEnvironment</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmEnvironment</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmProcessID</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmARRAY8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmProcessID</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmARRAY8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmProgram</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmARRAY8</type></entry>
-        <entry align='center'>Yes</entry>
+        <entry><property>SmProgram</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmARRAY8</type></entry>
+        <entry>Yes</entry>
       </row>
       <row>
-        <entry align='left'><property>SmRestartCommand</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>Yes</entry>
+        <entry><property>SmRestartCommand</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>Yes</entry>
       </row>
       <row>
-        <entry align='left'><property>SmResignCommand</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmResignCommand</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmRestartStyleHint</property></entry>
-        <entry align='left'><type>SmCARD8</type></entry>
-        <entry align='left'><type>SmCARD8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmRestartStyleHint</property></entry>
+        <entry><type>SmCARD8</type></entry>
+        <entry><type>SmCARD8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmShutdownCommand</property></entry>
-        <entry align='left'>OS-specific</entry>
-        <entry align='left'><type>SmLISTofARRAY8</type></entry>
-        <entry align='center'>No</entry>
+        <entry><property>SmShutdownCommand</property></entry>
+        <entry>OS-specific</entry>
+        <entry><type>SmLISTofARRAY8</type></entry>
+        <entry>No</entry>
       </row>
       <row>
-        <entry align='left'><property>SmUserID</property></entry>
-        <entry align='left'><type>SmARRAY8</type></entry>
-        <entry align='left'><type>SmARRAY8</type></entry>
-        <entry align='center'>Yes</entry>
+        <entry><property>SmUserID</property></entry>
+        <entry><type>SmARRAY8</type></entry>
+        <entry><type>SmARRAY8</type></entry>
+        <entry>Yes</entry>
       </row>
     </tbody>
   </tgroup>
@@ -3052,32 +3049,33 @@ style of restarting the client prefers.  If this style is not specified,
 <constant>SmRestartIfRunning</constant> is assumed.
 The possible values are as follows:
 
-<informaltable pgwide='0' frame='none'>
-  <tgroup cols='2' align='center'>
-    <colspec colname='c1'/>
-    <colspec colname='c2'/>
+<informaltable frame='topbot'>
+  <?dbfo keep-together="always" ?>
+  <tgroup cols='2' align='left' colsep='0' rowsep='0'>
+    <colspec colname='c1' colwidth='1.0*'/>
+    <colspec colname='c2' colwidth='1.5*'/>
     <thead>
-      <row>
-        <entry align='left'>Name</entry>
-        <entry align='right'>Value</entry>
+      <row rowsep='1'>
+        <entry>Name</entry>
+        <entry>Value</entry>
       </row>
     </thead>
     <tbody>
       <row>
-        <entry align='left'><constant>SmRestartIfRunning</constant></entry>
-        <entry align='right'>0</entry>
+        <entry><constant>SmRestartIfRunning</constant></entry>
+        <entry>0</entry>
       </row>
       <row>
-        <entry align='left'><constant>SmRestartAnyway</constant></entry>
-        <entry align='right'>1</entry>
+        <entry><constant>SmRestartAnyway</constant></entry>
+        <entry>1</entry>
       </row>
       <row>
-        <entry align='left'><constant>SmRestartImmediately</constant></entry>
-        <entry align='right'>2</entry>
+        <entry><constant>SmRestartImmediately</constant></entry>
+        <entry>2</entry>
       </row>
       <row>
-        <entry align='left'><constant>SmRestartNever</constant></entry>
-        <entry align='right'>3</entry>
+        <entry><constant>SmRestartNever</constant></entry>
+        <entry>3</entry>
       </row>
     </tbody>
   </tgroup>
