@@ -13,7 +13,6 @@ BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.12
 BuildRequires:  pkgconfig(xproto)
 BuildRequires:  pkgconfig(xtrans)
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 The X Session Management Protocol provides a uniform mechanism for
@@ -54,7 +53,6 @@ make %{?_smp_mflags}
 
 %install
 %make_install
-rm -f "%{buildroot}/%{_libdir}"/*.la
 
 %post -p /sbin/ldconfig
 
