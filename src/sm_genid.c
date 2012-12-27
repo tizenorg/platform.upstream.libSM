@@ -70,7 +70,7 @@ in this Software without prior written authorization from The Open Group.
 
 #ifndef WIN32
 
-# if defined(TCPCONN) || defined(STREAMSCONN)
+# ifdef TCPCONN
 #  include <sys/socket.h>
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
@@ -139,7 +139,7 @@ SmsGenerateClientID(SmsConn smsConn)
 
     return id;
 #else
-# if defined(TCPCONN) || defined(STREAMSCONN)
+# ifdef TCPCONN
     static const char hex[] = "0123456789abcdef";
     char hostname[256];
     char address[64], *addr_ptr = address;
