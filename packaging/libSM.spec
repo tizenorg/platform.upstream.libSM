@@ -4,8 +4,7 @@ Release:        0
 License:        MIT
 Summary:        X Session Management library
 Url:            http://xorg.freedesktop.org/
-Group:          Development/Libraries/C and C++
-
+Group:          Graphics/X Window System
 Source:         %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(ice) >= 1.0.5
@@ -27,7 +26,7 @@ never been terminated.
 
 %package devel
 Summary:        Development files for the X Session Management library
-Group:          Development/Libraries/C and C++
+Group:          Development/Libraries
 Requires:       %{name} = %{version}
 
 %description devel
@@ -60,6 +59,7 @@ make %{?_smp_mflags}
 
 %files
 %defattr(-,root,root)
+%license COPYING
 %{_libdir}/libSM.so.6*
 
 %files devel
