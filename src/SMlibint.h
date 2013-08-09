@@ -104,34 +104,16 @@ in this Software without prior written authorization from The Open Group.
  * STORE macros
  */
 
-#ifndef WORD64
-
 #define STORE_CARD32(_pBuf, _val) \
 { \
     *((CARD32 *) _pBuf) = _val; \
     _pBuf += 4; \
 }
 
-#else /* WORD64 */
-
-#define STORE_CARD32(_pBuf, _val) \
-{ \
-    struct { \
-        int value   :32; \
-    } _d; \
-    _d.value = _val; \
-    memcpy (_pBuf, &_d, 4); \
-    _pBuf += 4; \
-}
-
-#endif /* WORD64 */
-
 
 /*
  * EXTRACT macros
  */
-
-#ifndef WORD64
 
 #define EXTRACT_CARD16(_pBuf, _swap, _val) \
 { \
@@ -148,34 +130,6 @@ in this Software without prior written authorization from The Open Group.
     if (_swap) \
         _val = lswapl (_val); \
 }
-
-#else /* WORD64 */
-
-#define EXTRACT_CARD16(_pBuf, _swap, _val) \
-{ \
-    _val = *(_pBuf + 0) & 0xff; 	/* 0xff incase _pBuf is signed */ \
-    _val <<= 8; \
-    _val |= *(_pBuf + 1) & 0xff;\
-    _pBuf += 2; \
-    if (_swap) \
-        _val = lswaps (_val); \
-}
-
-#define EXTRACT_CARD32(_pBuf, _swap, _val) \
-{ \
-    _val = *(_pBuf + 0) & 0xff; 	/* 0xff incase _pBuf is signed */ \
-    _val <<= 8; \
-    _val |= *(_pBuf + 1) & 0xff;\
-    _val <<= 8; \
-    _val |= *(_pBuf + 2) & 0xff;\
-    _val <<= 8; \
-    _val |= *(_pBuf + 3) & 0xff;\
-    _pBuf += 4; \
-    if (_swap) \
-        _val = lswapl (_val); \
-}
-
-#endif /* WORD64 */
 
 
 /*
