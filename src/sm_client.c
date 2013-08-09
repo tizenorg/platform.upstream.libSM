@@ -52,7 +52,7 @@ SmcConn
 SmcOpenConnection(char *networkIdsList, SmPointer context,
 		  int xsmpMajorRev, int xsmpMinorRev,
 		  unsigned long mask, SmcCallbacks *callbacks,
-		  char *previousId, char **clientIdRet,
+		  const char *previousId, char **clientIdRet,
 		  int errorLength, char *errorStringRet)
 {
     SmcConn			smcConn;
