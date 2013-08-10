@@ -65,7 +65,7 @@ SmcOpenConnection(char *networkIdsList, SmPointer context,
     char			*release = NULL;
     smRegisterClientMsg 	*pMsg;
     char 			*pData;
-    int				extra, len;
+    unsigned int		extra, len;
     IceReplyWaitInfo		replyWait;
     _SmcRegisterClientReply	reply;
     Bool			gotReply, ioErrorOccured;
@@ -296,7 +296,7 @@ SmcCloseConnection(SmcConn smcConn, int count, char **reasonMsgs)
 	SIZEOF (smCloseConnectionMsg), WORD64COUNT (extra),
 	smCloseConnectionMsg, pMsg, pData);
 
-    STORE_CARD32 (pData, count);
+    STORE_CARD32 (pData, (CARD32) count);
     pData += 4;
 
     for (i = 0; i < count; i++)
@@ -360,7 +360,7 @@ SmcSetProperties(SmcConn smcConn, int numProps, SmProp **props)
     smSetPropertiesMsg	*pMsg;
     char		*pBuf;
     char		*pStart;
-    int			bytes;
+    unsigned int	bytes;
 
     IceGetHeader (iceConn, _SmcOpcode, SM_SetProperties,
 	SIZEOF (smSetPropertiesMsg), smSetPropertiesMsg, pMsg);

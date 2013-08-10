@@ -157,7 +157,7 @@ in this Software without prior written authorization from The Open Group.
 
 #define STORE_ARRAY8(_pBuf, _len, _array8) \
 { \
-    STORE_CARD32 (_pBuf, _len); \
+    STORE_CARD32 (_pBuf, (CARD32) _len); \
     if (_len) \
         memcpy (_pBuf, _array8, _len); \
     _pBuf += _len + PAD64 (4 + _len); \
@@ -240,7 +240,7 @@ in this Software without prior written authorization from The Open Group.
 
 #define SKIP_LISTOF_PROPERTY(_pBuf, _swap) \
 { \
-    int _i, _j; \
+    CARD32 _i, _j; \
     CARD32 _count; \
     EXTRACT_CARD32 (_pBuf, _swap, _count); \
     _pBuf += 4; \
