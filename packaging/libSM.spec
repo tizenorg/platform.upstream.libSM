@@ -1,6 +1,6 @@
 Name:           libSM
 Version:        1.2.1
-Release:        0
+Release:        1
 License:        MIT
 Summary:        X Session Management library
 Url:            http://xorg.freedesktop.org/
@@ -49,7 +49,7 @@ in %{name}.
 cp %{SOURCE1001} .
 
 %build
-%configure --docdir=%_docdir/%{name} --disable-static
+%configure --with-libuuid --docdir=%_docdir/%{name} --disable-static
 make %{?_smp_mflags}
 
 %install
